@@ -36,7 +36,7 @@
       /* Fond */
       --bg1: #0e425a; /* haut */
       --bg2: #0a3b52; /* milieu */
-      --bg3: #093646; /* bas (un peu moins sombre) */
+      --bg3: #093646; /* bas */
     }
 
     *{ box-sizing:border-box; }
@@ -101,7 +101,7 @@
       position: relative;
     }
 
-    /* ✅ Projecteur renforcé autour du logo */
+    /* Projecteur (légèrement réduit) */
     .logo-wrap{
       position: relative;
       width: 184px;
@@ -115,15 +115,15 @@
     .logo-wrap::before{
       content:"";
       position:absolute;
-      inset: -26px; /* plus concentré */
+      inset: -26px;
       background:
         radial-gradient(circle at 50% 50%,
-          rgba(127,224,255,.92) 0%,
-          rgba(127,224,255,.55) 30%,
-          rgba(127,224,255,.22) 46%,
+          rgba(127,224,255,.80) 0%,
+          rgba(127,224,255,.46) 30%,
+          rgba(127,224,255,.18) 46%,
           rgba(127,224,255,0) 70%);
-      filter: blur(9px);
-      opacity: 1;
+      filter: blur(10px);
+      opacity: .82;              /* ✅ réduit */
       z-index: -1;
       pointer-events:none;
       mix-blend-mode: screen;
@@ -134,11 +134,11 @@
       inset: -50px;
       background:
         radial-gradient(circle at 50% 50%,
-          rgba(53,200,255,.42) 0%,
-          rgba(53,200,255,.16) 42%,
+          rgba(53,200,255,.32) 0%,
+          rgba(53,200,255,.12) 42%,
           rgba(53,200,255,0) 75%);
-      filter: blur(16px);
-      opacity: .95;
+      filter: blur(18px);
+      opacity: .78;              /* ✅ réduit */
       z-index: -2;
       pointer-events:none;
       mix-blend-mode: screen;
@@ -149,7 +149,7 @@
       height: 184px;
       object-fit: contain;
       filter:
-        drop-shadow(0 0 26px rgba(53,200,255,.44))
+        drop-shadow(0 0 24px rgba(53,200,255,.36))
         drop-shadow(0 12px 30px rgba(0,0,0,.28));
       flex: 0 0 auto;
       position: relative;
@@ -215,6 +215,17 @@
       backdrop-filter: blur(10px);
     }
 
+    /* ✅ Titre menu centré */
+    .menu-title{
+      margin: 4px 0 14px;
+      text-align: center;
+      color: var(--accent);
+      font-weight: 950;
+      letter-spacing: .2px;
+      font-size: 18px;
+      text-shadow: 0 0 14px rgba(53,200,255,.14);
+    }
+
     .grid{
       display:grid;
       grid-template-columns: 1fr 1px 1fr;
@@ -251,11 +262,9 @@
       padding: 12px 14px;
       border-radius: 14px;
 
-      /* plus visible */
       background: rgba(18, 74, 96, .34);
       border: 1px solid rgba(214,175,64,.38);
 
-      /* hauteur uniforme */
       min-height: 82px;
     }
 
@@ -419,6 +428,8 @@
   <main class="content" id="top">
     <div class="menu-wrap">
       <section class="menu" aria-label="Menu principal Darkorbit">
+        <div class="menu-title">Menu principal</div>
+
         <div class="grid">
           <div class="col">
             <h2>Docs</h2>
