@@ -22,15 +22,15 @@
       --panel-border: rgba(120, 199, 227, .24);
 
       /* Boutons */
-      --btn-bg: rgba(12, 45, 60, .96);         /* quasi opaque */
+      --btn-bg: rgba(12, 45, 60, .96);
       --btn-bg-hover: rgba(20, 78, 104, .98);
       --btn-border: rgba(120, 199, 227, .55);
       --btn-border-hover: rgba(120, 199, 227, .92);
 
-      /* Fond (plus cyan, moins sombre en bas) */
+      /* Fond (encore moins sombre en bas) */
       --bg1: #0e425a; /* haut */
-      --bg2: #0a3246; /* milieu */
-      --bg3: #082b3c; /* bas (pas noir) */
+      --bg2: #0a3b52; /* milieu (un poil plus clair) */
+      --bg3: #0a3950; /* bas (nettement éclairci) */
     }
 
     *{ box-sizing:border-box; }
@@ -38,17 +38,23 @@
     body{
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
-      overflow: hidden; /* scroll dans .content */
+      overflow: hidden;
       background:
         /* Halo cyan en haut-gauche */
         radial-gradient(1200px 800px at 22% 18%, rgba(47,169,214,.46) 0%, rgba(7,26,36,0) 58%),
         /* Halo cyan en haut-droit */
         radial-gradient(900px 700px at 78% 28%, rgba(47,169,214,.26) 0%, rgba(7,26,36,0) 62%),
-        /* Halo cyan en bas-droit (pour éviter la zone trop sombre) */
-        radial-gradient(1200px 900px at 78% 92%, rgba(47,169,214,.34) 0%, rgba(7,26,36,0) 60%),
-        /* Léger vignettage (plus doux qu'avant) */
-        radial-gradient(1200px 900px at 50% 60%, rgba(0,0,0,0) 0%, rgba(0,0,0,.22) 72%),
-        /* Dégradé principal (pas de noir pur) */
+
+        /* 🔧 Nouveau : halo bas-gauche (corrige le sombre côté gauche) */
+        radial-gradient(1200px 900px at 20% 92%, rgba(47,169,214,.42) 0%, rgba(7,26,36,0) 62%),
+
+        /* Halo cyan en bas-droit (anti-zone sombre) */
+        radial-gradient(1200px 900px at 78% 92%, rgba(47,169,214,.36) 0%, rgba(7,26,36,0) 62%),
+
+        /* Vignettage doux */
+        radial-gradient(1200px 900px at 50% 60%, rgba(0,0,0,0) 0%, rgba(0,0,0,.18) 74%),
+
+        /* Dégradé principal */
         linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
     }
 
@@ -90,19 +96,19 @@
     .brand{
       display:flex;
       align-items:center;
-      gap: 16px;
+      gap: 18px;
       max-width: 1100px;
       width: 100%;
       justify-content: center;
       text-align:center;
     }
 
-    /* LOGO AGRANDI */
+    /* 🔧 LOGO PLUS GRAND */
     .brand img.logo{
-      width: 72px;
-      height: 72px;
+      width: 92px;
+      height: 92px;
       object-fit: contain;
-      filter: drop-shadow(0 0 14px rgba(47,169,214,.28));
+      filter: drop-shadow(0 0 16px rgba(47,169,214,.30));
     }
 
     .brand h1{
@@ -134,7 +140,6 @@
       padding: 26px 18px;
     }
 
-    /* scrollbar visible, mais dans la zone content */
     .content::-webkit-scrollbar{ width: 10px; }
     .content::-webkit-scrollbar-thumb{
       background: rgba(120,199,227,.22);
@@ -204,7 +209,6 @@
       gap: 12px;
     }
 
-    /* Encadré item = bouton + description */
     .item{
       display:flex;
       align-items:center;
@@ -221,7 +225,6 @@
       line-height: 1.25;
     }
 
-    /* Boutons uniformisés */
     .btn{
       display:inline-flex;
       align-items:center;
@@ -330,20 +333,19 @@
 
     /* Responsive */
     @media (max-width: 860px){
-      :root{ --header-h: 112px; --footer-h: 110px; }
+      :root{ --header-h: 120px; --footer-h: 110px; }
       .grid{ grid-template-columns: 1fr; }
       .divider{ display:none; }
       .btn{ min-width: 200px; }
       .footer-inner{ flex-direction:column; align-items:flex-start; }
       .footer-links{ justify-content:flex-start; }
       .brand{ flex-direction:column; gap: 8px; }
-      .brand img.logo{ width: 64px; height: 64px; }
+      .brand img.logo{ width: 86px; height: 86px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- HEADER -->
   <header>
     <div class="brand">
       <img class="logo" src="assets/darkorbit-logo.png" alt="DarkOrbit logo" />
@@ -354,7 +356,6 @@
     </div>
   </header>
 
-  <!-- CONTENT -->
   <main class="content" id="top">
     <div class="menu-wrap">
       <section class="menu" aria-label="Menu principal Darkorbit">
@@ -364,7 +365,6 @@
         </div>
 
         <div class="grid">
-          <!-- COL DOCS -->
           <div class="col">
             <h2>Docs</h2>
 
@@ -396,7 +396,6 @@
 
           <div class="divider" aria-hidden="true"></div>
 
-          <!-- COL OUTILS -->
           <div class="col">
             <h2>Outils</h2>
 
@@ -430,7 +429,6 @@
     </div>
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="footer-left">
