@@ -100,7 +100,6 @@
       backdrop-filter: blur(6px);
     }
 
-    /* Séparateur sous header (gris moyen) */
     .sep-under-header{
       position: fixed;
       top: var(--header-h);
@@ -135,7 +134,6 @@
       z-index: 0;
     }
 
-    /* Projecteur (inchangé) */
     .logo-wrap::before{
       content:"";
       position:absolute;
@@ -192,7 +190,6 @@
       line-height: 1.05;
     }
 
-    /* CONTENT (SCROLL) */
     .content{
       position: fixed;
       top: var(--header-h);
@@ -213,7 +210,6 @@
     }
     .content::-webkit-scrollbar-thumb:hover{ background: rgba(214,175,64,.34); }
 
-    /* MENU CENTRÉ */
     .menu-wrap{
       min-height: 100%;
       display:flex;
@@ -230,7 +226,6 @@
       padding: 18px 18px 20px;
       backdrop-filter: blur(10px);
 
-      /* Ombres directionnelles (lumière haut-gauche) */
       box-shadow:
         -14px -14px 34px var(--menu-glow),
         22px 22px 60px var(--menu-shadow),
@@ -262,7 +257,6 @@
       padding-bottom: 14px;
     }
 
-    /* Séparateur horizontal "creux" doré */
     .menu-title::after{
       content:"";
       display:block;
@@ -290,7 +284,6 @@
       margin-top: 0;
     }
 
-    /* Séparateur vertical "creux" doré */
     .divider{
       width: 5px;
       border-radius: 99px;
@@ -386,7 +379,6 @@
       overflow: hidden;
     }
 
-    /* FOOTER FIXE */
     footer{
       position: fixed;
       bottom:0; left:0; right:0;
@@ -405,7 +397,6 @@
       backdrop-filter: blur(6px);
     }
 
-    /* Séparateur au-dessus du footer (gris moyen) */
     .sep-above-footer{
       position: fixed;
       bottom: var(--footer-h);
@@ -623,7 +614,8 @@
           <span class="dot">•</span>
           <a href="mailto:John.Locke.70@outlook.fr" title="Envoyer un email">Email</a>
           <span class="dot">•</span>
-          <a href="commentaires.html" title="Commentaires">Commentaires</a>
+          <!-- ✅ lien absolu pour éviter tout souci -->
+          <a href="/darkorbit/commentaires.html" title="Commentaires">Commentaires</a>
           <span class="dot">•</span>
           <a href="#" title="Bientôt">CGU</a>
         </span>
