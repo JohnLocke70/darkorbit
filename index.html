@@ -40,11 +40,16 @@
       --sep-gray: rgba(160, 170, 178, .55);
       --sep-gray-soft: rgba(160, 170, 178, .25);
 
-      /* Doré 3D (highlight/shadow) */
+      /* Doré 3D / creux */
       --gold-hi: rgba(255, 238, 190, .38);
       --gold-mid: rgba(214, 175, 64, .62);
       --gold-lo: rgba(120, 86, 18, .45);
       --gold-lo2: rgba(60, 40, 10, .55);
+
+      /* Ombres menu (lumière haut-gauche) */
+      --menu-glow: rgba(53,200,255,.10);
+      --menu-shadow: rgba(0,0,0,.48);
+      --menu-shadow2: rgba(0,0,0,.28);
     }
 
     *{ box-sizing:border-box; }
@@ -123,7 +128,6 @@
       position: relative;
     }
 
-    /* Logo un peu plus grand, projecteur inchangé */
     .logo-wrap{
       position: relative;
       width: 130px;
@@ -213,7 +217,7 @@
     }
     .content::-webkit-scrollbar-thumb:hover{ background: rgba(214,175,64,.34); }
 
-    /* MENU CENTRÉ (verticalement + horizontalement) */
+    /* MENU CENTRÉ */
     .menu-wrap{
       min-height: 100%;
       display:flex;
@@ -228,11 +232,30 @@
       border: 1px solid rgba(214, 175, 64, .55);
       border-radius: 16px;
       padding: 18px 18px 20px;
-      box-shadow: 0 18px 60px rgba(0,0,0,.35);
       backdrop-filter: blur(10px);
+
+      /* ✅ Ombres directionnelles (lumière haut-gauche) */
+      box-shadow:
+        -14px -14px 34px var(--menu-glow),    /* halo clair haut-gauche */
+        22px 22px 60px var(--menu-shadow),    /* ombre profonde bas-droite */
+        10px 10px 28px var(--menu-shadow2);   /* ombre secondaire */
+
+      position: relative;
     }
 
-    /* Titre menu centré + séparateur quasi pleine largeur (avec effet 3D inner) */
+    /* petit liseré interne subtil */
+    .menu::before{
+      content:"";
+      position:absolute;
+      inset: 1px;
+      border-radius: 15px;
+      pointer-events:none;
+      box-shadow:
+        inset 1px 1px 0 rgba(255,255,255,.05),
+        inset -1px -1px 0 rgba(0,0,0,.18);
+    }
+
+    /* Titre menu centré + séparateur quasi pleine largeur (effet CREUX) */
     .menu-title{
       margin: 4px 0 12px;
       text-align: center;
@@ -244,45 +267,56 @@
       position: relative;
       padding-bottom: 14px;
     }
+
+    /* ✅ Séparateur horizontal "creux" doré */
     .menu-title::after{
       content:"";
       display:block;
       width: calc(100% - 10px);
-      height: 3px;                 /* ✅ un peu plus épais pour le relief */
+      height: 4px;
       margin: 12px auto 0;
       border-radius: 99px;
 
-      /* ✅ doré avec effet "inner" */
-      background: linear-gradient(180deg, var(--gold-hi) 0%, var(--gold-mid) 40%, var(--gold-lo) 100%);
+      /* bord clair / centre plus sombre => impression de creux */
+      background: linear-gradient(
+        180deg,
+        rgba(255,238,190,.34) 0%,
+        rgba(120,86,18,.50) 50%,
+        rgba(255,238,190,.28) 100%
+      );
 
-      /* ✅ relief (liseré clair en haut + ombre interne) */
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.10),
-        inset 0 -1px 0 rgba(0,0,0,.25),
-        0 0 0 1px rgba(214,175,64,.14);
+        inset 0 2px 2px rgba(0,0,0,.35),
+        inset 0 -1px 1px rgba(255,255,255,.10),
+        0 0 0 1px rgba(214,175,64,.12);
     }
 
     .grid{
       display:grid;
-      grid-template-columns: 1fr 4px 1fr; /* ✅ un peu plus large pour voir l'effet */
+      grid-template-columns: 1fr 5px 1fr; /* un peu plus large pour le relief */
       gap: 18px;
       align-items: start;
       margin-top: 0;
     }
 
-    /* Séparateur vertical doré (effet 3D inner) */
+    /* ✅ Séparateur vertical "creux" doré */
     .divider{
-      width: 4px;
+      width: 5px;
       border-radius: 99px;
       align-self: stretch;
       justify-self: center;
 
-      background: linear-gradient(90deg, var(--gold-lo2) 0%, var(--gold-mid) 52%, var(--gold-hi) 100%);
+      background: linear-gradient(
+        90deg,
+        rgba(255,238,190,.30) 0%,
+        rgba(120,86,18,.55) 50%,
+        rgba(255,238,190,.24) 100%
+      );
 
       box-shadow:
-        inset 1px 0 0 rgba(255,255,255,.10),
-        inset -1px 0 0 rgba(0,0,0,.28),
-        0 0 0 1px rgba(214,175,64,.14);
+        inset 2px 0 2px rgba(0,0,0,.35),
+        inset -1px 0 1px rgba(255,255,255,.10),
+        0 0 0 1px rgba(214,175,64,.12);
     }
 
     h2{
