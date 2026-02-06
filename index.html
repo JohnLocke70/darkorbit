@@ -8,28 +8,23 @@
   <style>
     :root{
       /* Hauteurs header/footer */
-      --header-h: 170px;
+      --header-h: 130px;  /* ✅ plus bas */
       --footer-h: 92px;
 
       /* Couleurs */
       --accent: #35c8ff;          /* bleu flashy titres */
-      --accent-soft: #7fe0ff;
       --text: #e9f6fb;
-      --muted: rgba(233,246,251,.78);
 
       /* Doré */
       --gold: rgba(214, 175, 64, .92);
       --gold-soft: rgba(214, 175, 64, .55);
 
       /* Panels */
-      --panel-bg: rgba(10, 26, 34, .52);
       --panel-border: var(--gold-soft);
 
       /* Boutons */
       --btn-w: 340px;
       --btn-h: 46px;
-      --btn-bg: rgba(12, 45, 60, .98);
-      --btn-bg-hover: rgba(20, 78, 104, .99);
       --btn-border: var(--gold-soft);
       --btn-border-hover: var(--gold);
 
@@ -94,7 +89,7 @@
     .brand{
       display:flex;
       align-items:center;
-      gap: 22px;
+      gap: 18px;
       max-width: 1100px;
       width: 100%;
       justify-content: center;
@@ -102,11 +97,11 @@
       position: relative;
     }
 
-    /* Projecteur (OK) */
+    /* ✅ Projecteur réduit + plus compact */
     .logo-wrap{
       position: relative;
-      width: 184px;
-      height: 184px;
+      width: 120px;   /* ✅ réduit */
+      height: 120px;  /* ✅ réduit */
       flex: 0 0 auto;
       display:flex;
       align-items:center;
@@ -116,15 +111,15 @@
     .logo-wrap::before{
       content:"";
       position:absolute;
-      inset: -26px;
+      inset: -18px;   /* ✅ moins large */
       background:
         radial-gradient(circle at 50% 50%,
-          rgba(127,224,255,.80) 0%,
-          rgba(127,224,255,.46) 30%,
-          rgba(127,224,255,.18) 46%,
+          rgba(127,224,255,.62) 0%,
+          rgba(127,224,255,.34) 32%,
+          rgba(127,224,255,.12) 48%,
           rgba(127,224,255,0) 70%);
       filter: blur(10px);
-      opacity: .82;
+      opacity: .60;   /* ✅ moins fort */
       z-index: -1;
       pointer-events:none;
       mix-blend-mode: screen;
@@ -132,26 +127,26 @@
     .logo-wrap::after{
       content:"";
       position:absolute;
-      inset: -50px;
+      inset: -36px;   /* ✅ moins large */
       background:
         radial-gradient(circle at 50% 50%,
-          rgba(53,200,255,.32) 0%,
-          rgba(53,200,255,.12) 42%,
+          rgba(53,200,255,.20) 0%,
+          rgba(53,200,255,.08) 45%,
           rgba(53,200,255,0) 75%);
       filter: blur(18px);
-      opacity: .78;
+      opacity: .55;   /* ✅ moins fort */
       z-index: -2;
       pointer-events:none;
       mix-blend-mode: screen;
     }
 
     .brand img.logo{
-      width: 184px;
-      height: 184px;
+      width: 120px;   /* ✅ réduit */
+      height: 120px;  /* ✅ réduit */
       object-fit: contain;
       filter:
-        drop-shadow(0 0 24px rgba(53,200,255,.36))
-        drop-shadow(0 12px 30px rgba(0,0,0,.28));
+        drop-shadow(0 0 18px rgba(53,200,255,.26))
+        drop-shadow(0 10px 22px rgba(0,0,0,.28));
       flex: 0 0 auto;
       position: relative;
       z-index: 1;
@@ -159,7 +154,7 @@
 
     .brand h1{
       margin:0;
-      font-size: 30px;
+      font-size: 28px;
       letter-spacing: .3px;
       color: var(--accent);
       text-shadow:
@@ -167,17 +162,6 @@
         0 0 30px rgba(53,200,255,.14);
       font-weight: 950;
       line-height: 1.05;
-    }
-
-    /* ✅ Sous-titre même couleur que le titre */
-    .brand .subtitle{
-      margin-top: 8px;
-      font-size: 14px;
-      color: var(--accent);
-      font-weight: 850;
-      text-shadow:
-        0 0 14px rgba(53,200,255,.18),
-        0 0 22px rgba(53,200,255,.10);
     }
 
     /* CONTENT (SCROLL) */
@@ -220,7 +204,7 @@
       backdrop-filter: blur(10px);
     }
 
-    /* ✅ Titre menu centré + séparateur quasi pleine largeur */
+    /* Titre menu centré + séparateur quasi pleine largeur */
     .menu-title{
       margin: 4px 0 12px;
       text-align: center;
@@ -235,7 +219,7 @@
     .menu-title::after{
       content:"";
       display:block;
-      width: calc(100% - 10px); /* ✅ presque toute la largeur du menu */
+      width: calc(100% - 10px);
       height: 1px;
       margin: 12px auto 0;
       background: rgba(214,175,64,.58);
@@ -245,19 +229,19 @@
 
     .grid{
       display:grid;
-      grid-template-columns: 1fr 2px 1fr; /* ✅ colonne de séparateur plus visible */
+      grid-template-columns: 1fr 2px 1fr;
       gap: 18px;
       align-items: start;
-      margin-top: 0; /* ✅ colle au séparateur horizontal */
+      margin-top: 0;
     }
 
-    /* ✅ Séparateur vertical doré, sur toute la hauteur de la grille */
+    /* Séparateur vertical doré */
     .divider{
       width: 2px;
       background: rgba(214,175,64,.58);
       border-radius: 99px;
-      align-self: stretch;  /* ✅ important : s’étire jusqu’en bas */
-      justify-self: center; /* bien centré dans sa colonne */
+      align-self: stretch;
+      justify-self: center;
       box-shadow: 0 0 0 1px rgba(214,175,64,.16);
     }
 
@@ -436,7 +420,7 @@
 
     @media (max-width: 980px){
       :root{
-        --header-h: 200px;
+        --header-h: 150px; /* ✅ compact aussi sur mobile */
         --btn-w: 100%;
         --btn-h: 48px;
       }
@@ -444,9 +428,9 @@
       .divider{ display:none; }
       .item{ grid-template-columns: 1fr; }
       .btn{ width: 100%; white-space: normal; }
-      .brand{ flex-direction:column; gap: 10px; }
-      .logo-wrap{ width: 160px; height: 160px; }
-      .brand img.logo{ width: 160px; height: 160px; }
+      .brand{ flex-direction:column; gap: 8px; }
+      .logo-wrap{ width: 110px; height: 110px; }
+      .brand img.logo{ width: 110px; height: 110px; }
 
       .footer-inner{
         flex-direction:column;
@@ -467,7 +451,6 @@
       </div>
       <div>
         <h1>Centre d'infos Darkorbit par JohnLocke</h1>
-        <div class="subtitle">Docs &amp; outils</div>
       </div>
     </div>
   </header>
