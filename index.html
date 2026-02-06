@@ -4,7 +4,314 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Centre d'infos Darkorbit par JohnLocke</title>
+  <style><!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Centre d'infos Darkorbit par JohnLocke</title>
   <style>
+    :root{
+      --bg: #0a0f14;
+      --panel: rgba(10, 18, 28, 0.55);
+      --panel-border: rgba(120, 200, 255, 0.18);
+      --text: rgba(255,255,255,0.90);
+      --muted: rgba(255,255,255,0.70);
+
+      /* Bleu forum-like (proche du "Forums") */
+      --accent: #57c8ff;
+
+      /* Header/Footer */
+      --bar: #000000;
+
+      /* Hauteurs fixes (ajuste si besoin) */
+      --header-h: 110px;
+      --footer-h: 90px;
+
+      /* Largeur contenu */
+      --wrap: 1100px;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 700px at 25% 20%, rgba(70,180,255,0.25), transparent 55%),
+                  radial-gradient(900px 600px at 75% 65%, rgba(0,255,220,0.12), transparent 60%),
+                  linear-gradient(180deg, #061018 0%, #04070b 100%);
+      overflow-x: hidden;
+    }
+
+    /* Petites étoiles légères */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.9) 50%, transparent 55%),
+        radial-gradient(1px 1px at 40% 10%, rgba(255,255,255,.7) 50%, transparent 55%),
+        radial-gradient(1px 1px at 70% 30%, rgba(255,255,255,.8) 50%, transparent 55%),
+        radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,.6) 50%, transparent 55%),
+        radial-gradient(1px 1px at 25% 65%, rgba(255,255,255,.7) 50%, transparent 55%),
+        radial-gradient(1px 1px at 55% 75%, rgba(255,255,255,.8) 50%, transparent 55%),
+        radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,.6) 50%, transparent 55%),
+        radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,.65) 50%, transparent 55%);
+      filter: blur(0.2px);
+    }
+
+    a{ color: var(--accent); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    /* HEADER fixe */
+    .site-header{
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: var(--bar);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .header-inner{
+      width: min(var(--wrap), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 0 16px;
+      text-align: center;
+    }
+    .header-title{
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 0.3px;
+      color: var(--accent);
+      font-weight: 800;
+    }
+    .header-subtitle{
+      margin: 6px 0 0 0;
+      color: rgba(255,255,255,0.78);
+      font-weight: 600;
+    }
+
+    /* FOOTER fixe */
+    .site-footer{
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: var(--footer-h);
+      background: var(--bar);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-inner{
+      width: min(var(--wrap), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .footer-avatar{
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.10);
+    }
+    .footer-text{
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.2;
+      font-size: 14px;
+    }
+    .footer-text .line1{ color: rgba(255,255,255,0.86); }
+    .footer-text .line2{ color: rgba(255,255,255,0.70); }
+
+    /* Zone centrale (entre header et footer) */
+    .site-main{
+      width: min(var(--wrap), calc(100% - 32px));
+      margin: 0 auto;
+      padding: calc(var(--header-h) + 28px) 16px calc(var(--footer-h) + 28px);
+    }
+
+    /* Panneau menu 2 colonnes */
+    .menu-panel{
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    }
+
+    .menu-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 420px;
+    }
+
+    /* séparateur vertical */
+    .menu-col{
+      padding: 18px;
+    }
+    .menu-col + .menu-col{
+      border-left: 1px solid rgba(120,200,255,0.14);
+    }
+
+    .col-title{
+      margin: 6px 0 12px 0;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .item{
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      align-items: center;
+      gap: 14px;
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(0,0,0,0.18);
+      margin-bottom: 10px;
+    }
+
+    .btn{
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(180deg, rgba(40,155,210,1) 0%, rgba(10,80,120,1) 100%);
+      border: 1px solid rgba(120,220,255,0.35);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.25);
+      text-decoration: none;
+      text-align: center;
+      width: 100%;
+    }
+    .btn:hover{
+      filter: brightness(1.07);
+      text-decoration: none;
+    }
+
+    .desc{
+      color: rgba(255,255,255,0.80);
+      font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .menu-grid{ grid-template-columns: 1fr; }
+      .menu-col + .menu-col{
+        border-left: none;
+        border-top: 1px solid rgba(120,200,255,0.14);
+      }
+      .item{ grid-template-columns: 1fr; }
+      .btn{ width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <h1 class="header-title">Centre d'infos Darkorbit par JohnLocke</h1>
+      <p class="header-subtitle">Docs &amp; outils</p>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <section class="menu-panel">
+      <div class="menu-grid">
+
+        <!-- COLONNE DOCS -->
+        <div class="menu-col">
+          <h2 class="col-title">Docs</h2>
+
+          <div class="item">
+            <a class="btn" href="#" title="À définir">Annonces / Actualités</a>
+            <div class="desc">Infos, changements, events, suivi des nouveautés.</div>
+          </div>
+
+          <div class="item">
+            <a class="btn" href="#" title="À définir">Astuces</a>
+            <div class="desc">Tips courts, optimisations, retours d'expérience.</div>
+          </div>
+
+          <div class="item">
+            <a class="btn" href="#" title="À définir">Glossaire</a>
+            <div class="desc">Termes FR/EN, abréviations, définitions.</div>
+          </div>
+
+          <div class="item">
+            <a class="btn" href="#" title="À définir">Guides</a>
+            <div class="desc">Guides complets par sujet.</div>
+          </div>
+
+          <div class="item" style="margin-bottom:0;">
+            <a class="btn" href="#" title="À définir">Techniques</a>
+            <div class="desc">Fiches stats : dégâts, valeurs, caractéristiques.</div>
+          </div>
+        </div>
+
+        <!-- COLONNE OUTILS -->
+        <div class="menu-col">
+          <h2 class="col-title">Outils</h2>
+
+          <div class="item">
+            <a class="btn" href="#" title="À définir">Calculatrice dégâts / défense</a>
+            <div class="desc">Calcule dégâts, réduction, bouclier et variations selon bonus.</div>
+          </div>
+
+          <div class="item">
+            <a class="btn" href="#" title="À définir">Comparateur de lasers</a>
+            <div class="desc">Compare lasers/configs (dégâts, DPS, efficacité) selon contexte.</div>
+          </div>
+
+          <div class="item">
+            <a class="btn" href="#" title="À définir">Convertisseur Base62 ↔ Base10</a>
+            <div class="desc">Conversion rapide dans les deux sens.</div>
+          </div>
+
+          <div class="item">
+            <a class="btn" href="#" title="À définir">Planificateur Galaxy Gates (GG)</a>
+            <div class="desc">Estime coût/temps/ressources pour viser une Gate.</div>
+          </div>
+
+          <div class="item" style="margin-bottom:0;">
+            <a class="btn" href="#" title="À définir">Profit par heure (Profit/h)</a>
+            <div class="desc">Estime ton gain/h selon activité, durée, et coûts.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <img class="footer-avatar" src="assets/avatar.jpg" alt="Avatar JohnLocke">
+
+      <div class="footer-text">
+        <div class="line1">© 2026 JohnLocke</div>
+        <div class="line2">
+          <a href="mailto:John.Locke.70@outlook.fr">John.Locke.70@outlook.fr</a> ·
+          <a href="#" title="Lien à définir">Commentaires</a> ·
+          <a href="#" title="Lien à définir">CGU</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
     :root{
       --bg: #0a0f14;
       --panel: rgba(10, 18, 28, 0.55);
