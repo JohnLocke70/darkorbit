@@ -8,31 +8,35 @@
   <style>
     :root{
       /* Hauteurs header/footer */
-      --header-h: 170px;  /* ↑ augmenté pour logo plus grand */
+      --header-h: 170px;
       --footer-h: 92px;
 
-      /* Couleurs (inspirées forum DO FR) */
-      --accent: #2fa9d6;        /* bleu “Forums” */
-      --accent-soft: #78c7e3;
+      /* Couleurs */
+      --accent: #35c8ff;          /* bleu flashy titres */
+      --accent-soft: #7fe0ff;
       --text: #e9f6fb;
       --muted: rgba(233,246,251,.78);
 
+      /* Doré */
+      --gold: rgba(214, 175, 64, .92);
+      --gold-soft: rgba(214, 175, 64, .55);
+
       /* Panels */
       --panel-bg: rgba(10, 26, 34, .52);
-      --panel-border: rgba(120, 199, 227, .24);
+      --panel-border: var(--gold-soft);
 
       /* Boutons */
-      --btn-w: 340px; /* ✅ largeur fixe = uniformité parfaite */
-      --btn-h: 46px;  /* ✅ hauteur fixe = uniformité parfaite */
+      --btn-w: 340px;
+      --btn-h: 46px;
       --btn-bg: rgba(12, 45, 60, .98);
       --btn-bg-hover: rgba(20, 78, 104, .99);
-      --btn-border: rgba(120, 199, 227, .58);
-      --btn-border-hover: rgba(120, 199, 227, .95);
+      --btn-border: var(--gold-soft);
+      --btn-border-hover: var(--gold);
 
       /* Fond */
       --bg1: #0e425a; /* haut */
       --bg2: #0a3b52; /* milieu */
-      --bg3: #0a3950; /* bas */
+      --bg3: #093646; /* bas (un peu moins sombre) */
     }
 
     *{ box-sizing:border-box; }
@@ -41,12 +45,13 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
       overflow: hidden;
+
       background:
-        radial-gradient(1200px 800px at 22% 18%, rgba(47,169,214,.46) 0%, rgba(7,26,36,0) 58%),
-        radial-gradient(900px 700px at 78% 28%, rgba(47,169,214,.26) 0%, rgba(7,26,36,0) 62%),
-        radial-gradient(1200px 900px at 20% 92%, rgba(47,169,214,.42) 0%, rgba(7,26,36,0) 62%),
-        radial-gradient(1200px 900px at 78% 92%, rgba(47,169,214,.36) 0%, rgba(7,26,36,0) 62%),
-        radial-gradient(1200px 900px at 50% 60%, rgba(0,0,0,0) 0%, rgba(0,0,0,.18) 74%),
+        radial-gradient(1200px 800px at 22% 18%, rgba(53,200,255,.42) 0%, rgba(7,26,36,0) 58%),
+        radial-gradient(900px 700px at 78% 28%, rgba(53,200,255,.22) 0%, rgba(7,26,36,0) 62%),
+        radial-gradient(1200px 900px at 20% 92%, rgba(53,200,255,.36) 0%, rgba(7,26,36,0) 62%),
+        radial-gradient(1200px 900px at 78% 92%, rgba(53,200,255,.30) 0%, rgba(7,26,36,0) 62%),
+        radial-gradient(1200px 900px at 50% 65%, rgba(0,0,0,0) 0%, rgba(0,0,0,.16) 76%),
         linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
     }
 
@@ -63,7 +68,7 @@
         radial-gradient(1px 1px at 86% 16%, rgba(255,255,255,.18) 0, rgba(255,255,255,0) 2px),
         radial-gradient(1px 1px at 92% 82%, rgba(255,255,255,.20) 0, rgba(255,255,255,0) 2px);
       pointer-events:none;
-      opacity:.65;
+      opacity:.62;
     }
 
     /* HEADER FIXE */
@@ -81,7 +86,7 @@
         rgba(4,12,18,.94) 0%,
         rgba(6,24,34,.86) 55%,
         rgba(7,26,36,.42) 100%);
-      border-bottom: 1px solid rgba(120,199,227,.22);
+      border-bottom: 1px solid rgba(214,175,64,.25);
       backdrop-filter: blur(6px);
     }
 
@@ -93,32 +98,82 @@
       width: 100%;
       justify-content: center;
       text-align:center;
+      position: relative;
     }
 
-    /* ✅ Logo doublé (largeur + hauteur) */
+    /* ✅ Projecteur renforcé autour du logo */
+    .logo-wrap{
+      position: relative;
+      width: 184px;
+      height: 184px;
+      flex: 0 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index: 0;
+    }
+    .logo-wrap::before{
+      content:"";
+      position:absolute;
+      inset: -26px; /* plus concentré */
+      background:
+        radial-gradient(circle at 50% 50%,
+          rgba(127,224,255,.92) 0%,
+          rgba(127,224,255,.55) 30%,
+          rgba(127,224,255,.22) 46%,
+          rgba(127,224,255,0) 70%);
+      filter: blur(9px);
+      opacity: 1;
+      z-index: -1;
+      pointer-events:none;
+      mix-blend-mode: screen;
+    }
+    .logo-wrap::after{
+      content:"";
+      position:absolute;
+      inset: -50px;
+      background:
+        radial-gradient(circle at 50% 50%,
+          rgba(53,200,255,.42) 0%,
+          rgba(53,200,255,.16) 42%,
+          rgba(53,200,255,0) 75%);
+      filter: blur(16px);
+      opacity: .95;
+      z-index: -2;
+      pointer-events:none;
+      mix-blend-mode: screen;
+    }
+
     .brand img.logo{
       width: 184px;
       height: 184px;
       object-fit: contain;
-      filter: drop-shadow(0 0 18px rgba(47,169,214,.30));
+      filter:
+        drop-shadow(0 0 26px rgba(53,200,255,.44))
+        drop-shadow(0 12px 30px rgba(0,0,0,.28));
       flex: 0 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .brand h1{
       margin:0;
-      font-size: 28px;
+      font-size: 30px;
       letter-spacing: .3px;
-      color: var(--accent-soft);
-      text-shadow: 0 0 18px rgba(47,169,214,.18);
-      font-weight: 900;
+      color: var(--accent);
+      text-shadow:
+        0 0 18px rgba(53,200,255,.28),
+        0 0 30px rgba(53,200,255,.14);
+      font-weight: 950;
       line-height: 1.05;
     }
 
     .brand .subtitle{
       margin-top: 8px;
       font-size: 14px;
-      color: rgba(120,199,227,.90);
-      font-weight: 700;
+      color: var(--accent-soft);
+      font-weight: 850;
+      text-shadow: 0 0 14px rgba(53,200,255,.18);
     }
 
     /* CONTENT (SCROLL) */
@@ -135,12 +190,12 @@
 
     .content::-webkit-scrollbar{ width: 10px; }
     .content::-webkit-scrollbar-thumb{
-      background: rgba(120,199,227,.22);
+      background: rgba(214,175,64,.22);
       border-radius: 8px;
       border: 2px solid rgba(0,0,0,0);
       background-clip: padding-box;
     }
-    .content::-webkit-scrollbar-thumb:hover{ background: rgba(120,199,227,.34); }
+    .content::-webkit-scrollbar-thumb:hover{ background: rgba(214,175,64,.34); }
 
     /* MENU CENTRÉ */
     .menu-wrap{
@@ -151,8 +206,8 @@
     }
 
     .menu{
-      width: min(1200px, 96vw); /* un poil plus large pour limiter les retours à la ligne */
-      background: var(--panel-bg);
+      width: min(1220px, 96vw);
+      background: rgba(8, 34, 46, .55);
       border: 1px solid var(--panel-border);
       border-radius: 16px;
       padding: 18px 18px 20px;
@@ -160,31 +215,16 @@
       backdrop-filter: blur(10px);
     }
 
-    .menu-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:baseline;
-      gap: 10px;
-      padding: 2px 6px 12px;
-      border-bottom: 1px solid rgba(120,199,227,.16);
-      margin-bottom: 14px;
-    }
-
-    .menu-head .hint{
-      color: var(--muted);
-      font-size: 13px;
-    }
-
     .grid{
       display:grid;
       grid-template-columns: 1fr 1px 1fr;
       gap: 18px;
       align-items:start;
-      margin-top: 14px;
+      margin-top: 6px;
     }
 
     .divider{
-      background: rgba(120,199,227,.18);
+      background: rgba(214,175,64,.20);
       border-radius: 99px;
     }
 
@@ -193,7 +233,8 @@
       font-size: 16px;
       color: var(--accent);
       letter-spacing: .2px;
-      font-weight: 900;
+      font-weight: 950;
+      text-shadow: 0 0 14px rgba(53,200,255,.12);
     }
 
     .col{
@@ -202,56 +243,59 @@
       gap: 12px;
     }
 
-    /* ✅ Containers uniformes : même structure + hauteur mini */
     .item{
       display:grid;
-      grid-template-columns: var(--btn-w) 1fr;  /* bouton fixe + description */
+      grid-template-columns: var(--btn-w) 1fr;
       align-items:center;
       gap: 14px;
       padding: 12px 14px;
       border-radius: 14px;
-      background: rgba(18, 66, 86, .28);
-      border: 1px solid rgba(120,199,227,.22);
-      min-height: 78px;
+
+      /* plus visible */
+      background: rgba(18, 74, 96, .34);
+      border: 1px solid rgba(214,175,64,.38);
+
+      /* hauteur uniforme */
+      min-height: 82px;
     }
 
-    /* ✅ Boutons uniformes : largeur/hauteur fixes */
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
       text-decoration:none;
       color: var(--text);
-      font-weight: 900;
+      font-weight: 950;
       letter-spacing: .2px;
 
       width: var(--btn-w);
       height: var(--btn-h);
 
-      background: var(--btn-bg);
+      background: rgba(8, 28, 40, .98);
       border: 1px solid var(--btn-border);
       border-radius: 12px;
       padding: 0 14px;
 
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
-      transition: transform .08s ease, background .15s ease, border-color .15s ease, filter .15s ease;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.06),
+        0 8px 18px rgba(0,0,0,.18);
 
-      white-space: nowrap;          /* évite qu’un bouton prenne + de hauteur */
+      transition: transform .08s ease, background .15s ease, border-color .15s ease, filter .15s ease;
+      white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;      /* au besoin, coupe proprement */
+      text-overflow: ellipsis;
     }
 
     .btn:hover{
-      background: var(--btn-bg-hover);
+      background: rgba(14, 52, 74, .99);
       border-color: var(--btn-border-hover);
       transform: translateY(-1px);
       filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
     }
     .btn:active{ transform: translateY(0px); }
 
-    /* ✅ Descriptions uniformes : max 2 lignes pour garder des encadrés proches */
     .desc{
-      color: rgba(233,246,251,.86);
+      color: rgba(233,246,251,.88);
       font-size: 14px;
       line-height: 1.25;
 
@@ -276,7 +320,7 @@
         rgba(4,12,18,.94) 0%,
         rgba(6,24,34,.86) 55%,
         rgba(7,26,36,.42) 100%);
-      border-top: 1px solid rgba(120,199,227,.22);
+      border-top: 1px solid rgba(214,175,64,.25);
       backdrop-filter: blur(6px);
     }
 
@@ -300,55 +344,58 @@
       height: 42px;
       border-radius: 10px;
       object-fit: cover;
-      border: 1px solid rgba(120,199,227,.22);
+      border: 1px solid rgba(214,175,64,.28);
       box-shadow: 0 10px 20px rgba(0,0,0,.25);
       background: rgba(0,0,0,.25);
       flex: 0 0 auto;
     }
 
-    .footer-text{
-      display:flex;
-      flex-direction:column;
-      gap: 2px;
-      min-width: 0;
-    }
-
     .footer-line{
       font-size: 13px;
-      color: rgba(233,246,251,.84);
+      color: rgba(233,246,251,.82);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      font-weight: 800;
     }
 
     .footer-links{
       display:flex;
-      gap: 12px;
+      gap: 8px;
       align-items:center;
       flex-wrap: wrap;
       justify-content:flex-end;
+      color: rgba(233,246,251,.55);
+      font-weight: 900;
+      font-size: 13px;
     }
 
     .footer-links a{
-      color: rgba(120,199,227,.90);
+      color: rgba(127,224,255,.92);
       text-decoration:none;
-      font-weight: 800;
+      font-weight: 900;
       font-size: 13px;
     }
     .footer-links a:hover{ text-decoration: underline; }
 
-    /* Responsive */
+    .dot{
+      color: rgba(214,175,64,.65);
+      padding: 0 4px;
+      user-select:none;
+    }
+
     @media (max-width: 980px){
       :root{
-        --header-h: 190px;
+        --header-h: 200px;
         --btn-w: 100%;
         --btn-h: 48px;
       }
       .grid{ grid-template-columns: 1fr; }
       .divider{ display:none; }
       .item{ grid-template-columns: 1fr; }
-      .btn{ width: 100%; white-space: normal; } /* sur mobile, on laisse respirer */
-      .brand{ flex-direction:column; gap: 8px; }
+      .btn{ width: 100%; white-space: normal; }
+      .brand{ flex-direction:column; gap: 10px; }
+      .logo-wrap{ width: 160px; height: 160px; }
       .brand img.logo{ width: 160px; height: 160px; }
       .footer-inner{ flex-direction:column; align-items:flex-start; }
       .footer-links{ justify-content:flex-start; }
@@ -359,7 +406,9 @@
 <body>
   <header>
     <div class="brand">
-      <img class="logo" src="assets/darkorbit-logo.png" alt="DarkOrbit logo" />
+      <div class="logo-wrap" aria-hidden="true">
+        <img class="logo" src="assets/darkorbit-logo.png" alt="DarkOrbit logo" />
+      </div>
       <div>
         <h1>Centre d'infos Darkorbit par JohnLocke</h1>
         <div class="subtitle">Docs &amp; outils</div>
@@ -370,11 +419,6 @@
   <main class="content" id="top">
     <div class="menu-wrap">
       <section class="menu" aria-label="Menu principal Darkorbit">
-        <div class="menu-head">
-          <div class="hint">Accès direct : documentation à gauche, outils à droite.</div>
-          <div class="hint">Prototype</div>
-        </div>
-
         <div class="grid">
           <div class="col">
             <h2>Docs</h2>
@@ -444,20 +488,15 @@
     <div class="footer-inner">
       <div class="footer-left">
         <img class="avatar" src="assets/johnlocke-avatar.jpg" alt="Avatar JohnLocke" />
-        <div class="footer-text">
-          <div class="footer-line">© 2026 JohnLocke</div>
-          <div class="footer-line">
-            <a href="mailto:John.Locke.70@outlook.fr" style="color: rgba(120,199,227,.90); text-decoration:none; font-weight:800;">
-              John.Locke.70@outlook.fr
-            </a>
-          </div>
-        </div>
+        <div class="footer-line">© 2026 JohnLocke</div>
       </div>
 
       <div class="footer-links">
-        <a href="#" title="Bientôt">Contact</a>
+        <a href="mailto:John.Locke.70@outlook.fr" title="Envoyer un email">Email</a>
+        <span class="dot">•</span>
         <a href="#" title="Bientôt">Commentaires</a>
-        <a href="#" title="Bientôt">Règlements (CGU)</a>
+        <span class="dot">•</span>
+        <a href="#" title="Bientôt">CGU</a>
       </div>
     </div>
   </footer>
