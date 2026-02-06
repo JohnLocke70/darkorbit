@@ -41,6 +41,7 @@
 
     *{ box-sizing:border-box; }
     html, body{ height:100%; margin:0; }
+
     body{
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
@@ -101,7 +102,7 @@
       position: relative;
     }
 
-    /* Projecteur (légèrement réduit) */
+    /* Projecteur (OK) */
     .logo-wrap{
       position: relative;
       width: 184px;
@@ -123,7 +124,7 @@
           rgba(127,224,255,.18) 46%,
           rgba(127,224,255,0) 70%);
       filter: blur(10px);
-      opacity: .82;              /* ✅ réduit */
+      opacity: .82;
       z-index: -1;
       pointer-events:none;
       mix-blend-mode: screen;
@@ -138,7 +139,7 @@
           rgba(53,200,255,.12) 42%,
           rgba(53,200,255,0) 75%);
       filter: blur(18px);
-      opacity: .78;              /* ✅ réduit */
+      opacity: .78;
       z-index: -2;
       pointer-events:none;
       mix-blend-mode: screen;
@@ -185,7 +186,9 @@
       right: 0;
 
       overflow: auto;
-      padding: 26px 18px;
+
+      /* ✅ pour que le menu soit vraiment centré verticalement */
+      padding: 0 18px;
     }
 
     .content::-webkit-scrollbar{ width: 10px; }
@@ -197,12 +200,15 @@
     }
     .content::-webkit-scrollbar-thumb:hover{ background: rgba(214,175,64,.34); }
 
-    /* MENU CENTRÉ */
+    /* MENU CENTRÉ (verticalement + horizontalement) */
     .menu-wrap{
-      min-height: calc(100% - 12px);
+      min-height: 100%;
       display:flex;
       align-items:center;
       justify-content:center;
+
+      /* petit confort visuel */
+      padding: 18px 0;
     }
 
     .menu{
@@ -215,7 +221,7 @@
       backdrop-filter: blur(10px);
     }
 
-    /* ✅ Titre menu centré */
+    /* ✅ Titre menu centré + séparateur doré dessous */
     .menu-title{
       margin: 4px 0 14px;
       text-align: center;
@@ -224,6 +230,18 @@
       letter-spacing: .2px;
       font-size: 18px;
       text-shadow: 0 0 14px rgba(53,200,255,.14);
+      position: relative;
+      padding-bottom: 14px;
+    }
+    .menu-title::after{
+      content:"";
+      display:block;
+      width: min(320px, 72%);
+      height: 1px;
+      margin: 12px auto 0;
+      background: rgba(214,175,64,.58);
+      box-shadow: 0 0 0 1px rgba(214,175,64,.16);
+      border-radius: 99px;
     }
 
     .grid{
@@ -333,11 +351,12 @@
       backdrop-filter: blur(6px);
     }
 
+    /* ✅ footer rassemblé au centre */
     .footer-inner{
       width: min(1100px, 95vw);
       display:flex;
       align-items:center;
-      justify-content:space-between;
+      justify-content:center;
       gap: 14px;
     }
 
@@ -345,7 +364,7 @@
       display:flex;
       align-items:center;
       gap: 10px;
-      min-width: 0;
+      flex: 0 0 auto;
     }
 
     .avatar{
@@ -359,31 +378,44 @@
       flex: 0 0 auto;
     }
 
+    /* ✅ texte footer un peu plus grand */
     .footer-line{
-      font-size: 13px;
-      color: rgba(233,246,251,.82);
+      font-size: 15px;
+      color: rgba(233,246,251,.85);
+      font-weight: 900;
+      line-height: 1;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-weight: 800;
+    }
+
+    /* centre: "© 2026 JohnLocke | Email • ..." */
+    .footer-center{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: rgba(233,246,251,.55);
+      font-weight: 900;
+      font-size: 15px;
+      line-height: 1;
+      text-align:center;
     }
 
     .footer-links{
-      display:flex;
-      gap: 8px;
+      display:inline-flex;
       align-items:center;
       flex-wrap: wrap;
-      justify-content:flex-end;
-      color: rgba(233,246,251,.55);
-      font-weight: 900;
-      font-size: 13px;
+      gap: 8px;
+      justify-content:center;
+      font-size: 15px;
+      line-height: 1;
     }
 
     .footer-links a{
       color: rgba(127,224,255,.92);
       text-decoration:none;
       font-weight: 900;
-      font-size: 13px;
+      font-size: 15px;
     }
     .footer-links a:hover{ text-decoration: underline; }
 
@@ -391,6 +423,14 @@
       color: rgba(214,175,64,.65);
       padding: 0 4px;
       user-select:none;
+      font-weight: 900;
+    }
+
+    .bar{
+      color: rgba(214,175,64,.78);
+      padding: 0 2px;
+      user-select:none;
+      font-weight: 900;
     }
 
     @media (max-width: 980px){
@@ -406,8 +446,14 @@
       .brand{ flex-direction:column; gap: 10px; }
       .logo-wrap{ width: 160px; height: 160px; }
       .brand img.logo{ width: 160px; height: 160px; }
-      .footer-inner{ flex-direction:column; align-items:flex-start; }
-      .footer-links{ justify-content:flex-start; }
+
+      .footer-inner{
+        flex-direction:column;
+        gap: 10px;
+      }
+      .footer-center{
+        justify-content:center;
+      }
     }
   </style>
 </head>
@@ -499,15 +545,19 @@
     <div class="footer-inner">
       <div class="footer-left">
         <img class="avatar" src="assets/johnlocke-avatar.jpg" alt="Avatar JohnLocke" />
-        <div class="footer-line">© 2026 JohnLocke</div>
       </div>
 
-      <div class="footer-links">
-        <a href="mailto:John.Locke.70@outlook.fr" title="Envoyer un email">Email</a>
-        <span class="dot">•</span>
-        <a href="#" title="Bientôt">Commentaires</a>
-        <span class="dot">•</span>
-        <a href="#" title="Bientôt">CGU</a>
+      <div class="footer-center">
+        <span class="footer-line">© 2026 JohnLocke</span>
+        <span class="bar">|</span>
+
+        <span class="footer-links">
+          <a href="mailto:John.Locke.70@outlook.fr" title="Envoyer un email">Email</a>
+          <span class="dot">•</span>
+          <a href="#" title="Bientôt">Commentaires</a>
+          <span class="dot">•</span>
+          <a href="#" title="Bientôt">CGU</a>
+        </span>
       </div>
     </div>
   </footer>
