@@ -8,7 +8,7 @@
   <style>
     :root{
       /* Hauteurs header/footer */
-      --header-h: 92px;
+      --header-h: 170px;  /* ↑ augmenté pour logo plus grand */
       --footer-h: 92px;
 
       /* Couleurs (inspirées forum DO FR) */
@@ -22,15 +22,17 @@
       --panel-border: rgba(120, 199, 227, .24);
 
       /* Boutons */
-      --btn-bg: rgba(12, 45, 60, .96);
-      --btn-bg-hover: rgba(20, 78, 104, .98);
-      --btn-border: rgba(120, 199, 227, .55);
-      --btn-border-hover: rgba(120, 199, 227, .92);
+      --btn-w: 340px; /* ✅ largeur fixe = uniformité parfaite */
+      --btn-h: 46px;  /* ✅ hauteur fixe = uniformité parfaite */
+      --btn-bg: rgba(12, 45, 60, .98);
+      --btn-bg-hover: rgba(20, 78, 104, .99);
+      --btn-border: rgba(120, 199, 227, .58);
+      --btn-border-hover: rgba(120, 199, 227, .95);
 
-      /* Fond (encore moins sombre en bas) */
+      /* Fond */
       --bg1: #0e425a; /* haut */
-      --bg2: #0a3b52; /* milieu (un poil plus clair) */
-      --bg3: #0a3950; /* bas (nettement éclairci) */
+      --bg2: #0a3b52; /* milieu */
+      --bg3: #0a3950; /* bas */
     }
 
     *{ box-sizing:border-box; }
@@ -40,25 +42,15 @@
       color: var(--text);
       overflow: hidden;
       background:
-        /* Halo cyan en haut-gauche */
         radial-gradient(1200px 800px at 22% 18%, rgba(47,169,214,.46) 0%, rgba(7,26,36,0) 58%),
-        /* Halo cyan en haut-droit */
         radial-gradient(900px 700px at 78% 28%, rgba(47,169,214,.26) 0%, rgba(7,26,36,0) 62%),
-
-        /* 🔧 Nouveau : halo bas-gauche (corrige le sombre côté gauche) */
         radial-gradient(1200px 900px at 20% 92%, rgba(47,169,214,.42) 0%, rgba(7,26,36,0) 62%),
-
-        /* Halo cyan en bas-droit (anti-zone sombre) */
         radial-gradient(1200px 900px at 78% 92%, rgba(47,169,214,.36) 0%, rgba(7,26,36,0) 62%),
-
-        /* Vignettage doux */
         radial-gradient(1200px 900px at 50% 60%, rgba(0,0,0,0) 0%, rgba(0,0,0,.18) 74%),
-
-        /* Dégradé principal */
         linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
     }
 
-    /* Petites étoiles légères */
+    /* Etoiles légères */
     body::before{
       content:"";
       position:fixed; inset:0;
@@ -96,36 +88,37 @@
     .brand{
       display:flex;
       align-items:center;
-      gap: 18px;
+      gap: 22px;
       max-width: 1100px;
       width: 100%;
       justify-content: center;
       text-align:center;
     }
 
-    /* 🔧 LOGO PLUS GRAND */
+    /* ✅ Logo doublé (largeur + hauteur) */
     .brand img.logo{
-      width: 92px;
-      height: 92px;
+      width: 184px;
+      height: 184px;
       object-fit: contain;
-      filter: drop-shadow(0 0 16px rgba(47,169,214,.30));
+      filter: drop-shadow(0 0 18px rgba(47,169,214,.30));
+      flex: 0 0 auto;
     }
 
     .brand h1{
       margin:0;
-      font-size: 26px;
+      font-size: 28px;
       letter-spacing: .3px;
       color: var(--accent-soft);
       text-shadow: 0 0 18px rgba(47,169,214,.18);
-      font-weight: 800;
+      font-weight: 900;
       line-height: 1.05;
     }
 
     .brand .subtitle{
-      margin-top: 6px;
+      margin-top: 8px;
       font-size: 14px;
-      color: rgba(120,199,227,.85);
-      font-weight: 600;
+      color: rgba(120,199,227,.90);
+      font-weight: 700;
     }
 
     /* CONTENT (SCROLL) */
@@ -158,7 +151,7 @@
     }
 
     .menu{
-      width: min(1100px, 95vw);
+      width: min(1200px, 96vw); /* un poil plus large pour limiter les retours à la ligne */
       background: var(--panel-bg);
       border: 1px solid var(--panel-border);
       border-radius: 16px;
@@ -200,7 +193,7 @@
       font-size: 16px;
       color: var(--accent);
       letter-spacing: .2px;
-      font-weight: 800;
+      font-weight: 900;
     }
 
     .col{
@@ -209,40 +202,43 @@
       gap: 12px;
     }
 
+    /* ✅ Containers uniformes : même structure + hauteur mini */
     .item{
-      display:flex;
+      display:grid;
+      grid-template-columns: var(--btn-w) 1fr;  /* bouton fixe + description */
       align-items:center;
       gap: 14px;
-      padding: 12px 12px;
+      padding: 12px 14px;
       border-radius: 14px;
-      background: rgba(18, 66, 86, .26);
-      border: 1px solid rgba(120,199,227,.20);
+      background: rgba(18, 66, 86, .28);
+      border: 1px solid rgba(120,199,227,.22);
+      min-height: 78px;
     }
 
-    .desc{
-      color: rgba(233,246,251,.86);
-      font-size: 14px;
-      line-height: 1.25;
-    }
-
+    /* ✅ Boutons uniformes : largeur/hauteur fixes */
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
       text-decoration:none;
       color: var(--text);
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: .2px;
+
+      width: var(--btn-w);
+      height: var(--btn-h);
 
       background: var(--btn-bg);
       border: 1px solid var(--btn-border);
       border-radius: 12px;
+      padding: 0 14px;
 
-      padding: 10px 14px;
-      min-height: 42px;
-      min-width: 240px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
       transition: transform .08s ease, background .15s ease, border-color .15s ease, filter .15s ease;
+
+      white-space: nowrap;          /* évite qu’un bouton prenne + de hauteur */
+      overflow: hidden;
+      text-overflow: ellipsis;      /* au besoin, coupe proprement */
     }
 
     .btn:hover{
@@ -251,8 +247,19 @@
       transform: translateY(-1px);
       filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
     }
-
     .btn:active{ transform: translateY(0px); }
+
+    /* ✅ Descriptions uniformes : max 2 lignes pour garder des encadrés proches */
+    .desc{
+      color: rgba(233,246,251,.86);
+      font-size: 14px;
+      line-height: 1.25;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
 
     /* FOOTER FIXE */
     footer{
@@ -325,22 +332,26 @@
     .footer-links a{
       color: rgba(120,199,227,.90);
       text-decoration:none;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 13px;
     }
-
     .footer-links a:hover{ text-decoration: underline; }
 
     /* Responsive */
-    @media (max-width: 860px){
-      :root{ --header-h: 120px; --footer-h: 110px; }
+    @media (max-width: 980px){
+      :root{
+        --header-h: 190px;
+        --btn-w: 100%;
+        --btn-h: 48px;
+      }
       .grid{ grid-template-columns: 1fr; }
       .divider{ display:none; }
-      .btn{ min-width: 200px; }
+      .item{ grid-template-columns: 1fr; }
+      .btn{ width: 100%; white-space: normal; } /* sur mobile, on laisse respirer */
+      .brand{ flex-direction:column; gap: 8px; }
+      .brand img.logo{ width: 160px; height: 160px; }
       .footer-inner{ flex-direction:column; align-items:flex-start; }
       .footer-links{ justify-content:flex-start; }
-      .brand{ flex-direction:column; gap: 8px; }
-      .brand img.logo{ width: 86px; height: 86px; }
     }
   </style>
 </head>
@@ -436,7 +447,7 @@
         <div class="footer-text">
           <div class="footer-line">© 2026 JohnLocke</div>
           <div class="footer-line">
-            <a href="mailto:John.Locke.70@outlook.fr" style="color: rgba(120,199,227,.90); text-decoration:none; font-weight:700;">
+            <a href="mailto:John.Locke.70@outlook.fr" style="color: rgba(120,199,227,.90); text-decoration:none; font-weight:800;">
               John.Locke.70@outlook.fr
             </a>
           </div>
