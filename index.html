@@ -2,561 +2,496 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Centre d'infos Darkorbit par JohnLocke</title>
 
   <style>
     :root{
-      /* Accent (titres) */
-      --accent: #57c8ff;
-      --accent-soft: rgba(87,200,255,.75);
-
-      /* Texte */
-      --text: rgba(255,255,255,.90);
-      --muted: rgba(255,255,255,.74);
-
       /* Hauteurs fixes */
       --header-h: 110px;
-      --footer-h: 92px;
+      --footer-h: 74px;
 
-      /* Largeur menu */
-      --wrap: 1280px;
+      /* Couleurs (tirées du style forum : "Forums" ~ #5acbfe) */
+      --accent: #5acbfe;
+      --accent-soft: rgba(90,203,254,.55);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
 
-      /* Barres (dégradés bleu foncé) */
-      --bar-border: rgba(255,255,255,.10);
+      /* Fond global (cyan + bleu, sans coin trop noir) */
+      --bg-a: #0d6b86;   /* cyan profond */
+      --bg-b: #083b55;   /* bleu */
+      --bg-c: #0b516b;   /* teal */
+      --bg-d: #062235;   /* navy (léger, pas dominant) */
 
-      /* Panneau menu */
-      --panel: rgba(8, 18, 28, .60);
-      --panel-border: rgba(120, 200, 255, .18);
+      /* Menu */
+      --panel-bg: rgba(0, 0, 0, .22);
+      --card-bg: rgba(10, 80, 110, .28);  /* plus visible */
+      --card-border: rgba(90,203,254,.18);
 
-      /* Encadrés item */
-      --item-bg: rgba(12, 55, 70, .26); /* bleu/cyan léger, visible */
-      --item-border: rgba(87, 200, 255, .20);
-      --item-border-strong: rgba(87, 200, 255, .30);
+      /* Boutons menu */
+      --btn-w: 260px;   /* largeur uniforme */
+      --btn-h: 46px;    /* hauteur uniforme */
+      --btn-bg1: #0b3d55;
+      --btn-bg2: #072b3f;
+      --btn-border: rgba(90,203,254,.65);
 
-      /* Boutons uniformisés */
-      --btn-w: 320px;
-      --btn-h: 54px;
-
-      /* Encadrés uniformisés */
-      --item-h: 86px;  /* hauteur fixe desktop */
-
-      /* Boutons (sombres) */
-      --btn-bg: #0b2430;
-      --btn-bg-hover: #0f3242;
-      --btn-border: rgba(87, 200, 255, .55);
-      --btn-border-hover: rgba(87, 200, 255, .85);
-
-      /* Bouton haut de page */
-      --toTop-size: 46px;
+      /* Header/Footer */
+      --bar-1: rgba(3, 24, 40, .92);
+      --bar-2: rgba(8, 48, 70, .92);
+      --bar-line: rgba(90,203,254,.18);
     }
 
-    *{ box-sizing: border-box; }
-    html, body{ height: 100%; }
-
-    /* Pas de scroll sur body : seul le milieu scroll */
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
     body{
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
-      overflow: hidden;
-      background: #061118;
+      margin:0;
+      overflow:hidden; /* le scroll se fait UNIQUEMENT dans <main> */
+      color:var(--text);
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+
+      /* Fond + étoiles */
+      background:
+        radial-gradient(1200px 700px at 18% 22%, rgba(90,203,254,.22), transparent 62%),
+        radial-gradient(1000px 700px at 78% 18%, rgba(20,190,220,.18), transparent 60%),
+        radial-gradient(1200px 900px at 78% 78%, rgba(12,120,150,.22), transparent 62%),
+        radial-gradient(1200px 900px at 18% 80%, rgba(10,90,120,.18), transparent 60%),
+        linear-gradient(135deg, var(--bg-a) 0%, var(--bg-b) 35%, var(--bg-c) 70%, var(--bg-d) 100%);
+      position:relative;
+
+      display:grid;
+      grid-template-rows: var(--header-h) 1fr var(--footer-h);
     }
 
-    /* Fond spatial (moins sombre en bas) */
+    /* étoiles (léger) */
     body::before{
       content:"";
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(1200px 800px at 18% 18%, rgba(87,200,255,.20), transparent 58%),
-        radial-gradient(1100px 780px at 82% 20%, rgba(90,235,255,.16), transparent 62%),
-        radial-gradient(1100px 820px at 75% 78%, rgba(0,255,220,.12), transparent 62%),
-        radial-gradient(1000px 700px at 25% 85%, rgba(20,120,170,.14), transparent 65%),
-        /* BOOST bas (pour éviter gros coin sombre) */
-        radial-gradient(1600px 1100px at 85% 92%, rgba(87,200,255,.22), transparent 64%),
-        radial-gradient(1400px 1000px at 40% 96%, rgba(50,220,255,.12), transparent 68%),
-        linear-gradient(180deg, #0a2431 0%, #061118 100%);
-      filter: saturate(1.06) contrast(1.02);
-    }
-
-    /* Étoiles légères */
-    body::after{
-      content:"";
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      opacity: .32;
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.35;
       background-image:
-        radial-gradient(1px 1px at 10% 18%, rgba(255,255,255,.80) 50%, transparent 55%),
-        radial-gradient(1px 1px at 42% 10%, rgba(255,255,255,.60) 50%, transparent 55%),
-        radial-gradient(1px 1px at 72% 28%, rgba(255,255,255,.75) 50%, transparent 55%),
-        radial-gradient(1px 1px at 86% 14%, rgba(255,255,255,.55) 50%, transparent 55%),
-        radial-gradient(1px 1px at 25% 66%, rgba(255,255,255,.60) 50%, transparent 55%),
-        radial-gradient(1px 1px at 58% 76%, rgba(255,255,255,.70) 50%, transparent 55%),
-        radial-gradient(1px 1px at 90% 82%, rgba(255,255,255,.55) 50%, transparent 55%),
-        radial-gradient(1px 1px at 14% 86%, rgba(255,255,255,.58) 50%, transparent 55%);
-      filter: blur(.15px);
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.35), transparent 45%),
+        radial-gradient(1px 1px at 22% 72%, rgba(255,255,255,.28), transparent 45%),
+        radial-gradient(1px 1px at 35% 35%, rgba(255,255,255,.20), transparent 45%),
+        radial-gradient(1px 1px at 55% 18%, rgba(255,255,255,.30), transparent 45%),
+        radial-gradient(1px 1px at 62% 66%, rgba(255,255,255,.22), transparent 45%),
+        radial-gradient(1px 1px at 78% 28%, rgba(255,255,255,.25), transparent 45%),
+        radial-gradient(1px 1px at 86% 80%, rgba(255,255,255,.22), transparent 45%),
+        radial-gradient(1px 1px at 92% 42%, rgba(255,255,255,.18), transparent 45%);
+      filter: blur(.2px);
     }
 
-    a{ color: var(--accent); text-decoration: none; }
-    a:hover{ text-decoration: underline; }
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
 
-    /* HEADER fixe : dégradé */
-    .site-header{
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--header-h);
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-bottom: 1px solid var(--bar-border);
-      backdrop-filter: blur(8px);
-
-      background:
-        linear-gradient(180deg,
-          rgba(16, 64, 86, .92) 0%,
-          rgba(8, 30, 44, .92) 55%,
-          rgba(6, 18, 28, .92) 100%);
+    /* HEADER */
+    header{
+      position:relative;
+      z-index:2;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 18px;
+      background: linear-gradient(90deg, var(--bar-1), var(--bar-2), var(--bar-1));
+      border-bottom: 1px solid var(--bar-line);
     }
-
     .header-inner{
-      width: min(var(--wrap), calc(100% - 32px));
-      padding: 0 16px;
-      text-align: center;
+      width:min(1200px, 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
     }
-
-    .header-title{
-      margin: 0;
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: .3px;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      text-align:center;
+      padding: 6px 0;
+    }
+    .brand-logo{
+      width:64px;
+      height:64px;
+      object-fit:contain;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,.35));
+    }
+    .brand h1{
+      margin:0;
+      font-size: 26px;
+      letter-spacing:.4px;
       color: var(--accent);
-      text-shadow: 0 0 14px rgba(87,200,255,.15);
+      text-shadow: 0 10px 22px rgba(0,0,0,.35);
+      font-weight:800;
     }
-
-    .header-subtitle{
-      margin: 6px 0 0;
-      color: rgba(255,255,255,.80);
-      font-weight: 700;
-    }
-
-    /* FOOTER fixe : dégradé */
-    .site-footer{
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      height: var(--footer-h);
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-top: 1px solid var(--bar-border);
-      backdrop-filter: blur(8px);
-
-      background:
-        linear-gradient(180deg,
-          rgba(6, 18, 28, .92) 0%,
-          rgba(8, 30, 44, .92) 45%,
-          rgba(16, 64, 86, .92) 100%);
-    }
-
-    .footer-inner{
-      width: min(var(--wrap), calc(100% - 32px));
-      padding: 0 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .footer-left{
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 260px;
-    }
-
-    .footer-avatar{
-      width: 50px;
-      height: 50px;
-      border-radius: 12px;
-      object-fit: cover;
-      box-shadow: 0 0 0 1px rgba(255,255,255,.10);
-      background: rgba(255,255,255,.02);
-    }
-
-    .footer-text{
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      line-height: 1.2;
+    .subtitle{
+      margin-top:6px;
       font-size: 14px;
+      color: rgba(90,203,254,.85);
+      font-weight:600;
+      letter-spacing:.3px;
+    }
+    .badge{
+      position:absolute;
+      right:0;
+      top:0;
+      margin: 6px 0;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(90,203,254,.25);
+      background: rgba(0,0,0,.20);
+      color: rgba(255,255,255,.75);
+      font-size: 12px;
+      font-weight:700;
+      user-select:none;
     }
 
-    .footer-text .line1{
-      color: rgba(255,255,255,.88);
-      font-weight: 900;
+    /* MAIN (zone scrollable) */
+    main{
+      position:relative;
+      z-index:1;
+      overflow:auto;            /* scroll ici */
+      padding: 22px 18px 22px;
+    }
+    .main-inner{
+      min-height: 100%;
+      display:flex;
+      align-items:center;       /* centre vertical */
+      justify-content:center;   /* centre horizontal */
+      padding: 18px 0;
     }
 
-    .footer-text .line2{
-      color: rgba(255,255,255,.74);
-      font-weight: 650;
-    }
-
-    .footer-links{
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      font-weight: 900;
-      color: var(--accent-soft);
-    }
-    .footer-links a{ color: var(--accent); }
-
-    /* MAIN : zone scrollable uniquement entre header/footer */
-    .site-main{
-      position: fixed;
-      top: var(--header-h);
-      bottom: var(--footer-h);
-      left: 0;
-      right: 0;
-
-      /* Scrollbars seulement si nécessaire */
-      overflow: auto;
-      overflow-y: auto;
-      overflow-x: auto;
-
-      z-index: 10;
-
-      /* Centrage si ça tient à l'écran */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: 26px 16px;
-      scrollbar-gutter: stable;
-    }
-
-    .wrap{
-      width: min(var(--wrap), calc(100% - 32px));
-      margin: auto;
-      padding: 0 16px;
-    }
-
-    /* Panneau menu */
-    .menu-panel{
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0,0,0,.35);
-      backdrop-filter: blur(3px);
+    /* Menu panel */
+    .menu{
+      width: min(1200px, 100%);
+      background: var(--panel-bg);
+      border: 1px solid rgba(90,203,254,.16);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 20px 80px rgba(0,0,0,.35);
+      backdrop-filter: blur(4px);
     }
 
     .menu-grid{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 420px;
+      display:grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 18px;
+      align-items:start;
+    }
+    .menu-sep{
+      background: linear-gradient(to bottom, transparent, rgba(90,203,254,.18), transparent);
+      border-radius: 999px;
     }
 
-    .menu-col{
-      padding: 18px;
-      min-width: 0;
-    }
-
-    .menu-col + .menu-col{
-      border-left: 1px solid rgba(120,200,255,.14);
-    }
-
-    .col-title{
-      margin: 6px 0 12px;
-      font-size: 20px;
-      font-weight: 900;
+    .menu-col h2{
+      margin: 0 0 12px 0;
+      font-size: 18px;
       color: var(--accent);
-      letter-spacing: .2px;
-      text-shadow: 0 0 12px rgba(87,200,255,.10);
+      letter-spacing:.3px;
+      font-weight:800;
+      text-shadow: 0 10px 22px rgba(0,0,0,.25);
     }
 
-    /* Encadrés : mêmes dimensions (desktop) */
-    .item{
-      display: grid;
-      grid-template-columns: var(--btn-w) minmax(0, 1fr);
-      align-items: center;
+    .menu-list{
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+
+    /* Encadré (bouton + description) */
+    .menu-item{
+      display:grid;
+      grid-template-columns: var(--btn-w) 1fr;
       gap: 14px;
+      align-items:center;
 
-      height: var(--item-h);
-      padding: 12px;
-
+      padding: 14px 14px;
       border-radius: 14px;
-      border: 1px solid var(--item-border);
-      background: var(--item-bg);
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,.18);
-
-      margin-bottom: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
     }
 
-    .item:hover{
-      border-color: var(--item-border-strong);
-    }
+    /* Bouton opaque, identique partout */
+    .menu-btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
 
-    .item:last-child{ margin-bottom: 0; }
-
-    /* Boutons uniformisés */
-    .btn{
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-
-      width: 100%;
+      width: var(--btn-w);
       height: var(--btn-h);
 
-      padding: 10px 14px;
-      border-radius: 12px;
-
-      font-weight: 900;
-      color: #fff;
-      background: var(--btn-bg);
+      border-radius: 14px;
+      background: linear-gradient(180deg, var(--btn-bg1), var(--btn-bg2));
       border: 1px solid var(--btn-border);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
 
-      text-decoration: none;
-      text-align: center;
+      color: rgba(255,255,255,.95);
+      font-weight: 800;
+      letter-spacing:.2px;
 
-      transition: transform .12s ease, background-color .12s ease, border-color .12s ease, box-shadow .12s ease;
+      box-shadow:
+        0 10px 24px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.10);
+      transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+      text-decoration:none;
     }
-
-    .btn:hover{
-      background: var(--btn-bg-hover);
-      border-color: var(--btn-border-hover);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 10px 18px rgba(0,0,0,.25);
+    .menu-btn:hover{
       transform: translateY(-1px);
-      text-decoration: none;
+      filter: brightness(1.08);
+      box-shadow:
+        0 14px 30px rgba(0,0,0,.40),
+        inset 0 1px 0 rgba(255,255,255,.14);
+      text-decoration:none;
+    }
+    .menu-btn:focus-visible{
+      outline: 3px solid rgba(90,203,254,.35);
+      outline-offset: 2px;
     }
 
-    .btn:active{ transform: translateY(0); }
-
-    /* Description : 2 lignes max (desktop) */
-    .desc{
-      margin: 0;
-      color: rgba(255,255,255,.82);
-      font-weight: 650;
-      line-height: 1.25;
-
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      overflow: hidden;
+    .menu-desc{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.25rem;
+      font-size: 14px;
     }
 
-    /* Bouton haut de page (flèche), au-dessus du footer, coin droit */
-    .toTop{
+    /* Bouton "haut de page" (coin droit, au-dessus du footer) */
+    .to-top{
       position: fixed;
-      right: 18px;
-      bottom: calc(var(--footer-h) + 18px);
-      width: var(--toTop-size);
-      height: var(--toTop-size);
+      right: 16px;
+      bottom: calc(var(--footer-h) + 14px);
+      z-index: 5;
+
+      width: 46px;
+      height: 46px;
       border-radius: 999px;
 
-      display: grid;
-      place-items: center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
 
-      background: rgba(11, 36, 48, .92);
-      border: 1px solid rgba(87,200,255,.55);
-      box-shadow: 0 12px 24px rgba(0,0,0,.30), inset 0 0 0 1px rgba(255,255,255,.05);
+      background: linear-gradient(180deg, var(--btn-bg1), var(--btn-bg2));
+      border: 1px solid rgba(90,203,254,.40);
+      color: rgba(255,255,255,.92);
 
-      color: #ffffff;
-      font-weight: 1000;
-      font-size: 18px;
-      line-height: 1;
+      box-shadow: 0 18px 40px rgba(0,0,0,.45);
+      cursor:pointer;
 
-      cursor: pointer;
-      z-index: 60;
-
-      /* caché par défaut (JS active si nécessaire) */
       opacity: 0;
-      pointer-events: none;
-      transform: translateY(6px);
-      transition: opacity .15s ease, transform .15s ease, border-color .15s ease, background-color .15s ease;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease, filter .18s ease;
     }
-
-    .toTop:hover{
-      background: rgba(15, 50, 66, .96);
-      border-color: rgba(87,200,255,.85);
-    }
-
-    .toTop.is-visible{
+    .to-top.show{
       opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
+      pointer-events:auto;
     }
+    .to-top:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    /* FOOTER */
+    footer{
+      position:relative;
+      z-index:2;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 18px;
+      background: linear-gradient(90deg, var(--bar-1), var(--bar-2), var(--bar-1));
+      border-top: 1px solid var(--bar-line);
+    }
+    .footer-inner{
+      width:min(1200px, 100%);
+      display:flex;
+      align-items:center;
+      gap: 12px;
+    }
+    .avatar{
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid rgba(90,203,254,.25);
+      box-shadow: 0 12px 22px rgba(0,0,0,.40);
+      flex: 0 0 auto;
+    }
+    .footer-line{
+      font-size: 13px;
+      color: rgba(255,255,255,.78);
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      align-items:center;
+    }
+    .dot{ opacity:.55; }
 
     /* Responsive */
     @media (max-width: 980px){
-      .site-main{
-        align-items: flex-start;
+      :root{
+        --btn-w: 240px;
       }
-
-      .menu-grid{ grid-template-columns: 1fr; }
-      .menu-col + .menu-col{
-        border-left: none;
-        border-top: 1px solid rgba(120,200,255,.14);
-      }
-
-      /* En mobile, pas de hauteur fixe */
-      .item{
-        height: auto;
+      .menu-grid{
         grid-template-columns: 1fr;
       }
-      .desc{
-        display: block;
-        -webkit-line-clamp: unset;
-        overflow: visible;
-      }
-
-      .footer-inner{ justify-content: center; }
-      .footer-links{ justify-content: center; }
+      .menu-sep{ display:none; }
     }
-
-    @media (max-width: 520px){
+    @media (max-width: 620px){
       :root{
         --header-h: 120px;
-        --footer-h: 112px;
-        --btn-w: 100%;
+        --footer-h: 86px;
+        --btn-w: 220px;
       }
-      .header-title{ font-size: 22px; }
-      .toTop{
-        right: 14px;
-        bottom: calc(var(--footer-h) + 14px);
+      .brand-logo{ width:54px; height:54px; }
+      .brand h1{ font-size: 22px; }
+      .menu-item{
+        grid-template-columns: 1fr;
       }
+      .menu-btn{
+        width: 100%;
+      }
+    }
+    @media (max-height: 700px){
+      .main-inner{ align-items:flex-start; }
     }
   </style>
 </head>
 
 <body>
-  <header class="site-header">
+  <!-- HEADER -->
+  <header>
     <div class="header-inner">
-      <h1 class="header-title">Centre d'infos Darkorbit par JohnLocke</h1>
-      <p class="header-subtitle">Docs &amp; outils</p>
+      <div class="brand">
+        <!-- IMPORTANT : mets ton logo ici -->
+        <img class="brand-logo" src="./assets/darkorbit-logo.png" alt="DarkOrbit" />
+        <div class="brand-text">
+          <h1>Centre d'infos Darkorbit par JohnLocke</h1>
+          <div class="subtitle">Docs &amp; outils</div>
+        </div>
+      </div>
+
+      <div class="badge">CORE v2</div>
     </div>
   </header>
 
-  <main class="site-main" role="main" id="mainScroll">
-    <div class="wrap">
-      <section class="menu-panel" aria-label="Menu principal">
+  <!-- MAIN (scrollable) -->
+  <main id="mainScroll" aria-label="Contenu">
+    <div class="main-inner">
+      <section class="menu" aria-label="Menu principal">
         <div class="menu-grid">
-
-          <!-- DOCS -->
+          <!-- COLONNE DOCS -->
           <div class="menu-col">
-            <h2 class="col-title">Docs</h2>
+            <h2>Docs</h2>
+            <div class="menu-list">
+              <article class="menu-item">
+                <a class="menu-btn" href="./docs/annonces/">Annonces</a>
+                <p class="menu-desc">Infos, changements, events, suivi des nouveautés.</p>
+              </article>
 
-            <div class="item">
-              <a class="btn" href="#" title="À définir">Annonces / Actualités</a>
-              <p class="desc">Infos, changements, events, suivi des nouveautés.</p>
-            </div>
+              <article class="menu-item">
+                <a class="menu-btn" href="./docs/astuces/">Astuces</a>
+                <p class="menu-desc">Tips courts, optimisations, retours d’expérience.</p>
+              </article>
 
-            <div class="item">
-              <a class="btn" href="#" title="À définir">Astuces</a>
-              <p class="desc">Tips courts, optimisations, retours d'expérience.</p>
-            </div>
+              <article class="menu-item">
+                <a class="menu-btn" href="./docs/glossaire/">Glossaire</a>
+                <p class="menu-desc">Termes FR/EN, abréviations, définitions.</p>
+              </article>
 
-            <div class="item">
-              <a class="btn" href="#" title="À définir">Glossaire</a>
-              <p class="desc">Termes FR/EN, abréviations, définitions.</p>
-            </div>
+              <article class="menu-item">
+                <a class="menu-btn" href="./docs/guides/">Guides</a>
+                <p class="menu-desc">Guides complets par sujet.</p>
+              </article>
 
-            <div class="item">
-              <a class="btn" href="#" title="À définir">Guides</a>
-              <p class="desc">Guides complets par sujet.</p>
-            </div>
-
-            <div class="item">
-              <a class="btn" href="#" title="À définir">Techniques</a>
-              <p class="desc">Fiches stats : dégâts, valeurs, caractéristiques.</p>
+              <article class="menu-item">
+                <a class="menu-btn" href="./docs/techniques/">Techniques</a>
+                <p class="menu-desc">Fiches stats : dégâts, valeurs, caractéristiques.</p>
+              </article>
             </div>
           </div>
 
-          <!-- OUTILS -->
+          <!-- Séparateur vertical -->
+          <div class="menu-sep" aria-hidden="true"></div>
+
+          <!-- COLONNE OUTILS -->
           <div class="menu-col">
-            <h2 class="col-title">Outils</h2>
+            <h2>Outils</h2>
+            <div class="menu-list">
+              <article class="menu-item">
+                <a class="menu-btn" href="./outils/calculateur/">Calculatrice dégâts / défense</a>
+                <p class="menu-desc">Calcule dégâts, réduction, bouclier et variations selon bonus.</p>
+              </article>
 
-            <div class="item">
-              <a class="btn" href="#" title="À définir">Calculatrice dégâts / défense</a>
-              <p class="desc">Calcule dégâts, réduction, bouclier et variations selon bonus.</p>
-            </div>
+              <article class="menu-item">
+                <a class="menu-btn" href="./outils/lasers/">Comparateur de lasers</a>
+                <p class="menu-desc">Compare lasers/configs (dégâts, DPS, efficacité) selon contexte.</p>
+              </article>
 
-            <div class="item">
-              <a class="btn" href="#" title="À définir">Comparateur de lasers</a>
-              <p class="desc">Compare lasers/configs (dégâts, DPS, efficacité) selon contexte.</p>
-            </div>
+              <article class="menu-item">
+                <a class="menu-btn" href="./outils/base62/">Convertisseur Base62 ↔ Base10</a>
+                <p class="menu-desc">Conversion rapide dans les deux sens.</p>
+              </article>
 
-            <div class="item">
-              <a class="btn" href="#" title="À définir">Convertisseur Base62 ↔ Base10</a>
-              <p class="desc">Conversion rapide dans les deux sens.</p>
-            </div>
+              <article class="menu-item">
+                <a class="menu-btn" href="./outils/gg/">Planificateur Galaxy Gates</a>
+                <p class="menu-desc">Estime coût/temps/ressources pour viser une Gate.</p>
+              </article>
 
-            <div class="item">
-              <a class="btn" href="#" title="À définir">Planificateur Galaxy Gates (GG)</a>
-              <p class="desc">Estime coût/temps/ressources pour viser une Gate.</p>
-            </div>
-
-            <div class="item">
-              <a class="btn" href="#" title="À définir">Profit par heure (Profit/h)</a>
-              <p class="desc">Estime ton gain/h selon activité, durée, et coûts.</p>
+              <article class="menu-item">
+                <a class="menu-btn" href="./outils/profit/">Profit par heure (Profit/h)</a>
+                <p class="menu-desc">Estime ton gain/h selon activité, durée, et coûts.</p>
+              </article>
             </div>
           </div>
-
         </div>
       </section>
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-left">
-        <img class="footer-avatar" src="assets/avatar.jpg" alt="Avatar JohnLocke">
-        <div class="footer-text">
-          <div class="line1">© 2026 JohnLocke</div>
-          <div class="line2">
-            <a href="mailto:John.Locke.70@outlook.fr">John.Locke.70@outlook.fr</a>
-          </div>
-        </div>
-      </div>
+  <!-- Haut de page -->
+  <button id="toTop" class="to-top" type="button" aria-label="Haut de page" title="Haut de page">↑</button>
 
-      <div class="footer-links" aria-label="Liens">
-        <a href="#" title="À définir">Commentaires</a>
-        <span>·</span>
-        <a href="#" title="À définir">CGU</a>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <!-- IMPORTANT : mets ton avatar ici -->
+      <img class="avatar" src="./assets/avatar.jpg" alt="Avatar JohnLocke" />
+
+      <div class="footer-line">
+        <span>© 2026 JohnLocke</span>
+        <span class="dot">•</span>
+
+        <!-- IMPORTANT : ton email ici -->
+        <a href="mailto:John.Locke.70@outlook.fr">John.Locke.70@outlook.fr</a>
+
+        <span class="dot">•</span>
+        <a href="./contact/">Contact</a>
+
+        <span class="dot">•</span>
+        <a href="https://github.com/JohnLocke70/jl-comments/discussions" target="_blank" rel="noopener">Commentaires</a>
+
+        <span class="dot">•</span>
+        <a href="./cgu/">Règlements (CGU)</a>
       </div>
     </div>
   </footer>
 
-  <!-- Bouton haut de page -->
-  <button class="toTop" id="toTopBtn" type="button" aria-label="Haut de page" title="Haut de page">↑</button>
-
   <script>
     (function(){
       const main = document.getElementById('mainScroll');
-      const btn  = document.getElementById('toTopBtn');
+      const toTop = document.getElementById('toTop');
 
-      function updateBtn(){
-        const canScroll = main.scrollHeight > main.clientHeight + 2;
-        const show = canScroll && main.scrollTop > 40;
-        btn.classList.toggle('is-visible', show);
+      function refresh(){
+        const show = main.scrollTop > 120;
+        toTop.classList.toggle('show', show);
       }
 
-      btn.addEventListener('click', () => {
+      main.addEventListener('scroll', refresh, {passive:true});
+      window.addEventListener('resize', refresh);
+
+      toTop.addEventListener('click', () => {
         main.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
-      main.addEventListener('scroll', updateBtn, { passive: true });
-      window.addEventListener('resize', updateBtn);
-
-      updateBtn();
+      refresh();
     })();
   </script>
 </body>
