@@ -15,37 +15,40 @@
       --text: rgba(255,255,255,.90);
       --muted: rgba(255,255,255,.74);
 
-      /* Barres */
-      --bar: rgba(0,0,0,.92);
-      --bar-border: rgba(255,255,255,.10);
-
       /* Hauteurs fixes */
       --header-h: 110px;
       --footer-h: 92px;
 
-      /* Largeur menu (élargie) */
+      /* Largeur menu */
       --wrap: 1280px;
 
-      /* Panneau menu (translucide) */
+      /* Barres (dégradés bleu foncé) */
+      --bar-border: rgba(255,255,255,.10);
+
+      /* Panneau menu */
       --panel: rgba(8, 18, 28, .60);
       --panel-border: rgba(120, 200, 255, .18);
 
-      /* Encadrés item (plus visibles) */
-      --item-bg: rgba(12, 55, 70, .24); /* bleu/cyan léger */
-      --item-border: rgba(87, 200, 255, .18);
-      --item-border-strong: rgba(87, 200, 255, .28);
+      /* Encadrés item */
+      --item-bg: rgba(12, 55, 70, .26); /* bleu/cyan léger, visible */
+      --item-border: rgba(87, 200, 255, .20);
+      --item-border-strong: rgba(87, 200, 255, .30);
 
       /* Boutons uniformisés */
-      --btn-w: 320px;    /* colonne boutons */
-      --btn-h: 54px;     /* hauteur boutons */
+      --btn-w: 320px;
+      --btn-h: 54px;
 
       /* Encadrés uniformisés */
-      --item-h: 86px;    /* hauteur FIXE des encadrés (desktop) */
+      --item-h: 86px;  /* hauteur fixe desktop */
 
+      /* Boutons (sombres) */
       --btn-bg: #0b2430;
       --btn-bg-hover: #0f3242;
       --btn-border: rgba(87, 200, 255, .55);
       --btn-border-hover: rgba(87, 200, 255, .85);
+
+      /* Bouton haut de page */
+      --toTop-size: 46px;
     }
 
     *{ box-sizing: border-box; }
@@ -57,10 +60,10 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
       overflow: hidden;
-      background: #050b10;
+      background: #061118;
     }
 
-    /* Fond spatial (plus cyan, moins sombre en bas) */
+    /* Fond spatial (moins sombre en bas) */
     body::before{
       content:"";
       position: fixed;
@@ -68,14 +71,14 @@
       z-index: 0;
       pointer-events: none;
       background:
-        radial-gradient(1200px 800px at 18% 18%, rgba(87,200,255,.22), transparent 58%),
-        radial-gradient(1100px 780px at 82% 20%, rgba(90,235,255,.18), transparent 62%),
+        radial-gradient(1200px 800px at 18% 18%, rgba(87,200,255,.20), transparent 58%),
+        radial-gradient(1100px 780px at 82% 20%, rgba(90,235,255,.16), transparent 62%),
         radial-gradient(1100px 820px at 75% 78%, rgba(0,255,220,.12), transparent 62%),
-        radial-gradient(1000px 700px at 25% 85%, rgba(20,120,170,.16), transparent 65%),
-        /* boost cyan bas-droit (réduit le “gros sombre”) */
-        radial-gradient(1400px 980px at 88% 92%, rgba(87,200,255,.20), transparent 62%),
-        radial-gradient(1100px 900px at 50% 95%, rgba(40,220,255,.10), transparent 66%),
-        linear-gradient(180deg, #081720 0%, #050b10 100%);
+        radial-gradient(1000px 700px at 25% 85%, rgba(20,120,170,.14), transparent 65%),
+        /* BOOST bas (pour éviter gros coin sombre) */
+        radial-gradient(1600px 1100px at 85% 92%, rgba(87,200,255,.22), transparent 64%),
+        radial-gradient(1400px 1000px at 40% 96%, rgba(50,220,255,.12), transparent 68%),
+        linear-gradient(180deg, #0a2431 0%, #061118 100%);
       filter: saturate(1.06) contrast(1.02);
     }
 
@@ -86,7 +89,7 @@
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      opacity: .33;
+      opacity: .32;
       background-image:
         radial-gradient(1px 1px at 10% 18%, rgba(255,255,255,.80) 50%, transparent 55%),
         radial-gradient(1px 1px at 42% 10%, rgba(255,255,255,.60) 50%, transparent 55%),
@@ -102,24 +105,31 @@
     a{ color: var(--accent); text-decoration: none; }
     a:hover{ text-decoration: underline; }
 
-    /* HEADER fixe */
+    /* HEADER fixe : dégradé */
     .site-header{
       position: fixed;
       top: 0; left: 0; right: 0;
       height: var(--header-h);
-      background: var(--bar);
-      border-bottom: 1px solid var(--bar-border);
       z-index: 50;
       display: flex;
       align-items: center;
       justify-content: center;
+      border-bottom: 1px solid var(--bar-border);
       backdrop-filter: blur(8px);
+
+      background:
+        linear-gradient(180deg,
+          rgba(16, 64, 86, .92) 0%,
+          rgba(8, 30, 44, .92) 55%,
+          rgba(6, 18, 28, .92) 100%);
     }
+
     .header-inner{
       width: min(var(--wrap), calc(100% - 32px));
       padding: 0 16px;
       text-align: center;
     }
+
     .header-title{
       margin: 0;
       font-size: 28px;
@@ -128,25 +138,32 @@
       color: var(--accent);
       text-shadow: 0 0 14px rgba(87,200,255,.15);
     }
+
     .header-subtitle{
       margin: 6px 0 0;
-      color: rgba(255,255,255,.78);
+      color: rgba(255,255,255,.80);
       font-weight: 700;
     }
 
-    /* FOOTER fixe */
+    /* FOOTER fixe : dégradé */
     .site-footer{
       position: fixed;
       bottom: 0; left: 0; right: 0;
       height: var(--footer-h);
-      background: var(--bar);
-      border-top: 1px solid var(--bar-border);
       z-index: 50;
       display: flex;
       align-items: center;
       justify-content: center;
+      border-top: 1px solid var(--bar-border);
       backdrop-filter: blur(8px);
+
+      background:
+        linear-gradient(180deg,
+          rgba(6, 18, 28, .92) 0%,
+          rgba(8, 30, 44, .92) 45%,
+          rgba(16, 64, 86, .92) 100%);
     }
+
     .footer-inner{
       width: min(var(--wrap), calc(100% - 32px));
       padding: 0 16px;
@@ -156,12 +173,14 @@
       gap: 14px;
       flex-wrap: wrap;
     }
+
     .footer-left{
       display: flex;
       align-items: center;
       gap: 12px;
       min-width: 260px;
     }
+
     .footer-avatar{
       width: 50px;
       height: 50px;
@@ -170,6 +189,7 @@
       box-shadow: 0 0 0 1px rgba(255,255,255,.10);
       background: rgba(255,255,255,.02);
     }
+
     .footer-text{
       display: flex;
       flex-direction: column;
@@ -177,14 +197,17 @@
       line-height: 1.2;
       font-size: 14px;
     }
+
     .footer-text .line1{
-      color: rgba(255,255,255,.86);
+      color: rgba(255,255,255,.88);
       font-weight: 900;
     }
+
     .footer-text .line2{
-      color: rgba(255,255,255,.72);
+      color: rgba(255,255,255,.74);
       font-weight: 650;
     }
+
     .footer-links{
       display: flex;
       gap: 12px;
@@ -195,7 +218,7 @@
     }
     .footer-links a{ color: var(--accent); }
 
-    /* MAIN : scroll uniquement entre header/footer + centrage */
+    /* MAIN : zone scrollable uniquement entre header/footer */
     .site-main{
       position: fixed;
       top: var(--header-h);
@@ -203,13 +226,17 @@
       left: 0;
       right: 0;
 
+      /* Scrollbars seulement si nécessaire */
       overflow: auto;
-      overflow-x: hidden;
+      overflow-y: auto;
+      overflow-x: auto;
+
       z-index: 10;
 
+      /* Centrage si ça tient à l'écran */
       display: flex;
-      align-items: center;      /* centrage vertical */
-      justify-content: center;  /* centrage horizontal */
+      align-items: center;
+      justify-content: center;
 
       padding: 26px 16px;
       scrollbar-gutter: stable;
@@ -255,14 +282,14 @@
       text-shadow: 0 0 12px rgba(87,200,255,.10);
     }
 
-    /* Encadré item : DIMENSIONS IDENTIQUES (desktop) */
+    /* Encadrés : mêmes dimensions (desktop) */
     .item{
       display: grid;
       grid-template-columns: var(--btn-w) minmax(0, 1fr);
       align-items: center;
       gap: 14px;
 
-      height: var(--item-h);        /* <-- hauteur fixe */
+      height: var(--item-h);
       padding: 12px;
 
       border-radius: 14px;
@@ -272,12 +299,14 @@
 
       margin-bottom: 10px;
     }
+
     .item:hover{
       border-color: var(--item-border-strong);
     }
+
     .item:last-child{ margin-bottom: 0; }
 
-    /* Boutons : mêmes largeur/hauteur partout */
+    /* Boutons uniformisés */
     .btn{
       display: inline-flex;
       justify-content: center;
@@ -300,6 +329,7 @@
 
       transition: transform .12s ease, background-color .12s ease, border-color .12s ease, box-shadow .12s ease;
     }
+
     .btn:hover{
       background: var(--btn-bg-hover);
       border-color: var(--btn-border-hover);
@@ -307,9 +337,10 @@
       transform: translateY(-1px);
       text-decoration: none;
     }
+
     .btn:active{ transform: translateY(0); }
 
-    /* Description : limitée à 2 lignes pour garder les encadrés identiques */
+    /* Description : 2 lignes max (desktop) */
     .desc{
       margin: 0;
       color: rgba(255,255,255,.82);
@@ -320,6 +351,48 @@
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       overflow: hidden;
+    }
+
+    /* Bouton haut de page (flèche), au-dessus du footer, coin droit */
+    .toTop{
+      position: fixed;
+      right: 18px;
+      bottom: calc(var(--footer-h) + 18px);
+      width: var(--toTop-size);
+      height: var(--toTop-size);
+      border-radius: 999px;
+
+      display: grid;
+      place-items: center;
+
+      background: rgba(11, 36, 48, .92);
+      border: 1px solid rgba(87,200,255,.55);
+      box-shadow: 0 12px 24px rgba(0,0,0,.30), inset 0 0 0 1px rgba(255,255,255,.05);
+
+      color: #ffffff;
+      font-weight: 1000;
+      font-size: 18px;
+      line-height: 1;
+
+      cursor: pointer;
+      z-index: 60;
+
+      /* caché par défaut (JS active si nécessaire) */
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px);
+      transition: opacity .15s ease, transform .15s ease, border-color .15s ease, background-color .15s ease;
+    }
+
+    .toTop:hover{
+      background: rgba(15, 50, 66, .96);
+      border-color: rgba(87,200,255,.85);
+    }
+
+    .toTop.is-visible{
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
     }
 
     /* Responsive */
@@ -334,7 +407,7 @@
         border-top: 1px solid rgba(120,200,255,.14);
       }
 
-      /* En mobile on enlève la hauteur fixe (sinon trop serré) */
+      /* En mobile, pas de hauteur fixe */
       .item{
         height: auto;
         grid-template-columns: 1fr;
@@ -356,6 +429,10 @@
         --btn-w: 100%;
       }
       .header-title{ font-size: 22px; }
+      .toTop{
+        right: 14px;
+        bottom: calc(var(--footer-h) + 14px);
+      }
     }
   </style>
 </head>
@@ -368,7 +445,7 @@
     </div>
   </header>
 
-  <main class="site-main" role="main">
+  <main class="site-main" role="main" id="mainScroll">
     <div class="wrap">
       <section class="menu-panel" aria-label="Menu principal">
         <div class="menu-grid">
@@ -457,5 +534,30 @@
       </div>
     </div>
   </footer>
+
+  <!-- Bouton haut de page -->
+  <button class="toTop" id="toTopBtn" type="button" aria-label="Haut de page" title="Haut de page">↑</button>
+
+  <script>
+    (function(){
+      const main = document.getElementById('mainScroll');
+      const btn  = document.getElementById('toTopBtn');
+
+      function updateBtn(){
+        const canScroll = main.scrollHeight > main.clientHeight + 2;
+        const show = canScroll && main.scrollTop > 40;
+        btn.classList.toggle('is-visible', show);
+      }
+
+      btn.addEventListener('click', () => {
+        main.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      main.addEventListener('scroll', updateBtn, { passive: true });
+      window.addEventListener('resize', updateBtn);
+
+      updateBtn();
+    })();
+  </script>
 </body>
 </html>
