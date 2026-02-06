@@ -22,13 +22,9 @@
       /* Doré doux texte bouton */
       --btn-text: rgba(214, 175, 64, .82);
 
-      /* Panels */
-      --panel-border: var(--gold-soft);
-
       /* Boutons */
       --btn-w: 340px;
       --btn-h: 46px;
-      --btn-border: var(--gold-soft);
       --btn-border-hover: var(--gold);
 
       /* Fond */
@@ -40,7 +36,7 @@
       --sep-gray: rgba(160, 170, 178, .55);
       --sep-gray-soft: rgba(160, 170, 178, .25);
 
-      /* Doré 3D / creux */
+      /* Doré creux */
       --gold-hi: rgba(255, 238, 190, .38);
       --gold-mid: rgba(214, 175, 64, .62);
       --gold-lo: rgba(120, 86, 18, .45);
@@ -85,7 +81,7 @@
       opacity:.62;
     }
 
-    /* HEADER FIXE */
+    /* HEADER FIXE (figé) */
     header{
       position: fixed;
       top:0; left:0; right:0;
@@ -234,16 +230,15 @@
       padding: 18px 18px 20px;
       backdrop-filter: blur(10px);
 
-      /* ✅ Ombres directionnelles (lumière haut-gauche) */
+      /* Ombres directionnelles (lumière haut-gauche) */
       box-shadow:
-        -14px -14px 34px var(--menu-glow),    /* halo clair haut-gauche */
-        22px 22px 60px var(--menu-shadow),    /* ombre profonde bas-droite */
-        10px 10px 28px var(--menu-shadow2);   /* ombre secondaire */
+        -14px -14px 34px var(--menu-glow),
+        22px 22px 60px var(--menu-shadow),
+        10px 10px 28px var(--menu-shadow2);
 
       position: relative;
     }
 
-    /* petit liseré interne subtil */
     .menu::before{
       content:"";
       position:absolute;
@@ -255,7 +250,6 @@
         inset -1px -1px 0 rgba(0,0,0,.18);
     }
 
-    /* Titre menu centré + séparateur quasi pleine largeur (effet CREUX) */
     .menu-title{
       margin: 4px 0 12px;
       text-align: center;
@@ -268,7 +262,7 @@
       padding-bottom: 14px;
     }
 
-    /* ✅ Séparateur horizontal "creux" doré */
+    /* Séparateur horizontal "creux" doré */
     .menu-title::after{
       content:"";
       display:block;
@@ -276,15 +270,12 @@
       height: 4px;
       margin: 12px auto 0;
       border-radius: 99px;
-
-      /* bord clair / centre plus sombre => impression de creux */
       background: linear-gradient(
         180deg,
         rgba(255,238,190,.34) 0%,
         rgba(120,86,18,.50) 50%,
         rgba(255,238,190,.28) 100%
       );
-
       box-shadow:
         inset 0 2px 2px rgba(0,0,0,.35),
         inset 0 -1px 1px rgba(255,255,255,.10),
@@ -293,13 +284,13 @@
 
     .grid{
       display:grid;
-      grid-template-columns: 1fr 5px 1fr; /* un peu plus large pour le relief */
+      grid-template-columns: 1fr 5px 1fr;
       gap: 18px;
       align-items: start;
       margin-top: 0;
     }
 
-    /* ✅ Séparateur vertical "creux" doré */
+    /* Séparateur vertical "creux" doré */
     .divider{
       width: 5px;
       border-radius: 99px;
@@ -632,7 +623,7 @@
           <span class="dot">•</span>
           <a href="mailto:John.Locke.70@outlook.fr" title="Envoyer un email">Email</a>
           <span class="dot">•</span>
-          <a href="#" title="Bientôt">Commentaires</a>
+          <a href="commentaires.html" title="Commentaires">Commentaires</a>
           <span class="dot">•</span>
           <a href="#" title="Bientôt">CGU</a>
         </span>
