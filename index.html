@@ -8,7 +8,7 @@
   <style>
     :root{
       /* Hauteurs header/footer */
-      --header-h: 130px;  /* ✅ plus bas */
+      --header-h: 130px;
       --footer-h: 92px;
 
       /* Couleurs */
@@ -18,6 +18,9 @@
       /* Doré */
       --gold: rgba(214, 175, 64, .92);
       --gold-soft: rgba(214, 175, 64, .55);
+
+      /* Doré doux texte bouton */
+      --btn-text: rgba(214, 175, 64, .82);
 
       /* Panels */
       --panel-border: var(--gold-soft);
@@ -32,6 +35,10 @@
       --bg1: #0e425a; /* haut */
       --bg2: #0a3b52; /* milieu */
       --bg3: #093646; /* bas */
+
+      /* Séparateurs gris */
+      --sep-gray: rgba(160, 170, 178, .55);
+      --sep-gray-soft: rgba(160, 170, 178, .25);
     }
 
     *{ box-sizing:border-box; }
@@ -86,6 +93,19 @@
       backdrop-filter: blur(6px);
     }
 
+    /* ✅ Séparateur sous header (gris moyen) */
+    .sep-under-header{
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--sep-gray);
+      box-shadow: 0 0 0 1px var(--sep-gray-soft);
+      z-index: 9;
+      pointer-events: none;
+    }
+
     .brand{
       display:flex;
       align-items:center;
@@ -97,21 +117,23 @@
       position: relative;
     }
 
-    /* ✅ Projecteur réduit + plus compact */
+    /* ✅ Logo un peu plus grand, projecteur inchangé */
     .logo-wrap{
       position: relative;
-      width: 120px;   /* ✅ réduit */
-      height: 120px;  /* ✅ réduit */
+      width: 130px;   /* ↑ était 120 */
+      height: 130px;  /* ↑ était 120 */
       flex: 0 0 auto;
       display:flex;
       align-items:center;
       justify-content:center;
       z-index: 0;
     }
+
+    /* Projecteur (inchangé) */
     .logo-wrap::before{
       content:"";
       position:absolute;
-      inset: -18px;   /* ✅ moins large */
+      inset: -18px;
       background:
         radial-gradient(circle at 50% 50%,
           rgba(127,224,255,.62) 0%,
@@ -119,7 +141,7 @@
           rgba(127,224,255,.12) 48%,
           rgba(127,224,255,0) 70%);
       filter: blur(10px);
-      opacity: .60;   /* ✅ moins fort */
+      opacity: .60;
       z-index: -1;
       pointer-events:none;
       mix-blend-mode: screen;
@@ -127,22 +149,22 @@
     .logo-wrap::after{
       content:"";
       position:absolute;
-      inset: -36px;   /* ✅ moins large */
+      inset: -36px;
       background:
         radial-gradient(circle at 50% 50%,
           rgba(53,200,255,.20) 0%,
           rgba(53,200,255,.08) 45%,
           rgba(53,200,255,0) 75%);
       filter: blur(18px);
-      opacity: .55;   /* ✅ moins fort */
+      opacity: .55;
       z-index: -2;
       pointer-events:none;
       mix-blend-mode: screen;
     }
 
     .brand img.logo{
-      width: 120px;   /* ✅ réduit */
-      height: 120px;  /* ✅ réduit */
+      width: 130px;   /* ↑ était 120 */
+      height: 130px;  /* ↑ était 120 */
       object-fit: contain;
       filter:
         drop-shadow(0 0 18px rgba(53,200,255,.26))
@@ -173,7 +195,7 @@
       right: 0;
 
       overflow: auto;
-      padding: 0 18px; /* pour centrage vertical du menu */
+      padding: 0 18px;
     }
 
     .content::-webkit-scrollbar{ width: 10px; }
@@ -197,7 +219,7 @@
     .menu{
       width: min(1220px, 96vw);
       background: rgba(8, 34, 46, .55);
-      border: 1px solid var(--panel-border);
+      border: 1px solid rgba(214, 175, 64, .55);
       border-radius: 16px;
       padding: 18px 18px 20px;
       box-shadow: 0 18px 60px rgba(0,0,0,.35);
@@ -235,7 +257,6 @@
       margin-top: 0;
     }
 
-    /* Séparateur vertical doré */
     .divider{
       width: 2px;
       background: rgba(214,175,64,.58);
@@ -279,7 +300,10 @@
       align-items:center;
       justify-content:center;
       text-decoration:none;
-      color: var(--text);
+
+      /* ✅ Texte doré doux */
+      color: var(--btn-text);
+
       font-weight: 950;
       letter-spacing: .2px;
 
@@ -287,7 +311,7 @@
       height: var(--btn-h);
 
       background: rgba(8, 28, 40, .98);
-      border: 1px solid var(--btn-border);
+      border: 1px solid rgba(214,175,64,.55);
       border-radius: 12px;
       padding: 0 14px;
 
@@ -306,6 +330,7 @@
       border-color: var(--btn-border-hover);
       transform: translateY(-1px);
       filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
+      color: rgba(214,175,64,.92); /* un peu plus lisible au hover */
     }
     .btn:active{ transform: translateY(0px); }
 
@@ -337,6 +362,19 @@
         rgba(7,26,36,.42) 100%);
       border-top: 1px solid rgba(214,175,64,.25);
       backdrop-filter: blur(6px);
+    }
+
+    /* ✅ Séparateur au-dessus du footer (gris moyen) */
+    .sep-above-footer{
+      position: fixed;
+      bottom: var(--footer-h);
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--sep-gray);
+      box-shadow: 0 0 0 1px var(--sep-gray-soft);
+      z-index: 9;
+      pointer-events: none;
     }
 
     .footer-inner{
@@ -420,7 +458,7 @@
 
     @media (max-width: 980px){
       :root{
-        --header-h: 150px; /* ✅ compact aussi sur mobile */
+        --header-h: 150px;
         --btn-w: 100%;
         --btn-h: 48px;
       }
@@ -429,8 +467,8 @@
       .item{ grid-template-columns: 1fr; }
       .btn{ width: 100%; white-space: normal; }
       .brand{ flex-direction:column; gap: 8px; }
-      .logo-wrap{ width: 110px; height: 110px; }
-      .brand img.logo{ width: 110px; height: 110px; }
+      .logo-wrap{ width: 120px; height: 120px; }  /* un peu plus grand aussi */
+      .brand img.logo{ width: 120px; height: 120px; }
 
       .footer-inner{
         flex-direction:column;
@@ -454,6 +492,9 @@
       </div>
     </div>
   </header>
+
+  <!-- ✅ séparateur gris sous header -->
+  <div class="sep-under-header" aria-hidden="true"></div>
 
   <main class="content" id="top">
     <div class="menu-wrap">
@@ -524,6 +565,9 @@
       </section>
     </div>
   </main>
+
+  <!-- ✅ séparateur gris au-dessus du footer -->
+  <div class="sep-above-footer" aria-hidden="true"></div>
 
   <footer>
     <div class="footer-inner">
