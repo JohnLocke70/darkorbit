@@ -13,7 +13,7 @@
 
       /* Texte */
       --text: rgba(255,255,255,.90);
-      --muted: rgba(255,255,255,.72);
+      --muted: rgba(255,255,255,.74);
 
       /* Barres */
       --bar: rgba(0,0,0,.92);
@@ -30,26 +30,34 @@
       --panel: rgba(8, 18, 28, .60);
       --panel-border: rgba(120, 200, 255, .18);
 
-      /* Boutons (sombres, opaques) */
-      --btn-bg: #0b2430;
+      /* Encadrés item (plus visibles) */
+      --item-bg: rgba(12, 55, 70, .24);          /* bleu/cyan léger */
+      --item-border: rgba(87, 200, 255, .18);
+      --item-border-strong: rgba(87, 200, 255, .26);
+
+      /* Boutons uniformisés */
+      --btn-w: 290px;    /* largeur fixe de la colonne boutons (ajuste si besoin) */
+      --btn-h: 54px;     /* hauteur fixe des boutons (ajuste si besoin) */
+
+      --btn-bg: #0b2430;          /* sombre opaque */
       --btn-bg-hover: #0f3242;
-      --btn-border: rgba(87, 200, 255, .45);
-      --btn-border-hover: rgba(87, 200, 255, .75);
+      --btn-border: rgba(87, 200, 255, .55);
+      --btn-border-hover: rgba(87, 200, 255, .85);
     }
 
     *{ box-sizing: border-box; }
     html, body{ height: 100%; }
 
-    /* IMPORTANT : pas de scroll sur body (tout le scroll est dans main) */
+    /* Pas de scroll sur body : seul le milieu scroll */
     body{
       margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
-      overflow: hidden;         /* <-- clé */
+      overflow: hidden;
       background: #050b10;
     }
 
-    /* Fond spatial (plus cyan, moins de zones noires) */
+    /* Fond spatial (plus cyan, moins de zones sombres) */
     body::before{
       content:"";
       position: fixed;
@@ -73,7 +81,7 @@
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      opacity: .35;
+      opacity: .33;
       background-image:
         radial-gradient(1px 1px at 10% 18%, rgba(255,255,255,.80) 50%, transparent 55%),
         radial-gradient(1px 1px at 42% 10%, rgba(255,255,255,.60) 50%, transparent 55%),
@@ -102,13 +110,11 @@
       justify-content: center;
       backdrop-filter: blur(8px);
     }
-
     .header-inner{
       width: min(var(--wrap), calc(100% - 32px));
       padding: 0 16px;
       text-align: center;
     }
-
     .header-title{
       margin: 0;
       font-size: 28px;
@@ -117,7 +123,6 @@
       color: var(--accent);
       text-shadow: 0 0 14px rgba(87,200,255,.15);
     }
-
     .header-subtitle{
       margin: 6px 0 0;
       color: rgba(255,255,255,.78);
@@ -137,7 +142,6 @@
       justify-content: center;
       backdrop-filter: blur(8px);
     }
-
     .footer-inner{
       width: min(var(--wrap), calc(100% - 32px));
       padding: 0 16px;
@@ -147,14 +151,12 @@
       gap: 14px;
       flex-wrap: wrap;
     }
-
     .footer-left{
       display: flex;
       align-items: center;
       gap: 12px;
       min-width: 260px;
     }
-
     .footer-avatar{
       width: 50px;
       height: 50px;
@@ -163,7 +165,6 @@
       box-shadow: 0 0 0 1px rgba(255,255,255,.10);
       background: rgba(255,255,255,.02);
     }
-
     .footer-text{
       display: flex;
       flex-direction: column;
@@ -171,17 +172,14 @@
       line-height: 1.2;
       font-size: 14px;
     }
-
     .footer-text .line1{
       color: rgba(255,255,255,.86);
       font-weight: 900;
     }
-
     .footer-text .line2{
       color: rgba(255,255,255,.72);
       font-weight: 650;
     }
-
     .footer-links{
       display: flex;
       gap: 12px;
@@ -192,7 +190,7 @@
     }
     .footer-links a{ color: var(--accent); }
 
-    /* MAIN : zone scrollable ENTRE header et footer */
+    /* MAIN : zone scrollable ENTRE header et footer + centrage vertical/horizontal */
     .site-main{
       position: fixed;
       top: var(--header-h);
@@ -200,17 +198,22 @@
       left: 0;
       right: 0;
 
-      overflow: auto;           /* <-- scroll ici */
-      overflow-x: hidden;       /* évite "code à droite" si overflow */
+      overflow: auto;          /* scroll ici */
+      overflow-x: hidden;
       z-index: 10;
 
+      /* centrage si le contenu tient */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       padding: 26px 16px;
-      scrollbar-gutter: stable; /* évite les sauts de largeur */
+      scrollbar-gutter: stable;
     }
 
     .wrap{
       width: min(var(--wrap), calc(100% - 32px));
-      margin: 0 auto;
+      margin: auto;           /* aide au centrage vertical dans le flex */
       padding: 0 16px;
     }
 
@@ -248,39 +251,49 @@
       text-shadow: 0 0 12px rgba(87,200,255,.10);
     }
 
+    /* Encadré item (plus visible) */
     .item{
       display: grid;
-      grid-template-columns: 240px minmax(0, 1fr);
+      grid-template-columns: var(--btn-w) minmax(0, 1fr);
       align-items: center;
       gap: 14px;
-      padding: 10px;
+
+      padding: 12px;
       border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.06);
-      background: rgba(0,0,0,.18);
+      border: 1px solid var(--item-border);
+      background: var(--item-bg);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.18);
+
       margin-bottom: 10px;
     }
-
+    .item:hover{
+      border-color: var(--item-border-strong);
+    }
     .item:last-child{ margin-bottom: 0; }
 
-    /* Boutons sombres */
+    /* Boutons uniformisés (même largeur/hauteur partout) */
     .btn{
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      min-height: 44px;
-      padding: 12px 14px;
+
+      width: 100%;
+      height: var(--btn-h);
+
+      padding: 10px 14px;
       border-radius: 12px;
+
       font-weight: 900;
       color: #fff;
       background: var(--btn-bg);
       border: 1px solid var(--btn-border);
       box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+
       text-decoration: none;
       text-align: center;
-      width: 100%;
+
       transition: transform .12s ease, background-color .12s ease, border-color .12s ease, box-shadow .12s ease;
     }
-
     .btn:hover{
       background: var(--btn-bg-hover);
       border-color: var(--btn-border-hover);
@@ -288,12 +301,11 @@
       transform: translateY(-1px);
       text-decoration: none;
     }
-
     .btn:active{ transform: translateY(0); }
 
     .desc{
       margin: 0;
-      color: rgba(255,255,255,.80);
+      color: rgba(255,255,255,.82);
       font-weight: 650;
       line-height: 1.25;
       overflow-wrap: anywhere;
@@ -301,12 +313,22 @@
 
     /* Responsive */
     @media (max-width: 980px){
+      .site-main{
+        /* en mobile, le centrage vertical est moins utile ; on laisse respirer */
+        align-items: flex-start;
+      }
+
       .menu-grid{ grid-template-columns: 1fr; }
       .menu-col + .menu-col{
         border-left: none;
         border-top: 1px solid rgba(120,200,255,.14);
       }
-      .item{ grid-template-columns: 1fr; }
+      .item{
+        grid-template-columns: 1fr;
+      }
+      .btn{
+        height: 54px;
+      }
       .footer-inner{ justify-content: center; }
       .footer-links{ justify-content: center; }
     }
@@ -315,6 +337,7 @@
       :root{
         --header-h: 120px;
         --footer-h: 112px;
+        --btn-w: 100%;
       }
       .header-title{ font-size: 22px; }
     }
@@ -396,9 +419,6 @@
 
         </div>
       </section>
-
-      <!-- juste un peu d’espace en bas pour tester le scroll -->
-      <div style="height: 18px;"></div>
     </div>
   </main>
 
