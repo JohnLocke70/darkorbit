@@ -93,7 +93,7 @@
       backdrop-filter: blur(6px);
     }
 
-    /* ✅ Séparateur sous header (gris moyen) */
+    /* Séparateur sous header (gris moyen) */
     .sep-under-header{
       position: fixed;
       top: var(--header-h);
@@ -117,11 +117,11 @@
       position: relative;
     }
 
-    /* ✅ Logo un peu plus grand, projecteur inchangé */
+    /* Logo un peu plus grand, projecteur inchangé */
     .logo-wrap{
       position: relative;
-      width: 130px;   /* ↑ était 120 */
-      height: 130px;  /* ↑ était 120 */
+      width: 130px;
+      height: 130px;
       flex: 0 0 auto;
       display:flex;
       align-items:center;
@@ -163,8 +163,8 @@
     }
 
     .brand img.logo{
-      width: 130px;   /* ↑ était 120 */
-      height: 130px;  /* ↑ était 120 */
+      width: 130px;
+      height: 130px;
       object-fit: contain;
       filter:
         drop-shadow(0 0 18px rgba(53,200,255,.26))
@@ -300,10 +300,7 @@
       align-items:center;
       justify-content:center;
       text-decoration:none;
-
-      /* ✅ Texte doré doux */
       color: var(--btn-text);
-
       font-weight: 950;
       letter-spacing: .2px;
 
@@ -319,7 +316,7 @@
         inset 0 1px 0 rgba(255,255,255,.06),
         0 8px 18px rgba(0,0,0,.18);
 
-      transition: transform .08s ease, background .15s ease, border-color .15s ease, filter .15s ease;
+      transition: transform .08s ease, background .15s ease, border-color .15s ease, filter .15s ease, color .15s ease;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -330,7 +327,7 @@
       border-color: var(--btn-border-hover);
       transform: translateY(-1px);
       filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
-      color: rgba(214,175,64,.92); /* un peu plus lisible au hover */
+      color: rgba(214,175,64,.92);
     }
     .btn:active{ transform: translateY(0px); }
 
@@ -364,7 +361,7 @@
       backdrop-filter: blur(6px);
     }
 
-    /* ✅ Séparateur au-dessus du footer (gris moyen) */
+    /* Séparateur au-dessus du footer (gris moyen) */
     .sep-above-footer{
       position: fixed;
       bottom: var(--footer-h);
@@ -467,7 +464,7 @@
       .item{ grid-template-columns: 1fr; }
       .btn{ width: 100%; white-space: normal; }
       .brand{ flex-direction:column; gap: 8px; }
-      .logo-wrap{ width: 120px; height: 120px; }  /* un peu plus grand aussi */
+      .logo-wrap{ width: 120px; height: 120px; }
       .brand img.logo{ width: 120px; height: 120px; }
 
       .footer-inner{
@@ -493,7 +490,6 @@
     </div>
   </header>
 
-  <!-- ✅ séparateur gris sous header -->
   <div class="sep-under-header" aria-hidden="true"></div>
 
   <main class="content" id="top">
@@ -566,7 +562,6 @@
     </div>
   </main>
 
-  <!-- ✅ séparateur gris au-dessus du footer -->
   <div class="sep-above-footer" aria-hidden="true"></div>
 
   <footer>
@@ -580,6 +575,8 @@
         <span class="bar">|</span>
 
         <span class="footer-links">
+          <a href="apropos.html" title="À propos (auteur, contributeurs, sources)">À propos</a>
+          <span class="dot">•</span>
           <a href="mailto:John.Locke.70@outlook.fr" title="Envoyer un email">Email</a>
           <span class="dot">•</span>
           <a href="#" title="Bientôt">Commentaires</a>
