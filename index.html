@@ -19,7 +19,6 @@
 
       /* Panels */
       --panel-bg: rgba(10, 26, 34, .52);
-      --panel-bg-2: rgba(18, 52, 68, .28);
       --panel-border: rgba(120, 199, 227, .24);
 
       /* Boutons */
@@ -28,10 +27,10 @@
       --btn-border: rgba(120, 199, 227, .55);
       --btn-border-hover: rgba(120, 199, 227, .92);
 
-      /* Fond */
-      --bg1: #0b2e3f;
-      --bg2: #071a24;
-      --bg3: #031018;
+      /* Fond (plus cyan, moins sombre en bas) */
+      --bg1: #0e425a; /* haut */
+      --bg2: #0a3246; /* milieu */
+      --bg3: #082b3c; /* bas (pas noir) */
     }
 
     *{ box-sizing:border-box; }
@@ -39,11 +38,17 @@
     body{
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
-      overflow: hidden; /* on scroll dans .content, pas sur body */
+      overflow: hidden; /* scroll dans .content */
       background:
-        radial-gradient(1200px 800px at 22% 18%, rgba(47,169,214,.42) 0%, rgba(7,26,36,.0) 55%),
-        radial-gradient(900px 700px at 78% 32%, rgba(33,141,182,.24) 0%, rgba(7,26,36,.0) 60%),
-        radial-gradient(900px 700px at 78% 92%, rgba(7,26,36,.0) 0%, rgba(1,10,16,.72) 58%),
+        /* Halo cyan en haut-gauche */
+        radial-gradient(1200px 800px at 22% 18%, rgba(47,169,214,.46) 0%, rgba(7,26,36,0) 58%),
+        /* Halo cyan en haut-droit */
+        radial-gradient(900px 700px at 78% 28%, rgba(47,169,214,.26) 0%, rgba(7,26,36,0) 62%),
+        /* Halo cyan en bas-droit (pour éviter la zone trop sombre) */
+        radial-gradient(1200px 900px at 78% 92%, rgba(47,169,214,.34) 0%, rgba(7,26,36,0) 60%),
+        /* Léger vignettage (plus doux qu'avant) */
+        radial-gradient(1200px 900px at 50% 60%, rgba(0,0,0,0) 0%, rgba(0,0,0,.22) 72%),
+        /* Dégradé principal (pas de noir pur) */
         linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
     }
 
@@ -60,7 +65,7 @@
         radial-gradient(1px 1px at 86% 16%, rgba(255,255,255,.18) 0, rgba(255,255,255,0) 2px),
         radial-gradient(1px 1px at 92% 82%, rgba(255,255,255,.20) 0, rgba(255,255,255,0) 2px);
       pointer-events:none;
-      opacity:.7;
+      opacity:.65;
     }
 
     /* HEADER FIXE */
@@ -85,18 +90,19 @@
     .brand{
       display:flex;
       align-items:center;
-      gap: 14px;
+      gap: 16px;
       max-width: 1100px;
       width: 100%;
       justify-content: center;
       text-align:center;
     }
 
+    /* LOGO AGRANDI */
     .brand img.logo{
-      width: 52px;
-      height: 52px;
+      width: 72px;
+      height: 72px;
       object-fit: contain;
-      filter: drop-shadow(0 0 10px rgba(47,169,214,.25));
+      filter: drop-shadow(0 0 14px rgba(47,169,214,.28));
     }
 
     .brand h1{
@@ -190,7 +196,6 @@
       color: var(--accent);
       letter-spacing: .2px;
       font-weight: 800;
-      text-transform: none;
     }
 
     .col{
@@ -206,7 +211,7 @@
       gap: 14px;
       padding: 12px 12px;
       border-radius: 14px;
-      background: rgba(18, 66, 86, .26); /* plus visible */
+      background: rgba(18, 66, 86, .26);
       border: 1px solid rgba(120,199,227,.20);
     }
 
@@ -232,7 +237,7 @@
 
       padding: 10px 14px;
       min-height: 42px;
-      min-width: 240px; /* uniformise la largeur */
+      min-width: 240px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
       transition: transform .08s ease, background .15s ease, border-color .15s ease, filter .15s ease;
     }
@@ -280,7 +285,6 @@
       min-width: 0;
     }
 
-    /* Avatar: c’est ici que ça coince souvent → on force taille + object-fit */
     .avatar{
       width: 42px;
       height: 42px;
@@ -326,13 +330,14 @@
 
     /* Responsive */
     @media (max-width: 860px){
-      :root{ --header-h: 102px; --footer-h: 110px; }
+      :root{ --header-h: 112px; --footer-h: 110px; }
       .grid{ grid-template-columns: 1fr; }
       .divider{ display:none; }
       .btn{ min-width: 200px; }
       .footer-inner{ flex-direction:column; align-items:flex-start; }
       .footer-links{ justify-content:flex-start; }
       .brand{ flex-direction:column; gap: 8px; }
+      .brand img.logo{ width: 64px; height: 64px; }
     }
   </style>
 </head>
@@ -355,7 +360,7 @@
       <section class="menu" aria-label="Menu principal Darkorbit">
         <div class="menu-head">
           <div class="hint">Accès direct : documentation à gauche, outils à droite.</div>
-          <div class="hint">Version : prototype</div>
+          <div class="hint">Prototype</div>
         </div>
 
         <div class="grid">
@@ -429,7 +434,6 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-left">
-        <!-- IMPORTANT: chemin exact + taille forcée -->
         <img class="avatar" src="assets/johnlocke-avatar.jpg" alt="Avatar JohnLocke" />
         <div class="footer-text">
           <div class="footer-line">© 2026 JohnLocke</div>
