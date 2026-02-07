@@ -2,67 +2,65 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Commentaires — Centre d'infos Darkorbit</title>
-  <link rel="stylesheet" href="assets/site.css?v=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Commentaires</title>
+  <link rel="stylesheet" href="/darkorbit/assets/site.css?v=1" />
 </head>
-
 <body>
-  <header class="header">
-    <div class="header__wrap">
-      <img class="header__logo" src="assets/darkorbit-logo.png" alt="Logo DarkOrbit">
-      <div class="header__titles">
-        <h1 class="header__title">Centre d'infos Darkorbit par JohnLocke</h1>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-logo-wrap" aria-hidden="true">
+          <img class="brand-logo" src="/darkorbit/assets/darkorbit-logo.png" alt="" />
+        </div>
+        <div class="brand-titles">
+          <div class="brand-title">Centre d'infos Darkorbit par JohnLocke</div>
+        </div>
       </div>
     </div>
   </header>
 
-  <div class="sep-line top" aria-hidden="true"></div>
-  <div class="sep-line bottom" aria-hidden="true"></div>
+  <main class="site-main" id="top">
+    <div class="center-wrap">
+      <section class="menu-panel" style="max-width:900px">
+        <div class="menu-title">Commentaires</div>
+        <div class="menu-title-sep" aria-hidden="true"></div>
 
-  <main class="main" id="top">
-    <section class="menu" aria-label="Commentaires">
-      <div class="menu__title">Commentaires</div>
-      <div class="menu__title-sep"></div>
+        <p style="margin:0 0 14px; color:rgba(255,255,255,.82)">
+          Tu peux lire les commentaires et en poster via GitHub (Issues). Aucun accès à ton compte n’est donné aux visiteurs.
+        </p>
 
-      <div style="color: rgba(255,255,255,.78); line-height:1.35; margin: 0 0 14px;">
-        Les commentaires sont stockés dans les <b>Issues GitHub</b> du projet.
-      </div>
-
-      <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom: 10px;">
-        <a class="btn btn--small" href="https://github.com/JohnLocke70/darkorbit/issues/new" target="_blank" rel="noopener">
-          Écrire un commentaire
-        </a>
-
-        <!-- NOUVEAU bouton demandé -->
-        <a class="btn btn--small" href="https://github.com/JohnLocke70/darkorbit/issues" target="_blank" rel="noopener">
-          Voir les commentaires
-        </a>
-
-        <a class="btn btn--small" href="index.html">
-          Retour au menu
-        </a>
-      </div>
-    </section>
+        <div style="display:flex; gap:12px; flex-wrap:wrap">
+          <a class="menu-btn" style="width:260px" href="https://github.com/JohnLocke70/darkorbit/issues">Voir les commentaires</a>
+          <a class="menu-btn" style="width:260px" href="https://github.com/JohnLocke70/darkorbit/issues/new">Écrire un commentaire</a>
+          <a class="menu-btn" style="width:260px" href="/darkorbit/">Retour menu</a>
+        </div>
+      </section>
+    </div>
   </main>
 
-  <footer class="footer">
-    <div class="footer__wrap">
-      <img class="footer__avatar" src="assets/johnlocke-avatar.jpg" alt="Avatar JohnLocke">
-      <span>© <span id="year">2026</span> JohnLocke</span>
-      <span class="footer__sep">|</span>
-      <a href="apropos.html">À propos</a>
-      <span class="footer__sep">•</span>
-      <a href="mailto:John.Locke.70@outlook.fr">Contact</a>
-      <span class="footer__sep">•</span>
-      <a href="commentaires.html">Commentaires</a>
-      <span class="footer__sep">•</span>
-      <a href="cgu.html">CGU</a>
+  <a class="to-top" href="#top" title="Haut de page" aria-label="Haut de page">↑</a>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img class="avatar" src="/darkorbit/assets/johnlocke-avatar.jpg" alt="Avatar JohnLocke" />
+      </div>
+
+      <div class="footer-center">
+        <span>© 2026 <strong>JohnLocke</strong></span>
+        <span class="sep">|</span>
+        <a href="/darkorbit/apropos.html">À propos</a>
+        <span class="sep">|</span>
+        <a href="mailto:John.Locke.70@outlook.fr">Email</a>
+        <span class="sep">|</span>
+        <a href="/darkorbit/commentaires.html">Commentaires</a>
+        <span class="sep">|</span>
+        <a href="/darkorbit/cgu.html">CGU</a>
+      </div>
+
+      <div class="footer-right"></div>
     </div>
   </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
