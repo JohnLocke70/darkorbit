@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Astuces & Guides</title>
+  <link rel="stylesheet" href="/darkorbit/assets/site.css?v=20260207-5" />
+</head>
+
+<body>
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand">
+        <img class="brand-logo" src="/darkorbit/assets/darkorbit-logo.png" alt="Logo DarkOrbit" />
+        <h1 class="brand-title">Centre d'infos Darkorbit par JohnLocke</h1>
+      </div>
+
+      <nav class="top-nav" aria-label="Navigation principale">
+        <a class="nav-btn" href="/darkorbit/astuces-guides.html" aria-current="page">Astuces &amp; Guides</a>
+        <a class="nav-btn" href="/darkorbit/glossaire-technique.html">Glossaire &amp; Technique</a>
+        <a class="nav-btn" href="/darkorbit/calculatrice.html">Calculatrice Multifonction</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="bar bar-top" aria-hidden="true"></div>
+
+  <main class="work" id="work" role="main">
+    <section class="panel">
+      <h2>Astuces & Guides</h2>
+      <p class="small">Page en construction. Ici tu mettras les catégories ou la liste des guides/astuces.</p>
+    </section>
+  </main>
+
+  <div class="bar bar-bottom" aria-hidden="true"></div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <span class="id">
+          <img class="avatar" src="/darkorbit/assets/johnlocke-avatar.jpg" alt="Avatar JohnLocke" />
+          <span class="copy">© 2026 <strong>JohnLocke</strong></span>
+        </span>
+
+        <span class="sep">|</span>
+        <a href="/darkorbit/a-propos.html">À propos</a>
+        <span class="sep">|</span>
+        <a href="mailto:John.Locke.70@outlook.fr">Email</a>
+        <span class="sep">|</span>
+        <a href="/darkorbit/commentaires.html">Commentaires</a>
+        <span class="sep">|</span>
+        <a href="/darkorbit/cgu.html">CGU</a>
+      </div>
+
+      <button class="to-top" type="button" title="Haut de page" aria-label="Haut de page">↑</button>
+    </div>
+  </footer>
+
+  <script>
+    const work = document.getElementById('work');
+    document.querySelector('.to-top').addEventListener('click', () => {
+      work.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
