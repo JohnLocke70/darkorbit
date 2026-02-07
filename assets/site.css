@@ -1,282 +1,73 @@
-:root{
-  /* ↓ Header plus bas pour libérer la zone de travail */
-  --header-h: 140px;
-  --footer-h: 84px;
-
-  --black-gloss: #06090c;
-
-  /* Contour fin doré (frame) */
-  --frame-gold: rgba(225, 190, 110, 0.55);
-
-  --title-cyan: #58c7e6;
-  --text: #d9e6ee;
-  --muted: #b9c7cf;
-
-  /* Doré pour boutons */
-  --gold-strong: rgba(225, 190, 110, 0.90);
-
-  /* Bleu “forum” calmé */
-  --nav-blue-hover: #2a5f78;
-  --nav-blue-hover-2: #25566d;
-  --nav-blue-focus: #1f4c60;
-  --nav-blue-focus-2: #1b4355;
-}
-
-*{ box-sizing: border-box; }
-html, body{ height: 100%; }
-
-body{
-  margin: 0;
-  color: var(--text);
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-
-  background:
-    radial-gradient(1200px 700px at 12% 18%, rgba(60, 190, 220, 0.28), rgba(0,0,0,0) 60%),
-    radial-gradient(900px 600px at 78% 35%, rgba(20, 140, 170, 0.24), rgba(0,0,0,0) 62%),
-    radial-gradient(1100px 900px at 55% 92%, rgba(25, 120, 150, 0.18), rgba(0,0,0,0) 70%),
-    linear-gradient(135deg, #0f4d61 0%, #0b2f3e 45%, #081f2b 100%);
-}
-
-/* ---------- HEADER (noir uni + contour doré) ---------- */
-.site-header{
-  position: fixed;
-  inset: 0 0 auto 0;
-  height: var(--header-h);
-  z-index: 50;
-
-  background: var(--black-gloss);
-  border: 1px solid var(--frame-gold);
-}
-
-.header-inner{
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  /* ↓ moins de “vide” en bas */
-  padding: 8px 14px 14px;
-  gap: 8px;
-}
-
-.brand{
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-/* Logo + projecteur */
-.brand-logo{
-  height: 84px;
-  width: auto;
-
-  background: radial-gradient(circle at 45% 55%,
-    rgba(120, 235, 255, 0.38) 0%,
-    rgba(120, 235, 255, 0.14) 42%,
-    rgba(0, 0, 0, 0) 72%);
-  border-radius: 18px;
-  padding: 6px 10px;
-
-  filter:
-    drop-shadow(0 10px 18px rgba(0,0,0,0.70))
-    drop-shadow(0 0 18px rgba(120, 235, 255, 0.16));
-}
-
-.brand-title{
-  margin: 0;
-  color: var(--title-cyan);
-  font-weight: 800;
-  letter-spacing: 0.2px;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.55);
-  font-size: 22px;
-  text-align: center;
-}
-
-/* ---------- NAV sous le titre ---------- */
-.top-nav{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-
-  /* ↓ on garde un peu d’air, mais pas trop */
-  margin-top: -4px;
-  margin-bottom: 6px;
-}
-
-/* Les boutons auront la même largeur via JS (largeur du plus long texte) */
-.nav-btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  min-height: 40px;
-  padding: 9px 14px;
-  text-align: center;
-
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 14px;
-  line-height: 1.12;
-
-  color: var(--gold-strong);
-  background: rgba(6, 20, 28, 0.90);
-
-  border-radius: 12px;
-  border: 1px solid rgba(225, 190, 110, 0.80);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.06),
-    0 0 0 1px rgba(225, 190, 110, 0.10);
-
-  white-space: nowrap;
-}
-
-/* Hover */
-.nav-btn:hover{
-  background: linear-gradient(180deg, rgba(42,95,120,0.92), rgba(37,86,109,0.92));
-  border-color: rgba(235, 205, 130, 0.96);
-}
-
-/* Focus/active moins flashy */
-.nav-btn:focus-visible,
-.nav-btn:active{
-  outline: none;
-  background: linear-gradient(180deg, rgba(31,76,96,0.90), rgba(27,67,85,0.90));
-  border-color: rgba(235, 205, 130, 0.98);
-}
-
-/* Page courante */
-.nav-btn[aria-current="page"]{
-  background: linear-gradient(180deg, rgba(31,76,96,0.88), rgba(27,67,85,0.88));
-  border-color: rgba(235, 205, 130, 0.98);
-}
-
-/* ---------- ZONE DE TRAVAIL (contour doré) ---------- */
-.work{
-  position: fixed;
-  inset: var(--header-h) 0 var(--footer-h) 0;
-  overflow: auto;
-  padding: 18px 16px;
-
-  border-left: 1px solid var(--frame-gold);
-  border-right: 1px solid var(--frame-gold);
-}
-
-.panel{
-  width: min(1100px, 92vw);
-  margin: 0 auto;
-
-  background: rgba(7, 26, 36, 0.45);
-  border: 1px solid rgba(225, 190, 110, 0.32);
-  border-radius: 18px;
-  padding: 18px 18px 20px;
-}
-
-.panel h2{
-  margin: 0 0 10px;
-  color: var(--title-cyan);
-  font-size: 18px;
-}
-.panel p{
-  margin: 0 0 10px;
-  color: rgba(255,255,255,0.82);
-  line-height: 1.35;
-}
-.small{
-  color: var(--muted);
-  font-size: 14px;
-}
-
-/* ---------- FOOTER (noir uni + contour doré) ---------- */
-.site-footer{
-  position: fixed;
-  inset: auto 0 0 0;
-  height: var(--footer-h);
-  z-index: 50;
-
-  background: var(--black-gloss);
-  border: 1px solid var(--frame-gold);
-}
-
-.footer-inner{
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  padding: 0 16px;
-  gap: 12px;
-}
-
-.footer-links{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-
-  font-size: 14.5px;
-  color: var(--text);
-}
-
-.id{
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.avatar{
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  object-fit: cover;
-  border: 1px solid rgba(225, 190, 110, 0.80);
-  box-shadow: 0 10px 18px rgba(0,0,0,0.45);
-}
-
-.footer-links a{
-  color: var(--title-cyan);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(88, 199, 230, 0.25);
-}
-.footer-links a:hover{
-  border-bottom-color: rgba(88, 199, 230, 0.55);
-}
-
-.sep{ color: rgba(225, 190, 110, 0.82); }
-.copy{ opacity: 0.95; }
-
-/* Bouton haut de page */
-.to-top{
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-
-  display: grid;
-  place-items: center;
-
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: 900;
-
-  color: rgba(225, 190, 110, 0.96);
-  border: 1px solid rgba(225, 190, 110, 0.70);
-  background: rgba(255,255,255,0.02);
-
-  box-shadow: 0 16px 28px rgba(0,0,0,0.35);
-}
-.to-top:hover{
-  background: rgba(255,255,255,0.05);
-  border-color: rgba(235, 205, 130, 0.95);
-}
-
-/* Responsive */
-@media (max-width: 820px){
-  :root{ --header-h: 164px; }
-  .brand-title{ font-size: 20px; }
-  .brand-logo{ height: 78px; }
-
-  .nav-btn{
-    white-space: normal;
+(function () {
+  function debounce(fn, delay) {
+    let t = null;
+    return function () {
+      clearTimeout(t);
+      t = setTimeout(() => fn(), delay);
+    };
   }
-}
+
+  function equalizeButtonsInNav(nav) {
+    const btns = Array.from(nav.querySelectorAll('.nav-btn'));
+    if (btns.length === 0) return;
+
+    // 1) reset pour mesurer la largeur "naturelle"
+    nav.style.setProperty('--navBtnW', 'auto');
+    btns.forEach(b => {
+      b.style.width = 'auto';
+      b.style.whiteSpace = 'nowrap'; // mesure fiable (1 ligne)
+    });
+
+    // 2) mesure après rendu
+    requestAnimationFrame(() => {
+      let max = 0;
+
+      btns.forEach(b => {
+        const cs = getComputedStyle(b);
+        const borders = (parseFloat(cs.borderLeftWidth) || 0) + (parseFloat(cs.borderRightWidth) || 0);
+
+        // scrollWidth inclut padding, pas la bordure -> on ajoute borders
+        const w = Math.ceil(b.scrollWidth + borders);
+
+        if (w > max) max = w;
+      });
+
+      // 3) applique au groupe via variable CSS
+      nav.style.setProperty('--navBtnW', max + 'px');
+
+      // nettoyage inline
+      btns.forEach(b => {
+        b.style.width = '';
+        b.style.whiteSpace = '';
+      });
+    });
+  }
+
+  function equalizeAllNavs() {
+    document.querySelectorAll('.top-nav').forEach(equalizeButtonsInNav);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    equalizeAllNavs();
+
+    // recalcul quand les polices sont prêtes (sinon la mesure peut changer)
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(equalizeAllNavs);
+    }
+
+    // recalcul après chargement complet (images, etc.)
+    window.addEventListener('load', equalizeAllNavs);
+
+    // recalcul au resize
+    window.addEventListener('resize', debounce(equalizeAllNavs, 120));
+
+    // bouton haut de page : scroll dans la zone .work
+    const work = document.querySelector('.work');
+    const topBtn = document.querySelector('.to-top');
+    if (work && topBtn) {
+      topBtn.addEventListener('click', () => {
+        work.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  });
+})();
