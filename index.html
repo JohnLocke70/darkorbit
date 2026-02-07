@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Centre d'infos Darkorbit par JohnLocke</title>
 
-  <!-- IMPORTANT : incrémente ?v= quand tu modifies le CSS pour casser le cache -->
-  <link rel="stylesheet" href="assets/site.css?v=18">
+  <!-- Incrémente ?v= quand tu modifies le CSS/JS pour casser le cache -->
+  <link rel="stylesheet" href="assets/site.css?v=30">
+  <script src="assets/site.js?v=8" defer></script>
 </head>
 
 <body>
@@ -18,7 +19,7 @@
         <h1 class="brand-title">Centre d'infos Darkorbit par JohnLocke</h1>
       </div>
 
-      <nav class="top-nav" aria-label="Navigation principale">
+      <nav class="top-nav" aria-label="Menu">
         <a class="nav-btn" href="astuces-guides.html">Astuces &amp; Guides</a>
         <a class="nav-btn" href="glossaire-technique.html">Glossaire &amp; Technique</a>
         <a class="nav-btn" href="calculatrice.html">Calculatrice Multifonction</a>
@@ -27,12 +28,11 @@
   </header>
 
   <!-- ZONE DE TRAVAIL (SCROLL ICI UNIQUEMENT) -->
-  <main class="work" id="top">
+  <main class="work" id="work">
     <section class="panel">
       <h2>Bienvenue</h2>
-      <p class="small">
-        Zone de travail. Ici tu mettras le contenu des pages.
-        Le header et le footer restent fixes, et le scroll se fait uniquement ici.
+      <p>
+        Contenu à venir. Le header et le footer restent fixes, et le scroll se fait uniquement ici.
       </p>
     </section>
   </main>
@@ -50,7 +50,7 @@
         <a href="a-propos.html">À propos</a>
 
         <span class="sep">|</span>
-        <!-- le texte affiché reste “Email”, pas ton adresse -->
+        <!-- On affiche "Email" (pas l’adresse), mais le lien est bien mailto -->
         <a href="mailto:John.Locke.70@outlook.fr">Email</a>
 
         <span class="sep">|</span>
@@ -60,51 +60,9 @@
         <a href="cgu.html">CGU</a>
       </div>
 
+      <!-- Bouton haut de page (scroll dans .work) -->
       <button class="to-top" type="button" aria-label="Haut de page" title="Haut de page">↑</button>
     </div>
   </footer>
-
-  <script>
-    (function () {
-      const work = document.querySelector('.work');
-      const topBtn = document.querySelector('.to-top');
-      if (topBtn && work) {
-        topBtn.addEventListener('click', () => {
-          work.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      }
-
-      function equalizeNavButtons() {
-        const btns = Array.from(document.querySelectorAll('.top-nav .nav-btn'));
-        if (!btns.length) return;
-
-        // reset (important avant mesure)
-        btns.forEach(b => b.style.width = 'auto');
-
-        // mesure max
-        const max = Math.ceil(Math.max(...btns.map(b => b.getBoundingClientRect().width)));
-
-        // applique
-        btns.forEach(b => b.style.width = max + 'px');
-      }
-
-      // Attend les polices si dispo, sinon calc direct
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(equalizeNavButtons);
-      } else {
-        window.addEventListener('load', equalizeNavButtons);
-      }
-
-      // recalcul au resize (debounce)
-      let t = null;
-      window.addEventListener('resize', () => {
-        clearTimeout(t);
-        t = setTimeout(equalizeNavButtons, 120);
-      });
-
-      // 1er calcul immédiat (utile quand Pages répond vite)
-      equalizeNavButtons();
-    })();
-  </script>
 </body>
 </html>
