@@ -2,118 +2,124 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Centre d'infos Darkorbit par JohnLocke</title>
-  <link rel="stylesheet" href="assets/site.css?v=1">
+
+  <!-- IMPORTANT: chemin root-relative pour éviter les soucis de sous-dossiers -->
+  <link rel="stylesheet" href="/darkorbit/assets/site.css?v=1" />
 </head>
 
 <body>
-  <header class="header">
-    <div class="header__wrap">
-      <img class="header__logo" src="assets/darkorbit-logo.png" alt="Logo DarkOrbit">
-      <div class="header__titles">
-        <h1 class="header__title">Centre d'infos Darkorbit par JohnLocke</h1>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-logo-wrap" aria-hidden="true">
+          <img class="brand-logo" src="/darkorbit/assets/darkorbit-logo.png" alt="" />
+        </div>
+
+        <div class="brand-titles">
+          <div class="brand-title">Centre d'infos Darkorbit par JohnLocke</div>
+        </div>
       </div>
     </div>
   </header>
 
-  <div class="sep-line top" aria-hidden="true"></div>
-  <div class="sep-line bottom" aria-hidden="true"></div>
+  <main class="site-main" id="top">
+    <div class="center-wrap">
+      <section class="menu-panel" aria-label="Menu principal">
+        <div class="menu-title">Menu principal</div>
+        <div class="menu-title-sep" aria-hidden="true"></div>
 
-  <main class="main" id="top">
-    <section class="menu" aria-label="Menu principal">
-      <div class="menu__title">Menu principal</div>
-      <div class="menu__title-sep"></div>
+        <div class="menu-grid">
+          <!-- COLONNE DOCS -->
+          <div class="menu-col">
+            <div class="menu-col-title">Docs</div>
 
-      <div class="menu__grid">
-        <!-- COLONNE DOCS -->
-        <div>
-          <div class="menu__section-title">Docs</div>
+            <div class="menu-item">
+              <a class="menu-btn" href="#annonces">Annonces</a>
+              <div class="menu-desc">Infos, changements, events, suivi des nouveautés.</div>
+            </div>
 
-          <div class="item">
-            <a class="btn" href="#" aria-label="Annonces et Actualités">Annonces / Actualités</a>
-            <div class="item__desc">Infos, changements, events, suivi des nouveautés.</div>
+            <div class="menu-item">
+              <a class="menu-btn" href="#astuces">Astuces</a>
+              <div class="menu-desc">Tips courts, optimisations, retours d’expérience.</div>
+            </div>
+
+            <div class="menu-item">
+              <a class="menu-btn" href="#glossaire">Glossaire</a>
+              <div class="menu-desc">Termes FR/EN, abréviations, définitions.</div>
+            </div>
+
+            <div class="menu-item">
+              <a class="menu-btn" href="#guides">Guides</a>
+              <div class="menu-desc">Guides complets par sujet.</div>
+            </div>
+
+            <div class="menu-item">
+              <a class="menu-btn" href="#techniques">Techniques</a>
+              <div class="menu-desc">Fiches stats : dégâts, valeurs, caractéristiques.</div>
+            </div>
           </div>
 
-          <div class="item">
-            <a class="btn" href="#" aria-label="Astuces">Astuces</a>
-            <div class="item__desc">Tips courts, optimisations, retours d’expérience.</div>
-          </div>
+          <!-- SEPARATEUR VERTICAL -->
+          <div class="menu-vsep" aria-hidden="true"></div>
 
-          <div class="item">
-            <a class="btn" href="#" aria-label="Glossaire">Glossaire</a>
-            <div class="item__desc">Termes FR/EN, abréviations, définitions.</div>
-          </div>
+          <!-- COLONNE OUTILS -->
+          <div class="menu-col">
+            <div class="menu-col-title">Outils</div>
 
-          <div class="item">
-            <a class="btn" href="#" aria-label="Guides">Guides</a>
-            <div class="item__desc">Guides complets par sujet.</div>
-          </div>
+            <div class="menu-item">
+              <a class="menu-btn" href="#calc-dd">Calculatrice Dégâts</a>
+              <div class="menu-desc">Calcule dégâts, réduction, bouclier et variations.</div>
+            </div>
 
-          <div class="item" style="margin-bottom:0;">
-            <a class="btn" href="#" aria-label="Techniques">Techniques</a>
-            <div class="item__desc">Fiches stats : dégâts, valeurs, caractéristiques.</div>
-          </div>
-        </div>
+            <div class="menu-item">
+              <a class="menu-btn" href="#comparateur">Comparateur Lasers</a>
+              <div class="menu-desc">Compare lasers/configs (dégâts, DPS, efficacité).</div>
+            </div>
 
-        <!-- SEPARATEUR -->
-        <div class="menu__vsep" aria-hidden="true"></div>
+            <div class="menu-item">
+              <a class="menu-btn" href="#base62">Convertisseur Base62</a>
+              <div class="menu-desc">Conversion rapide dans les deux sens.</div>
+            </div>
 
-        <!-- COLONNE OUTILS -->
-        <div>
-          <div class="menu__section-title">Outils</div>
+            <div class="menu-item">
+              <a class="menu-btn" href="#gg">Planificateur GG</a>
+              <div class="menu-desc">Estime coût/temps/ressources pour viser une Gate.</div>
+            </div>
 
-          <div class="item">
-            <a class="btn" href="#" aria-label="Calculatrice dégâts défense">Calculatrice dégâts / défense</a>
-            <div class="item__desc">Calcule dégâts, réduction, bouclier et variations selon bonus.</div>
-          </div>
-
-          <div class="item">
-            <a class="btn" href="#" aria-label="Comparateur de lasers">Comparateur de lasers</a>
-            <div class="item__desc">Compare lasers/configs (dégâts, DPS, efficacité) selon contexte.</div>
-          </div>
-
-          <div class="item">
-            <a class="btn" href="#" aria-label="Convertisseur Base62 vers Base10">Convertisseur Base62 → Base10</a>
-            <div class="item__desc">Conversion rapide dans les deux sens.</div>
-          </div>
-
-          <div class="item">
-            <a class="btn" href="#" aria-label="Planificateur Galaxy Gates">Planificateur Galaxy Gates (GG)</a>
-            <div class="item__desc">Estime coût/temps/ressources pour viser une Gate.</div>
-          </div>
-
-          <div class="item" style="margin-bottom:0;">
-            <a class="btn" href="#" aria-label="Profit par heure">Profit par heure (Profit/h)</a>
-            <div class="item__desc">Estime ton gain/h selon activité, durée, et coûts.</div>
-          </div>
-
-          <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-            <a class="btn btn--small" href="commentaires.html">Commentaires</a>
+            <div class="menu-item">
+              <a class="menu-btn" href="#profit">Profit / heure</a>
+              <div class="menu-desc">Estime ton gain/h selon activité, durée et coûts.</div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
 
-  <footer class="footer">
-    <div class="footer__wrap">
-      <img class="footer__avatar" src="assets/johnlocke-avatar.jpg" alt="Avatar JohnLocke">
-      <span>© <span id="year">2026</span> JohnLocke</span>
-      <span class="footer__sep">|</span>
-      <a href="apropos.html">À propos</a>
-      <span class="footer__sep">•</span>
-      <a href="mailto:John.Locke.70@outlook.fr">Contact</a>
-      <span class="footer__sep">•</span>
-      <a href="commentaires.html">Commentaires</a>
-      <span class="footer__sep">•</span>
-      <a href="cgu.html">CGU</a>
+  <a class="to-top" href="#top" title="Haut de page" aria-label="Haut de page">↑</a>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img class="avatar" src="/darkorbit/assets/johnlocke-avatar.jpg" alt="Avatar JohnLocke" />
+      </div>
+
+      <div class="footer-center">
+        <span>© 2026 <strong>JohnLocke</strong></span>
+        <span class="sep">|</span>
+        <a href="/darkorbit/apropos.html">À propos</a>
+        <span class="sep">|</span>
+        <a href="mailto:John.Locke.70@outlook.fr">Email</a>
+        <span class="sep">|</span>
+        <a href="/darkorbit/commentaires.html">Commentaires</a>
+        <span class="sep">|</span>
+        <a href="/darkorbit/cgu.html">CGU</a>
+      </div>
+
+      <div class="footer-right"></div>
     </div>
   </footer>
-
-  <script>
-    // année auto (optionnel)
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
