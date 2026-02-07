@@ -5,17 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Centre d'infos Darkorbit par JohnLocke</title>
 
-  <!-- Cache-bust : change la valeur si besoin -->
-  <link rel="stylesheet" href="/darkorbit/assets/site.css?v=20260207" />
+  <!-- Cache-bust : change le numéro si tu modifies le CSS -->
+  <link rel="stylesheet" href="/darkorbit/assets/site.css?v=20260207-2" />
 </head>
 
 <body>
-  <a id="top"></a>
-
   <!-- HEADER FIXE -->
   <header class="site-header" role="banner">
     <div class="header-inner">
-      <div class="brand" aria-label="En-tête du site">
+      <div class="brand">
         <div class="logo-spot">
           <img
             class="brand-logo"
@@ -31,7 +29,7 @@
   </header>
 
   <!-- Zone scrollable ENTRE header/footer -->
-  <main class="work" role="main">
+  <main class="work" id="work" role="main">
     <section class="menu" aria-label="Menu principal">
       <div class="menu-title">Menu principal</div>
       <div class="menu-hr"></div>
@@ -42,27 +40,27 @@
           <div class="col-title">Docs</div>
 
           <div class="item">
-            <a class="btn" href="#" aria-label="Annonces">Annonces</a>
+            <a class="btn" href="#">Annonces</a>
             <div class="desc">Infos, changements, events, suivi des nouveautés.</div>
           </div>
 
           <div class="item">
-            <a class="btn" href="#" aria-label="Astuces">Astuces</a>
+            <a class="btn" href="#">Astuces</a>
             <div class="desc">Tips courts, optimisations, retours d’expérience.</div>
           </div>
 
           <div class="item">
-            <a class="btn" href="#" aria-label="Glossaire">Glossaire</a>
+            <a class="btn" href="#">Glossaire</a>
             <div class="desc">Termes FR/EN, abréviations, définitions.</div>
           </div>
 
           <div class="item">
-            <a class="btn" href="#" aria-label="Guides">Guides</a>
+            <a class="btn" href="#">Guides</a>
             <div class="desc">Guides complets par sujet.</div>
           </div>
 
           <div class="item">
-            <a class="btn" href="#" aria-label="Techniques">Techniques</a>
+            <a class="btn" href="#">Techniques</a>
             <div class="desc">Fiches stats : dégâts, valeurs, caractéristiques.</div>
           </div>
         </div>
@@ -75,27 +73,27 @@
           <div class="col-title">Outils</div>
 
           <div class="item">
-            <a class="btn" href="#" aria-label="Calculatrice dégâts">Calculatrice Dégâts</a>
+            <a class="btn" href="#">Calculatrice Dégâts</a>
             <div class="desc">Calcule dégâts, réduction, bouclier et variations.</div>
           </div>
 
           <div class="item">
-            <a class="btn" href="#" aria-label="Comparateur lasers">Comparateur Lasers</a>
+            <a class="btn" href="#">Comparateur Lasers</a>
             <div class="desc">Compare lasers/configs (dégâts, DPS, efficacité).</div>
           </div>
 
           <div class="item">
-            <a class="btn" href="#" aria-label="Convertisseur base62">Convertisseur Base62</a>
+            <a class="btn" href="#">Convertisseur Base62</a>
             <div class="desc">Conversion rapide dans les deux sens.</div>
           </div>
 
           <div class="item">
-            <a class="btn" href="#" aria-label="Planificateur GG">Planificateur GG</a>
+            <a class="btn" href="#">Planificateur GG</a>
             <div class="desc">Estime coût/temps/ressources pour viser une Gate.</div>
           </div>
 
           <div class="item">
-            <a class="btn" href="#" aria-label="Profit par heure">Profit / heure</a>
+            <a class="btn" href="#">Profit / heure</a>
             <div class="desc">Estime ton gain/h selon activité, durée et coûts.</div>
           </div>
         </div>
@@ -103,23 +101,21 @@
     </section>
   </main>
 
-  <!-- Bouton haut de page (au-dessus du footer) -->
-  <a class="to-top" href="#top" title="Haut de page" aria-label="Haut de page">↑</a>
-
   <!-- FOOTER FIXE -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
-      <div class="avatar-wrap" aria-hidden="false">
-        <img
-          class="avatar"
-          src="/darkorbit/assets/johnlocke-avatar.jpg"
-          alt="Avatar JohnLocke"
-          draggable="false"
-        />
-      </div>
-
+      <!-- Bloc gauche/centre : avatar + pseudo + liens -->
       <div class="footer-links">
-        <span class="copy">© 2026 <strong>JohnLocke</strong></span>
+        <span class="id">
+          <img
+            class="avatar"
+            src="/darkorbit/assets/johnlocke-avatar.jpg"
+            alt="Avatar JohnLocke"
+            draggable="false"
+          />
+          <span class="copy">© 2026 <strong>JohnLocke</strong></span>
+        </span>
+
         <span class="sep">|</span>
         <a href="/darkorbit/a-propos.html">À propos</a>
         <span class="sep">|</span>
@@ -129,7 +125,20 @@
         <span class="sep">|</span>
         <a href="/darkorbit/cgu.html">CGU</a>
       </div>
+
+      <!-- Bouton haut de page à droite DANS le footer -->
+      <button class="to-top" type="button" title="Haut de page" aria-label="Haut de page">↑</button>
     </div>
   </footer>
+
+  <script>
+    // Remonte la zone scrollable centrale (pas la page entière)
+    const work = document.getElementById('work');
+    const btnTop = document.querySelector('.to-top');
+
+    btnTop.addEventListener('click', () => {
+      work.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
