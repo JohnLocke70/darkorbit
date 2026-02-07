@@ -10,10 +10,14 @@
 
   /* Couleurs */
   --title-cyan: #58c7e6;      /* style “Forums” pour titres/liens */
-  --forum-blue: #2d6f8f;      /* bleu bouton hover/focus (proche “Forums”) */
-  --forum-blue-2: #2a627f;    /* variante pour dégradé léger */
   --text: #d9e6ee;
   --muted: #b9c7cf;
+
+  /* Bleu des boutons (moins flashy) */
+  --forum-blue-hover: #2a5f78; /* hover: bleu forum calmé */
+  --forum-blue-hover-2: #25566d;
+  --forum-blue-focus: #1f4c60; /* focus/active: encore plus doux */
+  --forum-blue-focus-2: #1b4355;
 
   /* Doré (plus brillant) */
   --gold: rgba(225, 190, 110, 0.92);
@@ -27,6 +31,9 @@
   --btn-w: 320px;
   --btn-h: 44px;
   --item-h: 78px;
+
+  /* Taille texte boutons (réduit) */
+  --btn-font: 14px;
 }
 
 *{ box-sizing: border-box; }
@@ -69,10 +76,9 @@ body{
 
 /* Logo + projecteur */
 .brand-logo{
-  height: 80px; /* un peu plus grand */
+  height: 80px;
   width: auto;
 
-  /* projecteur doux derrière le logo */
   background: radial-gradient(circle at 45% 55%,
     rgba(120, 235, 255, 0.40) 0%,
     rgba(120, 235, 255, 0.16) 40%,
@@ -215,10 +221,13 @@ body{
 
   text-decoration: none;
   font-weight: 800;
-  letter-spacing: 0.15px;
 
   /* texte jaune */
   color: rgba(225, 190, 110, 0.96);
+
+  /* réduction taille texte */
+  font-size: var(--btn-font);
+  letter-spacing: 0.10px;
 
   border-radius: 12px;
 
@@ -233,37 +242,47 @@ body{
     inset 0 1px 0 rgba(255,255,255,0.06),
     0 0 0 1px rgba(160, 120, 55, 0.18);
 
-  padding: 0 14px;
+  /* un peu plus d’espace utile */
+  padding: 0 10px;
   text-align: center;
-  line-height: 1.1;
+  line-height: 1.05;
+
+  /* évite les débordements moches */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease;
 }
 
-/* IMPORTANT : hover/focus/active = fond bleu “Forums”
-   + contour reste doré et encore plus visible */
-.btn:hover,
-.btn:focus-visible,
-.btn:active{
+/* Hover = bleu forum (calmé) */
+.btn:hover{
   transform: translateY(-1px);
-
-  background: linear-gradient(180deg, rgba(45,111,143,0.95), rgba(42,98,127,0.95));
+  background: linear-gradient(180deg, rgba(42,95,120,0.92), rgba(37,86,109,0.92));
   border-color: rgba(235, 205, 130, 0.95);
-
   box-shadow:
     0 14px 22px rgba(0,0,0,0.40),
     inset 0 1px 0 rgba(255,255,255,0.10),
     0 0 0 2px rgba(225, 190, 110, 0.20);
 }
 
-/* Focus visible propre */
-.btn:focus-visible{
-  outline: none;
+/* Focus/Active = bleu moins flashy (encore plus doux) */
+.btn:focus-visible,
+.btn:active{
+  transform: translateY(-1px);
+  background: linear-gradient(180deg, rgba(31,76,96,0.90), rgba(27,67,85,0.90));
+  border-color: rgba(235, 205, 130, 0.98);
+  box-shadow:
+    0 14px 22px rgba(0,0,0,0.40),
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 0 0 2px rgba(225, 190, 110, 0.22);
 }
 
-/* Si tu utilises aria-current sur un bouton “actif” un jour */
+.btn:focus-visible{ outline: none; }
+
+/* Si tu utilises aria-current="page" */
 .btn[aria-current="page"]{
-  background: linear-gradient(180deg, rgba(45,111,143,0.98), rgba(42,98,127,0.98));
+  background: linear-gradient(180deg, rgba(31,76,96,0.92), rgba(27,67,85,0.92));
   border-color: rgba(235, 205, 130, 0.98);
   box-shadow:
     0 14px 22px rgba(0,0,0,0.40),
@@ -380,6 +399,10 @@ body{
 
   .btn{
     width: 100%;
+    white-space: normal; /* en mobile, autorise le retour à la ligne */
+    height: auto;
+    min-height: var(--btn-h);
+    padding: 10px 12px;
   }
 
   .footer-inner{ grid-template-columns: 1fr; }
