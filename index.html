@@ -2,91 +2,109 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Centre d'infos Darkorbit par JohnLocke</title>
-  <link rel="stylesheet" href="/darkorbit/assets/site.css?v=20260207-6" />
+
+  <!-- IMPORTANT : incrémente ?v= quand tu modifies le CSS pour casser le cache -->
+  <link rel="stylesheet" href="assets/site.css?v=18">
 </head>
 
 <body>
-  <header class="site-header" role="banner">
+  <!-- HEADER FIXE -->
+  <header class="site-header">
     <div class="header-inner">
       <div class="brand">
-        <img class="brand-logo" src="/darkorbit/assets/darkorbit-logo.png" alt="Logo DarkOrbit" />
+        <img class="brand-logo" src="assets/darkorbit-logo.png" alt="DarkOrbit">
         <h1 class="brand-title">Centre d'infos Darkorbit par JohnLocke</h1>
       </div>
 
       <nav class="top-nav" aria-label="Navigation principale">
-        <a class="nav-btn" href="/darkorbit/astuces-guides.html">Astuces &amp; Guides</a>
-        <a class="nav-btn" href="/darkorbit/glossaire-technique.html">Glossaire &amp; Technique</a>
-        <a class="nav-btn" href="/darkorbit/calculatrice.html">Calculatrice Multifonction</a>
+        <a class="nav-btn" href="astuces-guides.html">Astuces &amp; Guides</a>
+        <a class="nav-btn" href="glossaire-technique.html">Glossaire &amp; Technique</a>
+        <a class="nav-btn" href="calculatrice.html">Calculatrice Multifonction</a>
       </nav>
     </div>
   </header>
 
-  <main class="work" id="work" role="main">
+  <!-- ZONE DE TRAVAIL (SCROLL ICI UNIQUEMENT) -->
+  <main class="work" id="top">
     <section class="panel">
       <h2>Bienvenue</h2>
-      <p>
-        Ce site regroupe mes contenus DarkOrbit : guides, astuces, glossaire, technique,
-        et une calculatrice multifonction (dégâts, conversions, etc.).
+      <p class="small">
+        Zone de travail. Ici tu mettras le contenu des pages.
+        Le header et le footer restent fixes, et le scroll se fait uniquement ici.
       </p>
-      <p class="small">Utilise le menu en haut. Le bouton ↑ en bas à droite remonte cette zone.</p>
     </section>
   </main>
 
-  <footer class="site-footer" role="contentinfo">
+  <!-- FOOTER FIXE -->
+  <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-links">
         <span class="id">
-          <img class="avatar" src="/darkorbit/assets/johnlocke-avatar.jpg" alt="Avatar JohnLocke" />
+          <img class="avatar" src="assets/johnlocke-avatar.jpg" alt="Avatar JohnLocke">
           <span class="copy">© 2026 <strong>JohnLocke</strong></span>
         </span>
 
         <span class="sep">|</span>
-        <a href="/darkorbit/a-propos.html">À propos</a>
+        <a href="a-propos.html">À propos</a>
+
         <span class="sep">|</span>
+        <!-- le texte affiché reste “Email”, pas ton adresse -->
         <a href="mailto:John.Locke.70@outlook.fr">Email</a>
+
         <span class="sep">|</span>
-        <a href="/darkorbit/commentaires.html">Commentaires</a>
+        <a href="commentaires.html">Commentaires</a>
+
         <span class="sep">|</span>
-        <a href="/darkorbit/cgu.html">CGU</a>
+        <a href="cgu.html">CGU</a>
       </div>
 
-      <button class="to-top" type="button" title="Haut de page" aria-label="Haut de page">↑</button>
+      <button class="to-top" type="button" aria-label="Haut de page" title="Haut de page">↑</button>
     </div>
   </footer>
 
   <script>
-    // 1) Bouton haut de page (scroll dans la zone work)
-    const work = document.getElementById('work');
-    document.querySelector('.to-top').addEventListener('click', () => {
-      work.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // 2) Largeur identique des boutons du menu (calée sur le plus long)
-    function normalizeNavWidths(){
-      const btns = Array.from(document.querySelectorAll('.nav-btn'));
-      if (!btns.length) return;
-
-      // Sur petits écrans, on laisse le navigateur gérer (wrap)
-      if (window.innerWidth <= 820){
-        btns.forEach(b => b.style.width = '');
-        return;
+    (function () {
+      const work = document.querySelector('.work');
+      const topBtn = document.querySelector('.to-top');
+      if (topBtn && work) {
+        topBtn.addEventListener('click', () => {
+          work.scrollTo({ top: 0, behavior: 'smooth' });
+        });
       }
 
-      // Reset puis mesure
-      btns.forEach(b => b.style.width = 'auto');
-      const max = Math.max(...btns.map(b => b.getBoundingClientRect().width));
-      const w = Math.ceil(max);
-      btns.forEach(b => b.style.width = w + 'px');
-    }
+      function equalizeNavButtons() {
+        const btns = Array.from(document.querySelectorAll('.top-nav .nav-btn'));
+        if (!btns.length) return;
 
-    let navTimer = null;
-    window.addEventListener('load', normalizeNavWidths);
-    window.addEventListener('resize', () => {
-      clearTimeout(navTimer);
-      navTimer = setTimeout(normalizeNavWidths, 120);
-    });
+        // reset (important avant mesure)
+        btns.forEach(b => b.style.width = 'auto');
+
+        // mesure max
+        const max = Math.ceil(Math.max(...btns.map(b => b.getBoundingClientRect().width)));
+
+        // applique
+        btns.forEach(b => b.style.width = max + 'px');
+      }
+
+      // Attend les polices si dispo, sinon calc direct
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(equalizeNavButtons);
+      } else {
+        window.addEventListener('load', equalizeNavButtons);
+      }
+
+      // recalcul au resize (debounce)
+      let t = null;
+      window.addEventListener('resize', () => {
+        clearTimeout(t);
+        t = setTimeout(equalizeNavButtons, 120);
+      });
+
+      // 1er calcul immédiat (utile quand Pages répond vite)
+      equalizeNavButtons();
+    })();
   </script>
 </body>
 </html>
