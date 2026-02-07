@@ -9,14 +9,14 @@
   --sep-gray: rgba(150, 160, 170, 0.40);
 
   /* Couleurs */
-  --title-cyan: #58c7e6;      /* style “Forums” pour titres/liens */
+  --title-cyan: #58c7e6;
   --text: #d9e6ee;
   --muted: #b9c7cf;
 
   /* Bleu des boutons (moins flashy) */
-  --forum-blue-hover: #2a5f78; /* hover: bleu forum calmé */
+  --forum-blue-hover: #2a5f78;
   --forum-blue-hover-2: #25566d;
-  --forum-blue-focus: #1f4c60; /* focus/active: encore plus doux */
+  --forum-blue-focus: #1f4c60;
   --forum-blue-focus-2: #1b4355;
 
   /* Doré (plus brillant) */
@@ -29,10 +29,10 @@
 
   /* Tailles uniformes */
   --btn-w: 320px;
-  --btn-h: 44px;
-  --item-h: 78px;
+  --btn-h: 54px;     /* ↑ augmente un peu pour 2 lignes */
+  --item-h: 86px;    /* ↑ encadrés un peu plus hauts pour rester confort */
 
-  /* Taille texte boutons (réduit) */
+  /* Taille texte boutons (légèrement réduite) */
   --btn-font: 14px;
 }
 
@@ -134,9 +134,8 @@ body{
   border: 1px solid var(--gold-soft);
   border-radius: 18px;
 
-  box-shadow:
-    20px 22px 55px rgba(0, 0, 0, 0.55),
-    inset 1px 1px 0 rgba(255,255,255,0.04);
+  /* IMPORTANT: on enlève l’ombre externe du contour */
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.04);
 
   padding: 18px 18px 22px;
 }
@@ -210,7 +209,7 @@ body{
     inset 0 -1px 0 rgba(0,0,0,0.55);
 }
 
-/* Boutons uniformes */
+/* Boutons uniformes (2 lignes max) */
 .btn{
   height: var(--btn-h);
   width: var(--btn-w);
@@ -221,20 +220,13 @@ body{
 
   text-decoration: none;
   font-weight: 800;
-
-  /* texte jaune */
   color: rgba(225, 190, 110, 0.96);
 
-  /* réduction taille texte */
   font-size: var(--btn-font);
   letter-spacing: 0.10px;
 
   border-radius: 12px;
-
-  /* contour doré + brillant */
   border: 1px solid rgba(225, 190, 110, 0.78);
-
-  /* fond par défaut sombre */
   background: rgba(6, 20, 28, 0.90);
 
   box-shadow:
@@ -242,20 +234,23 @@ body{
     inset 0 1px 0 rgba(255,255,255,0.06),
     0 0 0 1px rgba(160, 120, 55, 0.18);
 
-  /* un peu plus d’espace utile */
   padding: 0 10px;
   text-align: center;
-  line-height: 1.05;
+  line-height: 1.12;
 
-  /* évite les débordements moches */
+  /* 2 lignes max (desktop) */
+  white-space: normal;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+  /* clamp 2 lignes (webkit) */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 
   transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease;
 }
 
-/* Hover = bleu forum (calmé) */
+/* Hover = bleu forum calmé */
 .btn:hover{
   transform: translateY(-1px);
   background: linear-gradient(180deg, rgba(42,95,120,0.92), rgba(37,86,109,0.92));
@@ -266,7 +261,7 @@ body{
     0 0 0 2px rgba(225, 190, 110, 0.20);
 }
 
-/* Focus/Active = bleu moins flashy (encore plus doux) */
+/* Focus/Active = bleu encore moins flashy */
 .btn:focus-visible,
 .btn:active{
   transform: translateY(-1px);
@@ -279,16 +274,6 @@ body{
 }
 
 .btn:focus-visible{ outline: none; }
-
-/* Si tu utilises aria-current="page" */
-.btn[aria-current="page"]{
-  background: linear-gradient(180deg, rgba(31,76,96,0.92), rgba(27,67,85,0.92));
-  border-color: rgba(235, 205, 130, 0.98);
-  box-shadow:
-    0 14px 22px rgba(0,0,0,0.40),
-    inset 0 1px 0 rgba(255,255,255,0.10),
-    0 0 0 2px rgba(225, 190, 110, 0.22);
-}
 
 .desc{
   color: var(--muted);
@@ -337,7 +322,9 @@ body{
   border-radius: 12px;
   object-fit: cover;
 
-  border: 1px solid rgba(120, 235, 255, 0.18);
+  /* IMPORTANT: contour avatar doré */
+  border: 1px solid rgba(225, 190, 110, 0.78);
+
   box-shadow: 0 10px 18px rgba(0,0,0,0.45);
 }
 
@@ -399,10 +386,13 @@ body{
 
   .btn{
     width: 100%;
-    white-space: normal; /* en mobile, autorise le retour à la ligne */
     height: auto;
     min-height: var(--btn-h);
     padding: 10px 12px;
+
+    /* en mobile, on autorise plus de lignes si besoin */
+    -webkit-line-clamp: unset;
+    display: inline-flex;
   }
 
   .footer-inner{ grid-template-columns: 1fr; }
