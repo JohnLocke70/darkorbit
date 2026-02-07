@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Centre d'infos Darkorbit par JohnLocke</title>
-  <link rel="stylesheet" href="/darkorbit/assets/site.css?v=20260207-5" />
+  <link rel="stylesheet" href="/darkorbit/assets/site.css?v=20260207-6" />
 </head>
 
 <body>
@@ -23,22 +23,16 @@
     </div>
   </header>
 
-  <div class="bar bar-top" aria-hidden="true"></div>
-
   <main class="work" id="work" role="main">
     <section class="panel">
       <h2>Bienvenue</h2>
       <p>
-        Ce site regroupe mes contenus DarkOrbit : guides, astuces, glossaire, technique, et une calculatrice multifonction
-        (dégâts, conversions, etc.).
+        Ce site regroupe mes contenus DarkOrbit : guides, astuces, glossaire, technique,
+        et une calculatrice multifonction (dégâts, conversions, etc.).
       </p>
-      <p class="small">
-        Navigation : utilise le menu en haut. Le bouton ↑ en bas à droite remonte cette zone.
-      </p>
+      <p class="small">Utilise le menu en haut. Le bouton ↑ en bas à droite remonte cette zone.</p>
     </section>
   </main>
-
-  <div class="bar bar-bottom" aria-hidden="true"></div>
 
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
@@ -63,9 +57,35 @@
   </footer>
 
   <script>
+    // 1) Bouton haut de page (scroll dans la zone work)
     const work = document.getElementById('work');
     document.querySelector('.to-top').addEventListener('click', () => {
       work.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // 2) Largeur identique des boutons du menu (calée sur le plus long)
+    function normalizeNavWidths(){
+      const btns = Array.from(document.querySelectorAll('.nav-btn'));
+      if (!btns.length) return;
+
+      // Sur petits écrans, on laisse le navigateur gérer (wrap)
+      if (window.innerWidth <= 820){
+        btns.forEach(b => b.style.width = '');
+        return;
+      }
+
+      // Reset puis mesure
+      btns.forEach(b => b.style.width = 'auto');
+      const max = Math.max(...btns.map(b => b.getBoundingClientRect().width));
+      const w = Math.ceil(max);
+      btns.forEach(b => b.style.width = w + 'px');
+    }
+
+    let navTimer = null;
+    window.addEventListener('load', normalizeNavWidths);
+    window.addEventListener('resize', () => {
+      clearTimeout(navTimer);
+      navTimer = setTimeout(normalizeNavWidths, 120);
     });
   </script>
 </body>
