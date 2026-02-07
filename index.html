@@ -4,117 +4,47 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Centre d'infos Darkorbit par JohnLocke</title>
-
-  <!-- Cache-bust : change la valeur si besoin -->
-  <link rel="stylesheet" href="/darkorbit/assets/site.css?v=20260207-3" />
+  <link rel="stylesheet" href="/darkorbit/assets/site.css?v=20260207-5" />
 </head>
 
 <body>
-  <!-- HEADER FIXE -->
   <header class="site-header" role="banner">
     <div class="header-inner">
       <div class="brand">
-        <img
-          class="brand-logo"
-          src="/darkorbit/assets/darkorbit-logo.png"
-          alt="Logo DarkOrbit"
-          draggable="false"
-        />
+        <img class="brand-logo" src="/darkorbit/assets/darkorbit-logo.png" alt="Logo DarkOrbit" />
         <h1 class="brand-title">Centre d'infos Darkorbit par JohnLocke</h1>
       </div>
+
+      <nav class="top-nav" aria-label="Navigation principale">
+        <a class="nav-btn" href="/darkorbit/astuces-guides.html">Astuces &amp; Guides</a>
+        <a class="nav-btn" href="/darkorbit/glossaire-technique.html">Glossaire &amp; Technique</a>
+        <a class="nav-btn" href="/darkorbit/calculatrice.html">Calculatrice Multifonction</a>
+      </nav>
     </div>
   </header>
 
-  <!-- Séparateur sous header -->
   <div class="bar bar-top" aria-hidden="true"></div>
 
-  <!-- Zone scrollable ENTRE header/footer -->
   <main class="work" id="work" role="main">
-    <section class="menu" aria-label="Menu principal">
-      <div class="menu-title">Menu principal</div>
-      <div class="menu-hr"></div>
-
-      <div class="menu-grid">
-        <!-- COLONNE DOCS -->
-        <div class="col">
-          <div class="col-title">Docs</div>
-
-          <div class="item">
-            <a class="btn" href="#">Annonces</a>
-            <div class="desc">Infos, changements, events, suivi des nouveautés.</div>
-          </div>
-
-          <div class="item">
-            <a class="btn" href="#">Astuces</a>
-            <div class="desc">Tips courts, optimisations, retours d’expérience.</div>
-          </div>
-
-          <div class="item">
-            <a class="btn" href="#">Glossaire</a>
-            <div class="desc">Termes FR/EN, abréviations, définitions.</div>
-          </div>
-
-          <div class="item">
-            <a class="btn" href="#">Guides</a>
-            <div class="desc">Guides complets par sujet.</div>
-          </div>
-
-          <div class="item">
-            <a class="btn" href="#">Techniques</a>
-            <div class="desc">Fiches stats : dégâts, valeurs, caractéristiques.</div>
-          </div>
-        </div>
-
-        <!-- SEPARATEUR VERTICAL -->
-        <div class="menu-vr" aria-hidden="true"></div>
-
-        <!-- COLONNE OUTILS -->
-        <div class="col">
-          <div class="col-title">Outils</div>
-
-          <div class="item">
-            <a class="btn" href="#">Calculatrice Dégâts</a>
-            <div class="desc">Calcule dégâts, réduction, bouclier et variations.</div>
-          </div>
-
-          <div class="item">
-            <a class="btn" href="#">Comparateur Lasers</a>
-            <div class="desc">Compare lasers/configs (dégâts, DPS, efficacité).</div>
-          </div>
-
-          <div class="item">
-            <a class="btn" href="#">Convertisseur Base62</a>
-            <div class="desc">Conversion rapide dans les deux sens.</div>
-          </div>
-
-          <div class="item">
-            <a class="btn" href="#">Planificateur GG</a>
-            <div class="desc">Estime coût/temps/ressources pour viser une Gate.</div>
-          </div>
-
-          <div class="item">
-            <a class="btn" href="#">Profit / heure</a>
-            <div class="desc">Estime ton gain/h selon activité, durée et coûts.</div>
-          </div>
-        </div>
-      </div>
+    <section class="panel">
+      <h2>Bienvenue</h2>
+      <p>
+        Ce site regroupe mes contenus DarkOrbit : guides, astuces, glossaire, technique, et une calculatrice multifonction
+        (dégâts, conversions, etc.).
+      </p>
+      <p class="small">
+        Navigation : utilise le menu en haut. Le bouton ↑ en bas à droite remonte cette zone.
+      </p>
     </section>
   </main>
 
-  <!-- Séparateur au-dessus footer -->
   <div class="bar bar-bottom" aria-hidden="true"></div>
 
-  <!-- FOOTER FIXE -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
       <div class="footer-links">
         <span class="id">
-          <img
-            class="avatar"
-            src="/darkorbit/assets/johnlocke-avatar.jpg"
-            alt="Avatar JohnLocke"
-            draggable="false"
-          />
+          <img class="avatar" src="/darkorbit/assets/johnlocke-avatar.jpg" alt="Avatar JohnLocke" />
           <span class="copy">© 2026 <strong>JohnLocke</strong></span>
         </span>
 
@@ -133,11 +63,8 @@
   </footer>
 
   <script>
-    // Remonte la zone scrollable centrale (pas la page entière)
     const work = document.getElementById('work');
-    const btnTop = document.querySelector('.to-top');
-
-    btnTop.addEventListener('click', () => {
+    document.querySelector('.to-top').addEventListener('click', () => {
       work.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
