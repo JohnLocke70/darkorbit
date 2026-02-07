@@ -2,625 +2,118 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Centre d'infos Darkorbit par JohnLocke</title>
-
-  <style>
-    :root{
-      /* Hauteurs header/footer */
-      --header-h: 130px;
-      --footer-h: 92px;
-
-      /* Couleurs */
-      --accent: #35c8ff;          /* bleu flashy titres */
-      --text: #e9f6fb;
-
-      /* Doré */
-      --gold: rgba(214, 175, 64, .92);
-      --gold-soft: rgba(214, 175, 64, .55);
-
-      /* Doré doux texte bouton */
-      --btn-text: rgba(214, 175, 64, .82);
-
-      /* Boutons */
-      --btn-w: 340px;
-      --btn-h: 46px;
-      --btn-border-hover: var(--gold);
-
-      /* Fond */
-      --bg1: #0e425a; /* haut */
-      --bg2: #0a3b52; /* milieu */
-      --bg3: #093646; /* bas */
-
-      /* Séparateurs gris */
-      --sep-gray: rgba(160, 170, 178, .55);
-      --sep-gray-soft: rgba(160, 170, 178, .25);
-
-      /* Doré creux */
-      --gold-hi: rgba(255, 238, 190, .38);
-      --gold-mid: rgba(214, 175, 64, .62);
-      --gold-lo: rgba(120, 86, 18, .45);
-      --gold-lo2: rgba(60, 40, 10, .55);
-
-      /* Ombres menu (lumière haut-gauche) */
-      --menu-glow: rgba(53,200,255,.10);
-      --menu-shadow: rgba(0,0,0,.48);
-      --menu-shadow2: rgba(0,0,0,.28);
-    }
-
-    *{ box-sizing:border-box; }
-    html, body{ height:100%; margin:0; }
-
-    body{
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
-      overflow: hidden;
-
-      background:
-        radial-gradient(1200px 800px at 22% 18%, rgba(53,200,255,.42) 0%, rgba(7,26,36,0) 58%),
-        radial-gradient(900px 700px at 78% 28%, rgba(53,200,255,.22) 0%, rgba(7,26,36,0) 62%),
-        radial-gradient(1200px 900px at 20% 92%, rgba(53,200,255,.36) 0%, rgba(7,26,36,0) 62%),
-        radial-gradient(1200px 900px at 78% 92%, rgba(53,200,255,.30) 0%, rgba(7,26,36,0) 62%),
-        radial-gradient(1200px 900px at 50% 65%, rgba(0,0,0,0) 0%, rgba(0,0,0,.16) 76%),
-        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
-    }
-
-    /* Etoiles légères */
-    body::before{
-      content:"";
-      position:fixed; inset:0;
-      background-image:
-        radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,.35) 0, rgba(255,255,255,0) 2px),
-        radial-gradient(1px 1px at 22% 72%, rgba(255,255,255,.25) 0, rgba(255,255,255,0) 2px),
-        radial-gradient(1px 1px at 44% 38%, rgba(255,255,255,.22) 0, rgba(255,255,255,0) 2px),
-        radial-gradient(1px 1px at 62% 22%, rgba(255,255,255,.18) 0, rgba(255,255,255,0) 2px),
-        radial-gradient(1px 1px at 78% 64%, rgba(255,255,255,.22) 0, rgba(255,255,255,0) 2px),
-        radial-gradient(1px 1px at 86% 16%, rgba(255,255,255,.18) 0, rgba(255,255,255,0) 2px),
-        radial-gradient(1px 1px at 92% 82%, rgba(255,255,255,.20) 0, rgba(255,255,255,0) 2px);
-      pointer-events:none;
-      opacity:.62;
-    }
-
-    /* HEADER FIXE (figé) */
-    header{
-      position: fixed;
-      top:0; left:0; right:0;
-      height: var(--header-h);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 10px 18px;
-      z-index: 10;
-
-      background: linear-gradient(180deg,
-        rgba(4,12,18,.94) 0%,
-        rgba(6,24,34,.86) 55%,
-        rgba(7,26,36,.42) 100%);
-      border-bottom: 1px solid rgba(214,175,64,.25);
-      backdrop-filter: blur(6px);
-    }
-
-    .sep-under-header{
-      position: fixed;
-      top: var(--header-h);
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: var(--sep-gray);
-      box-shadow: 0 0 0 1px var(--sep-gray-soft);
-      z-index: 9;
-      pointer-events: none;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 18px;
-      max-width: 1100px;
-      width: 100%;
-      justify-content: center;
-      text-align:center;
-      position: relative;
-    }
-
-    .logo-wrap{
-      position: relative;
-      width: 130px;
-      height: 130px;
-      flex: 0 0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index: 0;
-    }
-
-    .logo-wrap::before{
-      content:"";
-      position:absolute;
-      inset: -18px;
-      background:
-        radial-gradient(circle at 50% 50%,
-          rgba(127,224,255,.62) 0%,
-          rgba(127,224,255,.34) 32%,
-          rgba(127,224,255,.12) 48%,
-          rgba(127,224,255,0) 70%);
-      filter: blur(10px);
-      opacity: .60;
-      z-index: -1;
-      pointer-events:none;
-      mix-blend-mode: screen;
-    }
-    .logo-wrap::after{
-      content:"";
-      position:absolute;
-      inset: -36px;
-      background:
-        radial-gradient(circle at 50% 50%,
-          rgba(53,200,255,.20) 0%,
-          rgba(53,200,255,.08) 45%,
-          rgba(53,200,255,0) 75%);
-      filter: blur(18px);
-      opacity: .55;
-      z-index: -2;
-      pointer-events:none;
-      mix-blend-mode: screen;
-    }
-
-    .brand img.logo{
-      width: 130px;
-      height: 130px;
-      object-fit: contain;
-      filter:
-        drop-shadow(0 0 18px rgba(53,200,255,.26))
-        drop-shadow(0 10px 22px rgba(0,0,0,.28));
-      flex: 0 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .brand h1{
-      margin:0;
-      font-size: 28px;
-      letter-spacing: .3px;
-      color: var(--accent);
-      text-shadow:
-        0 0 18px rgba(53,200,255,.28),
-        0 0 30px rgba(53,200,255,.14);
-      font-weight: 950;
-      line-height: 1.05;
-    }
-
-    .content{
-      position: fixed;
-      top: var(--header-h);
-      bottom: var(--footer-h);
-      left: 0;
-      right: 0;
-
-      overflow: auto;
-      padding: 0 18px;
-    }
-
-    .content::-webkit-scrollbar{ width: 10px; }
-    .content::-webkit-scrollbar-thumb{
-      background: rgba(214,175,64,.22);
-      border-radius: 8px;
-      border: 2px solid rgba(0,0,0,0);
-      background-clip: padding-box;
-    }
-    .content::-webkit-scrollbar-thumb:hover{ background: rgba(214,175,64,.34); }
-
-    .menu-wrap{
-      min-height: 100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 18px 0;
-    }
-
-    .menu{
-      width: min(1220px, 96vw);
-      background: rgba(8, 34, 46, .55);
-      border: 1px solid rgba(214, 175, 64, .55);
-      border-radius: 16px;
-      padding: 18px 18px 20px;
-      backdrop-filter: blur(10px);
-
-      box-shadow:
-        -14px -14px 34px var(--menu-glow),
-        22px 22px 60px var(--menu-shadow),
-        10px 10px 28px var(--menu-shadow2);
-
-      position: relative;
-    }
-
-    .menu::before{
-      content:"";
-      position:absolute;
-      inset: 1px;
-      border-radius: 15px;
-      pointer-events:none;
-      box-shadow:
-        inset 1px 1px 0 rgba(255,255,255,.05),
-        inset -1px -1px 0 rgba(0,0,0,.18);
-    }
-
-    .menu-title{
-      margin: 4px 0 12px;
-      text-align: center;
-      color: var(--accent);
-      font-weight: 950;
-      letter-spacing: .2px;
-      font-size: 18px;
-      text-shadow: 0 0 14px rgba(53,200,255,.14);
-      position: relative;
-      padding-bottom: 14px;
-    }
-
-    .menu-title::after{
-      content:"";
-      display:block;
-      width: calc(100% - 10px);
-      height: 4px;
-      margin: 12px auto 0;
-      border-radius: 99px;
-      background: linear-gradient(
-        180deg,
-        rgba(255,238,190,.34) 0%,
-        rgba(120,86,18,.50) 50%,
-        rgba(255,238,190,.28) 100%
-      );
-      box-shadow:
-        inset 0 2px 2px rgba(0,0,0,.35),
-        inset 0 -1px 1px rgba(255,255,255,.10),
-        0 0 0 1px rgba(214,175,64,.12);
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 5px 1fr;
-      gap: 18px;
-      align-items: start;
-      margin-top: 0;
-    }
-
-    .divider{
-      width: 5px;
-      border-radius: 99px;
-      align-self: stretch;
-      justify-self: center;
-
-      background: linear-gradient(
-        90deg,
-        rgba(255,238,190,.30) 0%,
-        rgba(120,86,18,.55) 50%,
-        rgba(255,238,190,.24) 100%
-      );
-
-      box-shadow:
-        inset 2px 0 2px rgba(0,0,0,.35),
-        inset -1px 0 1px rgba(255,255,255,.10),
-        0 0 0 1px rgba(214,175,64,.12);
-    }
-
-    h2{
-      margin: 0 0 10px 0;
-      font-size: 16px;
-      color: var(--accent);
-      letter-spacing: .2px;
-      font-weight: 950;
-      text-shadow: 0 0 14px rgba(53,200,255,.12);
-    }
-
-    .col{
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-    }
-
-    .item{
-      display:grid;
-      grid-template-columns: var(--btn-w) 1fr;
-      align-items:center;
-      gap: 14px;
-      padding: 12px 14px;
-      border-radius: 14px;
-
-      background: rgba(18, 74, 96, .34);
-      border: 1px solid rgba(214,175,64,.38);
-
-      min-height: 82px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      text-decoration:none;
-      color: var(--btn-text);
-      font-weight: 950;
-      letter-spacing: .2px;
-
-      width: var(--btn-w);
-      height: var(--btn-h);
-
-      background: rgba(8, 28, 40, .98);
-      border: 1px solid rgba(214,175,64,.55);
-      border-radius: 12px;
-      padding: 0 14px;
-
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.06),
-        0 8px 18px rgba(0,0,0,.18);
-
-      transition: transform .08s ease, background .15s ease, border-color .15s ease, filter .15s ease, color .15s ease;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .btn:hover{
-      background: rgba(14, 52, 74, .99);
-      border-color: var(--btn-border-hover);
-      transform: translateY(-1px);
-      filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
-      color: rgba(214,175,64,.92);
-    }
-    .btn:active{ transform: translateY(0px); }
-
-    .desc{
-      color: rgba(233,246,251,.88);
-      font-size: 14px;
-      line-height: 1.25;
-
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    footer{
-      position: fixed;
-      bottom:0; left:0; right:0;
-      height: var(--footer-h);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 10px 18px;
-      z-index: 10;
-
-      background: linear-gradient(0deg,
-        rgba(4,12,18,.94) 0%,
-        rgba(6,24,34,.86) 55%,
-        rgba(7,26,36,.42) 100%);
-      border-top: 1px solid rgba(214,175,64,.25);
-      backdrop-filter: blur(6px);
-    }
-
-    .sep-above-footer{
-      position: fixed;
-      bottom: var(--footer-h);
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: var(--sep-gray);
-      box-shadow: 0 0 0 1px var(--sep-gray-soft);
-      z-index: 9;
-      pointer-events: none;
-    }
-
-    .footer-inner{
-      width: min(1100px, 95vw);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap: 14px;
-    }
-
-    .footer-left{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      flex: 0 0 auto;
-    }
-
-    .avatar{
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      object-fit: cover;
-      border: 1px solid rgba(214,175,64,.28);
-      box-shadow: 0 10px 20px rgba(0,0,0,.25);
-      background: rgba(0,0,0,.25);
-      flex: 0 0 auto;
-    }
-
-    .footer-line{
-      font-size: 15px;
-      color: rgba(233,246,251,.85);
-      font-weight: 900;
-      line-height: 1;
-      white-space: nowrap;
-    }
-
-    .footer-center{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-wrap: wrap;
-      gap: 8px;
-      color: rgba(233,246,251,.55);
-      font-weight: 900;
-      font-size: 15px;
-      line-height: 1;
-      text-align:center;
-    }
-
-    .footer-links{
-      display:inline-flex;
-      align-items:center;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content:center;
-      font-size: 15px;
-      line-height: 1;
-    }
-
-    .footer-links a{
-      color: rgba(127,224,255,.92);
-      text-decoration:none;
-      font-weight: 900;
-      font-size: 15px;
-    }
-    .footer-links a:hover{ text-decoration: underline; }
-
-    .dot{
-      color: rgba(214,175,64,.65);
-      padding: 0 4px;
-      user-select:none;
-      font-weight: 900;
-    }
-
-    .bar{
-      color: rgba(214,175,64,.78);
-      padding: 0 2px;
-      user-select:none;
-      font-weight: 900;
-    }
-
-    @media (max-width: 980px){
-      :root{
-        --header-h: 150px;
-        --btn-w: 100%;
-        --btn-h: 48px;
-      }
-      .grid{ grid-template-columns: 1fr; }
-      .divider{ display:none; }
-      .item{ grid-template-columns: 1fr; }
-      .btn{ width: 100%; white-space: normal; }
-      .brand{ flex-direction:column; gap: 8px; }
-      .logo-wrap{ width: 120px; height: 120px; }
-      .brand img.logo{ width: 120px; height: 120px; }
-
-      .footer-inner{
-        flex-direction:column;
-        gap: 10px;
-      }
-      .footer-center{
-        justify-content:center;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/site.css?v=1">
 </head>
 
 <body>
-  <header>
-    <div class="brand">
-      <div class="logo-wrap" aria-hidden="true">
-        <img class="logo" src="assets/darkorbit-logo.png" alt="DarkOrbit logo" />
-      </div>
-      <div>
-        <h1>Centre d'infos Darkorbit par JohnLocke</h1>
+  <header class="header">
+    <div class="header__wrap">
+      <img class="header__logo" src="assets/darkorbit-logo.png" alt="Logo DarkOrbit">
+      <div class="header__titles">
+        <h1 class="header__title">Centre d'infos Darkorbit par JohnLocke</h1>
       </div>
     </div>
   </header>
 
-  <div class="sep-under-header" aria-hidden="true"></div>
+  <div class="sep-line top" aria-hidden="true"></div>
+  <div class="sep-line bottom" aria-hidden="true"></div>
 
-  <main class="content" id="top">
-    <div class="menu-wrap">
-      <section class="menu" aria-label="Menu principal Darkorbit">
-        <div class="menu-title">Menu principal</div>
+  <main class="main" id="top">
+    <section class="menu" aria-label="Menu principal">
+      <div class="menu__title">Menu principal</div>
+      <div class="menu__title-sep"></div>
 
-        <div class="grid">
-          <div class="col">
-            <h2>Docs</h2>
+      <div class="menu__grid">
+        <!-- COLONNE DOCS -->
+        <div>
+          <div class="menu__section-title">Docs</div>
 
-            <div class="item">
-              <a class="btn" href="#" title="Bientôt">Annonces / Actualités</a>
-              <div class="desc">Infos, changements, events, suivi des nouveautés.</div>
-            </div>
-
-            <div class="item">
-              <a class="btn" href="#" title="Bientôt">Astuces</a>
-              <div class="desc">Tips courts, optimisations, retours d’expérience.</div>
-            </div>
-
-            <div class="item">
-              <a class="btn" href="#" title="Bientôt">Glossaire</a>
-              <div class="desc">Termes FR/EN, abréviations, définitions.</div>
-            </div>
-
-            <div class="item">
-              <a class="btn" href="#" title="Bientôt">Guides</a>
-              <div class="desc">Guides complets par sujet.</div>
-            </div>
-
-            <div class="item">
-              <a class="btn" href="#" title="Bientôt">Techniques</a>
-              <div class="desc">Fiches stats : dégâts, valeurs, caractéristiques.</div>
-            </div>
+          <div class="item">
+            <a class="btn" href="#" aria-label="Annonces et Actualités">Annonces / Actualités</a>
+            <div class="item__desc">Infos, changements, events, suivi des nouveautés.</div>
           </div>
 
-          <div class="divider" aria-hidden="true"></div>
+          <div class="item">
+            <a class="btn" href="#" aria-label="Astuces">Astuces</a>
+            <div class="item__desc">Tips courts, optimisations, retours d’expérience.</div>
+          </div>
 
-          <div class="col">
-            <h2>Outils</h2>
+          <div class="item">
+            <a class="btn" href="#" aria-label="Glossaire">Glossaire</a>
+            <div class="item__desc">Termes FR/EN, abréviations, définitions.</div>
+          </div>
 
-            <div class="item">
-              <a class="btn" href="#" title="Bientôt">Calculatrice dégâts / défense</a>
-              <div class="desc">Calcule dégâts, réduction, bouclier et variations selon bonus.</div>
-            </div>
+          <div class="item">
+            <a class="btn" href="#" aria-label="Guides">Guides</a>
+            <div class="item__desc">Guides complets par sujet.</div>
+          </div>
 
-            <div class="item">
-              <a class="btn" href="#" title="Bientôt">Comparateur de lasers</a>
-              <div class="desc">Compare lasers/configs (dégâts, DPS, efficacité) selon contexte.</div>
-            </div>
-
-            <div class="item">
-              <a class="btn" href="#" title="Bientôt">Convertisseur Base62 ↔ Base10</a>
-              <div class="desc">Conversion rapide dans les deux sens.</div>
-            </div>
-
-            <div class="item">
-              <a class="btn" href="#" title="Bientôt">Planificateur Galaxy Gates (GG)</a>
-              <div class="desc">Estime coût/temps/ressources pour viser une Gate.</div>
-            </div>
-
-            <div class="item">
-              <a class="btn" href="#" title="Bientôt">Profit par heure (Profit/h)</a>
-              <div class="desc">Estime ton gain/h selon activité, durée, et coûts.</div>
-            </div>
+          <div class="item" style="margin-bottom:0;">
+            <a class="btn" href="#" aria-label="Techniques">Techniques</a>
+            <div class="item__desc">Fiches stats : dégâts, valeurs, caractéristiques.</div>
           </div>
         </div>
-      </section>
-    </div>
+
+        <!-- SEPARATEUR -->
+        <div class="menu__vsep" aria-hidden="true"></div>
+
+        <!-- COLONNE OUTILS -->
+        <div>
+          <div class="menu__section-title">Outils</div>
+
+          <div class="item">
+            <a class="btn" href="#" aria-label="Calculatrice dégâts défense">Calculatrice dégâts / défense</a>
+            <div class="item__desc">Calcule dégâts, réduction, bouclier et variations selon bonus.</div>
+          </div>
+
+          <div class="item">
+            <a class="btn" href="#" aria-label="Comparateur de lasers">Comparateur de lasers</a>
+            <div class="item__desc">Compare lasers/configs (dégâts, DPS, efficacité) selon contexte.</div>
+          </div>
+
+          <div class="item">
+            <a class="btn" href="#" aria-label="Convertisseur Base62 vers Base10">Convertisseur Base62 → Base10</a>
+            <div class="item__desc">Conversion rapide dans les deux sens.</div>
+          </div>
+
+          <div class="item">
+            <a class="btn" href="#" aria-label="Planificateur Galaxy Gates">Planificateur Galaxy Gates (GG)</a>
+            <div class="item__desc">Estime coût/temps/ressources pour viser une Gate.</div>
+          </div>
+
+          <div class="item" style="margin-bottom:0;">
+            <a class="btn" href="#" aria-label="Profit par heure">Profit par heure (Profit/h)</a>
+            <div class="item__desc">Estime ton gain/h selon activité, durée, et coûts.</div>
+          </div>
+
+          <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn btn--small" href="commentaires.html">Commentaires</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <div class="sep-above-footer" aria-hidden="true"></div>
-
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-left">
-        <img class="avatar" src="assets/johnlocke-avatar.jpg" alt="Avatar JohnLocke" />
-      </div>
-
-      <div class="footer-center">
-        <span class="footer-line">© 2026 JohnLocke</span>
-        <span class="bar">|</span>
-
-        <span class="footer-links">
-          <a href="apropos.html" title="À propos (auteur, contributeurs, sources)">À propos</a>
-          <span class="dot">•</span>
-          <a href="mailto:John.Locke.70@outlook.fr" title="Envoyer un email">Email</a>
-          <span class="dot">•</span>
-          <!-- ✅ lien absolu pour éviter tout souci -->
-          <a href="/darkorbit/commentaires.html" title="Commentaires">Commentaires</a>
-          <span class="dot">•</span>
-          <a href="#" title="Bientôt">CGU</a>
-        </span>
-      </div>
+  <footer class="footer">
+    <div class="footer__wrap">
+      <img class="footer__avatar" src="assets/johnlocke-avatar.jpg" alt="Avatar JohnLocke">
+      <span>© <span id="year">2026</span> JohnLocke</span>
+      <span class="footer__sep">|</span>
+      <a href="apropos.html">À propos</a>
+      <span class="footer__sep">•</span>
+      <a href="mailto:John.Locke.70@outlook.fr">Contact</a>
+      <span class="footer__sep">•</span>
+      <a href="commentaires.html">Commentaires</a>
+      <span class="footer__sep">•</span>
+      <a href="cgu.html">CGU</a>
     </div>
   </footer>
+
+  <script>
+    // année auto (optionnel)
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
